@@ -1,0 +1,25 @@
+<authorgroup xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+
+    <author>
+        <personname>
+            <surname>Rácz</surname>
+            <firstname>András</firstname>        
+        </personname>    
+        <affiliation>
+            <address>
+                <email>raczandras0204@gmail.com</email>
+            </address>
+        </affiliation>
+        <address>
+            <street>Kassai út 26.</street>
+            <city>Debrecen</city>
+            <postcode>4028</postcode>
+            <country>Magyarország</country>
+            <email>raczandras0204@gmail.com</email>
+            <otheraddr>
+                <link xlink:href="https://github.com/raczandras/progbook"></link>
+            </otheraddr>
+        </address>
+    </author> 
+ 
+</authorgroup>

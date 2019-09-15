@@ -1,0 +1,160 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Schwarzenegger!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Szoftmax Py MNIST</title>
+        <para>aa
+            Python
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol">https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol</link>         
+        </para>
+	<para>
+	A megoldás forrása <link xlink:href="https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol">Bátfai Norbert</link> tulajdona.    
+	</para>
+        <para>
+            Ennél a feladatnál Tensorflow-t fogunk használni, ami egy nyílt forráskódú szoftver, amit főleg Machine Learning-nél (Gépi tanulás) használnak. A nagy cégek, pl Google is ezt használják. Jelentősége, hogy egyszerre több CPU-n és GPU-n is képes futni. Azonban ahoz, hogy ezt használhassuk, fel is kell telepítenünk. 
+        </para>
+	<para>
+	Ez a program a TensorFlow Hello World-je. Két számot szoroz össze neurális hálókat használva.
+	</para>
+	<programlisting>
+	<![CDATA[#!/usr/bin/env python2
+# TensorFlow Hello World 1!
+# twicetwo.py
+#
+import tensorflow as tf
+
+node1 = tf.constant(2)
+node2 = tf.constant(2)
+
+node_twicetwo = tf.math.multiply(node1, node2, name="twicetwo")
+
+sess = tf.Session()
+print sess.run(node_twicetwo)
+
+writer = tf.summary.FileWriter("/tmp/twicetwo", sess.graph)
+# nbatfai@robopsy:~/Robopsychology/repos/tf/tf/tensorboard$ python tensorboard.py --logdir=/tmp/twicetwo
+
+tf.train.write_graph(sess.graph_def, "models/", "twicetwo.pb", as_text=False)]]>
+	</programlisting>
+	<para>
+	A program importálja a tensorflow-t tf néven. Majd a node1-nek illetve a node2-nek 
+	értékül adja a 2 értéket a
+	</para>
+	<para>
+	<function>tf.constant(2)</function> függvény segítségével.
+	</para>
+	<para>
+	Ezek után a <function>tf.math.multiply()</function> függvénnyel kiszámolja a két szám szorzatát, és azt értékül adja a node_twicetwo-nak.
+	</para>
+	<para>
+	Végül kiírja a szorzatot a <function>sess = tf.Session()</function> értékadással és fügvénnyel, illetve a 
+	</para>
+	<para>
+<function>print sess.run(node_twicetwo)</function> paranccsal.
+	</para>
+	<para>
+	Es a számitási gráfot a <function>writer = tf.summary.FileWriter("/tmp/twicetwo", sess.graph) </function> értékadással
+	</para>
+	<para>
+ 	illetve a <function>tf.train.write_graph(sess.graph_def, "models/", "twicetwo.pb",</function>
+	</para>
+	<para>
+<function>as_text=False)</function> fügvénnyel.
+	</para>
+	<para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/twicetwo.png"/>
+            </imageobject>
+        </mediaobject>
+	</para>
+	
+    </section>        
+<!--
+    <section>
+        <title>Szoftmax R MNIST</title>
+        <para>
+            R            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->
+    <section>
+        <title>Mély MNIST</title>
+        <para>
+            Python            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            <command>A feladatot az SMNIST-ben elért eredményem alapján passzoltam.</command>
+        </para>
+	<para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/smnist.jpg"/>
+            </imageobject>
+        </mediaobject>
+	</para>
+    </section>        
+<!--
+    <section>
+        <title>Deep dream</title>
+        <para>
+            Keras            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->                  
+    <section>
+        <title>Minecraft-MALMÖ</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            <command>A feladatot az SMNIST-ben elért eredményem alapján passzoltam.</command>
+        </para>
+	<para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/smnist.jpg"/>
+            </imageobject>
+        </mediaobject>
+	</para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</chapter>                

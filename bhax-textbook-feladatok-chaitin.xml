@@ -1,0 +1,232 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Chaitin!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Iteratív és rekurzív faktoriális Lisp-ben</title>
+        <para>
+                
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Iteratív megoldás: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Chaitin/iter.lisp">https://github.com/raczandras/progbook/blob/master/src/Chaitin/iter.lisp</link>          
+        </para>
+	<para>
+	Rekurzív megoldás: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Chaitin/rek.lisp">https://github.com/raczandras/progbook/blob/master/src/Chaitin/rek.lisp</link>
+	</para>
+	<para>
+	A forrást a <link xlink:href="http://codeforsharing.appspot.com/code/4696563918045184">codeforsharing</link> inspirálta.
+	</para>
+
+	<para>
+	Ebben a feladatban a program faktoriálist számol iteratív illetve rekurzív módon. A lisp a
+ második magas szintű programozási nyelv. Egyedül a fortran előzte meg. Először nézzük az iteratív módszert.
+	</para>
+	<programlisting><![CDATA[(defun fact(n)
+    (setf f 1) 
+    (do ((i n (- i 1))) ((= i 1)) 
+        (setf f (* f i)) 
+    ) 
+fact(4))]]></programlisting>
+	<para>
+	A program első sorában definiáljuk magát a függvényt fact néven. Majd egy f nevű változót, aminek az értéket 1-re állítjuk. Majd jön egy ciklus, ami i-nek átadja a számot aminek a faktoriálisát ki kell számolni. A program i-ből folyamatosan kivon 1-et egészen addig, amíg i értéke 1 nem lesz. A ciklus törzsében pedig f értéke f*i lesz. Végül a program meghívja magát a <function>fact()</function> függvényt.
+	</para>
+	<para>
+	Ezzel szemben a rekurzív módszert valamennyivel könnyebb olvasni.
+	</para>
+	<programlisting><![CDATA[(defun fact(n)
+    (if (= n 0) 1 
+        (* n (fact(- n 1))) 
+    ) 
+)
+fact(4)]]></programlisting>
+	<para>
+	Először ebben a példában is a <function>fact()</function> függvény kerül definiálásra. Azonban ezek után itt egy if szerepel, ami azt ellenőrzi, hogy n egyenlő e 0-val. Ha nem, akkor szimplán meghívja a függvény saját magát, azonban itt már n-1 amivel számol, így számolva ki a faktoriális értékét.
+	</para>
+    </section>        
+<!--        
+    <section>
+        <title>Weizenbaum Eliza programja</title>
+        <para>
+            Éleszd fel Weizenbaum Eliza programját!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+    </section>        
+-->
+    <section>
+        <title>Gimp Scheme Script-fu: króm effekt</title>
+        <para>
+            Írj olyan script-fu kiterjesztést a GIMP programhoz, amely megvalósítja a króm effektet egy 
+            bemenő szövegre!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/OKdAkI_c7Sc">https://youtu.be/OKdAkI_c7Sc</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Chrome">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Chrome</link>               
+        </para>
+	<para>
+	A megoldás forrása Bátfai Norbert tulajdona
+	</para>
+        <para>
+            Ez egy program a gimp-hez, ami a megadott szöveghez króm effektet ad. Maga a gimp egy ingyenes képszerkesztő program.
+        </para>    
+	<para>
+	Maga a forrás egy tömbbel indul, ami a króm effekt megvalósításához szükséges információkat tartalmazza.
+	</para>
+	<programlisting>
+            <![CDATA[(define (color-curve)
+    (let* (
+        (tomb (cons-array 8 'byte))
+    )
+        (aset tomb 0 0)
+        (aset tomb 1 0)
+        (aset tomb 2 50)
+        (aset tomb 3 190)
+        (aset tomb 4 110)
+        (aset tomb 5 20)
+        (aset tomb 6 200)
+        (aset tomb 7 190)
+    tomb)    
+)]]>
+    </programlisting>
+	<para>
+	A következő függvény a betűk méretét határozza meg. A szükséges méretekek a a GIMP beépített függvényeivel határozza meg a következőképpen:
+	</para>
+	<programlisting><![CDATA[(set! text-width (car (gimp-text-get-extents-fontname text fontsize PIXELS font)))    
+    (set! text-height (elem 2  (gimp-text-get-extents-fontname text fontsize PIXELS font)))
+]]>
+	</programlisting>
+	<para>
+	Ez annyit jelent, hogy a <function>gimp-text-get-extents-fontname</function> első értékét (ami maga a méret) állítja be a text-width illetve a text-height változóknak a set utasítás használatával.
+	</para>
+	<para>
+	Majd a <function>script-fu-bhax-chrome-border</function> függvény hozza létre a tényleges króm effektes szöveget. Ezt egy új rétegen (layer) teszi. Ennek az új rétegnek a háttere fekete, a rá kerülő szöveg pedig fehér színű lesz.
+	</para>
+	<programlisting><![CDATA[ (gimp-image-insert-layer image layer 0 0)
+        
+    (gimp-image-select-rectangle image CHANNEL-OP-ADD 0 (/ text-height 2) width height)
+    (gimp-context-set-foreground '(255 255 255))
+    (gimp-drawable-edit-fill layer FILL-FOREGROUND )
+]]>
+	</programlisting>
+	<para>
+	Végül a program regisztrálásra kerül magába a gimp-be, hogy el tudjuk érni
+	</para>
+    </section>        
+
+    <section>
+        <title>Gimp Scheme Script-fu: név mandala</title>
+        <para>
+            Írj olyan script-fu kiterjesztést a GIMP programhoz, amely név-mandalát készít a
+            bemenő szövegből!               
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2019/01/10/a_gimp_lisp_hackelese_a_scheme_programozasi_nyelv">https://bhaxor.blog.hu/2019/01/10/a_gimp_lisp_hackelese_a_scheme_programozasi_nyelv</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Mandala">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Mandala</link>               
+        </para>
+	<para>
+	A megoldás forrása Bátfai Norbert tulajdona.
+	</para>
+
+        <para>
+            Az előző feladathoz hasonlóan itt is egy gimp kiegészítőről van szó. Itt azonban a bemenő szövegből egy név-mandala fog készülni. A mandala egy szimmetrikus kör alakú kép, ami a Hindu vallásban nagy szerepet játszik a Hindu istenek ábrázolásában.
+        </para> 
+ 
+	<para>
+	Először a program meghatározza a szöveg hosszát, a <function>gimp-text-get-extents-fontname</function> függvény használatával. A kapott értéket a set! utasítással a text-width változó értékenek adja.
+	</para>  
+      
+	<programlisting><![CDATA[(set! text-width (car (gimp-text-get-extents-fontname text fontsize PIXELS font)))]]>
+	</programlisting> 
+ 
+	<para>
+	Ebben a feladatban, ugyanúgy határozzuk meg a szöveg méretét, mint az előzőben:
+	</para>
+
+	<programlisting><![CDATA[(set! text-width (car (gimp-text-get-extents-fontname text fontsize PIXELS font)))    
+    (set! text-height (elem 2  (gimp-text-get-extents-fontname text fontsize PIXELS font)))
+]]>
+	</programlisting>
+	<para>
+	A GIMP beépített <function>gimp-text-get-extents-fontname</function> függvényét, és a set! utasítást felhasználna a text-width és a text-height változók értékei lesznek a szükséges méretek.
+	</para>
+	<para>
+		Ezek után jön maga a mandala. Először létrejön egy réteg (layer)
+	</para>
+	<programlisting><![CDATA[(gimp-image-insert-layer image layer 0 0)
+
+    (gimp-context-set-foreground '(0 255 0))
+    (gimp-drawable-fill layer FILL-FOREGROUND)
+    (gimp-image-undo-disable image)
+]]>
+	</programlisting>
+	<para>
+	Amit feltöltünk a felhasználó által megadott adatokkal. Ezek a a szöveg, a szöveg betűtítusa. Ezután a réteget tükrözi a program, ezzel elérve a szimmetriát, majd a program elforgatja a képet, és megismétli a tükrözést. Majd a réteget felnagyítja a kép teljes méretére:
+	</para>
+	<programlisting><![CDATA[(gimp-layer-resize-to-image-size textfs)]]>
+	</programlisting>
+	<para>
+	Ezután két körnek álcázott ellipszist illeszt a program a képre ezzel létrehozva a mandalát. Az egyik kör vastagsága 22, a másiké pedig 8 lesz.
+	</para>
+	<programlisting><![CDATA[(gimp-image-select-ellipse image CHANNEL-OP-REPLACE (- (- (/ width 2) (/ textfs-width 2)) 18) 
+        (- (- (/ height 2) (/ textfs-height 2)) 18) (+ textfs-width 36) (+ textfs-height 36))
+	(plug-in-sel2path RUN-NONINTERACTIVE image textfs)
+]]>
+	</programlisting>
+	<programlisting><![CDATA[(gimp-context-set-brush-size 22)
+(gimp-context-set-brush-size 8)]]>
+	</programlisting>
+	<para>
+	Végül pedig megjeleníti a képet:
+	</para>
+	<programlisting><![CDATA[(gimp-display-new image)]]>
+	</programlisting>
+	<para>
+	Ezek után ismét már csak a GIMP-be regisztrálás van hátra.
+	</para>
+    </section>        
+<!--                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    <section>
+        <title>Lambda</title>
+        <para>
+            Hasonlítsd össze a következő programokat!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href=""></link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+    </section>        
+-->
+
+<!--
+    <section>
+        <title>Omega</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+    </section>        
+-->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+</chapter>                

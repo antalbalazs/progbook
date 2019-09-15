@@ -1,0 +1,172 @@
+<revhistory xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <revision>
+        <revnumber>0.0.1</revnumber>
+        <date>2019-02-12</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Az iniciális dokumentum szerkezetének kialakítása.
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.2</revnumber>
+        <date>2019-02-14</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Inciális feladatlisták összeállítása.
+        </revremark>
+    </revision>    
+    <revision>
+        <revnumber>0.0.3</revnumber>
+        <date>2019-02-16</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Feladatlisták folytatása.
+            Feltöltés a BHAX csatorna 
+            <link xlink:href="https://gitlab.com/nbatfai/bhax">https://gitlab.com/nbatfai/bhax</link>
+            repójába.
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.4</revnumber>
+        <date>2019-02-19</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Aktualizálás, javítások.
+        </revremark>
+    </revision>
+    <revision>
+	<revnumber>0.1.0</revnumber>
+	<date>2019-02-22</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Saját fork létrehozása, alapvető beállitások, draft kivétele, Turing fejezet szemrevételezése.</revremark>
+    </revision>
+ <revision>
+	<revnumber>0.1.1</revnumber>
+	<date>2019-02-23</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Turing csokor elkezdése, a források elkészítése.</revremark>
+    </revision>
+ <revision>
+	<revnumber>0.2.0</revnumber>
+	<date>2019-03-01</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Turing csokor teljesen elkészült.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.2.1</revnumber>
+	<date>2019-03-02</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Chomsky csokor feladatainak tanulmányozása, a feladatok megoldásának elkezdése.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.3.0</revnumber>
+	<date>2019-03-8</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Chomsky csokor feladatai elkészültek.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.3.1</revnumber>
+	<date>2019-03-09</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Caesar csokor feladatainak tanulmányozása.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.4.0</revnumber>
+	<date>2019-03-13</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Caesar csokor feladatai elkészültek.</revremark>
+    </revision>
+
+<revision>
+	<revnumber>0.4.1</revnumber>
+	<date>2019-03-15</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Elkezdődik a Mandelbrot forradalom.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.5.0</revnumber>
+	<date>2019-03-22</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Mandelbrot forradalom sikerrel zárul, a feladatok elkészültek.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.5.1</revnumber>
+	<date>2019-03-23</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Welch csokor elkezdése.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.6.0</revnumber>
+	<date>2019-03-31</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Welch csokor feladatai elkészültek.</revremark>
+    </revision>
+
+<revision>
+	<revnumber>0.6.1</revnumber>
+	<date>2019-04-04</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Conway csokor feladatainak a tanulmányozása, munka elkezdése.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.6.9</revnumber>
+	<date>2019-04-09</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Conway csokor labor feladatai elkészültek.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.7.0</revnumber>
+	<date>2019-04-19</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Conway csokor előadás feladata elkészült.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.8.0</revnumber>
+	<date>2019-04-21</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Schwarzenegger csokor első feladata kész, a másik két feladat passzolva az SMNIST kutatásra hivatkozva.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.8.1</revnumber>
+	<date>2019-04-22</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Gutenberg csokor hozzáadása, az olvasónapló elkezdése.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.8.2</revnumber>
+	<date>2019-04-23</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Chaitin csokor tanulmányozása.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.8.3</revnumber>
+	<date>2019-04-29</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Kész az olvasónapló.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.9.0</revnumber>
+	<date>2019-04-30</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A Chaitin csokor elkészül.</revremark>
+    </revision>
+<revision>
+	<revnumber>0.9.1</revnumber>
+	<date>2019-05-04</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Nyelvtani hibák javítása, a könyv áttekintése</revremark>
+    </revision>
+<revision>
+	<revnumber>1.0.0</revnumber>
+	<date>2019-05-04</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>A könyv elkészült</revremark>
+    </revision>
+<revision>
+	<revnumber>1.0.1</revnumber>
+	<date>2019-05-09</date>
+	<authorinitials>raczandras</authorinitials>
+	<revremark>Utólagos módosítások</revremark>
+    </revision>
+</revhistory>
+

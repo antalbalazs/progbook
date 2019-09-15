@@ -1,0 +1,239 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Turing!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Végtelen ciklus</title>
+        <para>
+            Írj olyan C végtelen ciklusokat, amelyek 0 illetve 100 százalékban dolgoztatnak egy magot és egy olyat, amely  
+            100 százalékban minden magot!
+        </para>
+
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Turing/ciklus.c">https://github.com/raczandras/progbook/blob/master/src/Turing/ciklus.c</link>        
+        </para>
+
+        <para>
+           Egy magot 100%-on dolgoztatni nem egy nagy kihívás, hiszen ha egy szimpla while ciklust megírunk, az alapvetően így működik.
+Egy magot 0%-on dolgoztatni sem egy egetrengető kihívás, viszont itt már kell minimálisan gondolkodni. De hamar rájövünk, hogy a sleep(x) parancs kiadásával x másodpercig nem használja a processzort a program. Kicsit érdékes, hogy ha nincs parancs a cikluson belül, vagyis nincs mit tenni, akkor 100%-on dolgozik a processzor. Ez azért történik, mert az operációs rendszer azt hiszi, hogy van elvégzendő feladat, ezért a programnak adja közel az összes processzoridőt.
+Viszont az összes magot 100%-on dolgoztatni már feladta a leckét. Először megpróbáltam a thread parancssal kezdeni valamit, de az túl bonyolultnak tűnt egy ilyen feladathoz. Majd Besenci Renátó adott egy tippet, miszerint az OpenMp-t kellene tanulmányoznunk a feladat megoldásához. Innen pedig már pár fórumon és StackOverflow lapon keresztül egyenes út vezetett a győzelemhez.
+        </para> 
+	<para>
+	A programot roppant egyszerű használni. Ha egy magot szeretnénk 100%-ban 		dolgoztatni, akkor semmit nem kell módosítani, szimplán csak le kell fordítani és 	 	futtatni.
+	</para>
+	<para>
+Ha egy magot szeretnénk 100%-ban dolgoztatni, akkor vegyük ki a <command>//</command>-t a
+	</para>
+	<programlisting>
+	<![CDATA[//sleep(1)]]>
+	</programlisting>
+	<para>
+	függvényhívásból.	
+	</para>
+	<para>
+	Ha pedig az összes magot szeretnénk 100%-ban dolgoztatni, akkor ugyanúgy a <command>//</command>-t kell kitörölni a következő helyről:
+	</para>
+
+        <programlisting>
+	<![CDATA[#pragma omp parallel while]]>
+	</programlisting>
+
+    </section>        
+        
+    <section>
+        <title>Lefagyott, nem fagyott, akkor most mi van?</title>
+        <para>
+            Mutasd meg, hogy nem lehet olyan programot írni, amely bármely más programról eldönti, hogy le fog-e fagyni vagy sem!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Nem tudunk olyan programot írni, ami minden más programról eldönti, hogy van e benne végtelen ciklus. Mivel, ha tudnánk, akkor már valószínűleg lett volna olyan ember, aki ezt a programot megírja.
+	</para>
+
+	<para>
+De tegyük fel, hogy megírjuk ezt a programot, aminek a neve legyen eldöntő. Annak a programnak a neve, amelyről el kell dönteni, hogy van e benne végtelen ciklus, legyen eldöntendő. Nyílván az eldöntő bemeneti argumentuma lesz az eldöntendő. Ahhoz, hogy eldöntő megállapítsa, hogy van e eldöntendőben végtelen ciklus, futtatnia kell az eldöntendő kérdéses részleteit. Ekkor ha az eldöntendő programban nincs végtelen ciklus, eldöntő hamissal tér vissza, ami azt jelenti, hogy nincs eldöntendőben végtelen ciklus.
+        </para>
+	<para>
+	Azonban ha az eldöntendő programban tényleg van egy végtelen ciklus, és azt eldöntő futtatja, hogy megbizonyosodjon rőla, akkor eldöntő maga is egy végtelen ciklussá válik. Éppen ezért eldöntő sose fog igazzal visszatérni, mert minden ilyen esetben ő is le fog fagyni.
+	</para>
+    </section>        
+                
+    <section>
+        <title>Változók értékének felcserélése</title>
+        <para>
+            Írj olyan C programot, amely felcseréli két változó értékét, bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül!
+        </para>
+
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk">https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk</link>
+        </para>
+
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Turing/csere.c">https://github.com/raczandras/progbook/blob/master/src/Turing/csere.c</link>
+        </para>
+
+        <para>
+            Ez egy egyszerű matematikai/logikai feladat, amit ha egyszer megmutatnak az embernek, akkor örökké emlékezni fog rá. Olyan mint a biciklizés, nem lehet elfelejteni.
+        </para>
+
+	<para>
+	Még úgy is, hogy logikai utasítások, kifejezések nélkül kell megoldani ezt a problémát, rengeteg lehetőség közöl választhatunk. Én itt most kettőt fogok bemutatni.
+	</para>
+
+	<para>
+	Az egyik az, hogy összeggel és különbséggel cseréljük fel a két változót a következőképpen:
+	</para>
+
+	<programlisting><![CDATA[
+	a = a+b;
+	b = a-b;
+	a = a-b;]]>
+	</programlisting>
+
+	<para>
+	Ha ezt végigvezetjük például az a=5 és b=6 értékekkel akkor az első lépés után a=11 és b=6.
+	A második lépés után a=11 és b=6 a harmadik lépés után pedig a=6 és b=5
+	</para>
+
+	<para>
+	Egy másik lehetőség pedig az, hogy szorzattal cseréljük meg a két változó értékét aminek az alapja hasonló az előző megoldáshoz egy kis módosítással:
+	</para>
+
+	<programlisting><![CDATA[
+	a = a*b;
+	b = a/b;
+	a = a/b; ]]>
+	</programlisting>
+	
+	<para>
+	Ezeken kívül még vannak módszerek amik megfelelnek a feladat leírásának. Ezek a forrásban megtalálhatóak és a működésük alapja ugyan az mint az előző két megoldásnak.
+	</para>
+
+    </section>                     
+
+    <section>
+        <title>Labdapattogás</title>
+        <para>
+            Először if-ekkel, majd bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül írj egy olyan programot, ami egy labdát pattogtat a karakteres konzolon! (Hogy mit értek
+            pattogtatás alatt, alább láthatod a videókon.)
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/labdapattogas">https://bhaxor.blog.hu/2018/08/28/labdapattogas</link>
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Turing/labda.cpp">https://github.com/raczandras/progbook/blob/master/src/Turing/labda.cpp</link>
+        </para>
+	<para>
+	A megoldás forrása <link xlink:href="https://bhaxor.blog.hu/2018/08/28/labdapattogas">Bátfai Norbert</link> tulajdona.
+	</para>
+        <para>
+            Egy egyszerű "grafikus" program, ami egy labdának álcázott o betűt mozgat a képernyőn egy egyszerű while ciklus segítségével. Habár maga a program nem hosszú, és nem is túl bonyolult, mégis elég nagy hatással van a kezdő mezei programozóra, hiszen nagyon sok programozást tanulónak (köztük nekem is) az egyik álma egy valódi grafikus felülettel működő program írása, és ez egy nagyon jó kezdet eme cél megvalósitásához.
+        </para>
+	<para>
+	Maga a program két fő részből áll. Az egyik egy függvény, ami a labdát rajzolja ki a konzolra,
+	A másik pedig maga a main.
+	</para>
+	<para>
+	A main-ben először létrehozunk egy maxX és egy maxY változót, amiket át is adunk a tx és a ty tömbök méretének.
+	</para>
+	<para>
+	Ezután két for ciklus végigmegy a két tömbön, a második, és az utolsó elemek értéke -1 lesz, a többi elemé pedig 1
+	</para>
+	<para>
+	végül pedig egy while ciklus és a függvény segítségével kiírja a konzolra a labdát.
+	</para>
+    </section>                     
+
+    <section>
+        <title>Szóhossz és a Linus Torvalds féle BogoMIPS</title>
+        <para>
+            Írj egy programot, ami megnézi, hogy hány bites a szó a gépeden, azaz mekkora az <type>int</type> mérete.
+            Használd ugyanazt a while ciklus fejet, amit Linus Torvalds a BogoMIPS rutinjában! 
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href=""></link>
+        </para>
+	<para>
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Turing/bogo2.cpp">https://github.com/raczandras/progbook/blob/master/src/Turing/bogo2.cpp</link>
+        </para>
+	<para>
+            Alapvetően a BogoMips a processzorunk sebességének meghatározásához használatos mértékegység. Azt mondja meg, hogy a számítógép processzora mekkora szóhosszal dolgozik
+        </para>
+	<para>
+	Ezt a XOR ^ művelet segítségével számolja ki a program, ami a kizáró vagy művelete. Az int értékének 1-et adunk, és addig shifteljük balra, ameddig lehet, vagyis amíg az int értéke 0 nem lesz. 
+	</para>
+	<para>
+	Közben egy másik változóval számoljuk, hogy hányszor shiftelt balra az int, ezzel meghatározva a szóhosszt. Az én esetemben az eredmény 32 lett, ami azt jelenti, hogy az én processzorom szóhossza 32 bit, azaz 4 bájt.
+	</para>
+    </section>                     
+
+    <section>
+        <title>Helló, Google!</title>
+        <para>
+            Írj olyan C programot, amely egy 4 honlapból álló hálózatra kiszámolja a négy lap Page-Rank 
+            értékét!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href=""></link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/Turing/pagerank.c">https://github.com/raczandras/progbook/blob/master/src/Turing/pagerank.c</link>
+        </para>
+        <para>
+            Én a Bevezetés a Programozásba nevű tárgyon már átnézett <link xlink:href="https://github.com/raczandras/BevProg/blob/master/pagerankVector.cpp">PageRank</link> programot vettem alapnak, és azt alakítottam át c++-ból c-re. Ez azonban a vártnál több gondot okozott. De legalább mostmár tudom, hogy amennyiben c++ kódot akarok c-re átírni akkor nem érdemes az <function>abs()</function> függvényt használni, mert nem ugyanúgy működik a két nyelven belül ez a függvény. Ez fel is keltette, az érdeklődésemet, hogy miért nem? Kis utánajárás utána a <link xlink:href="https://www.geeksforgeeks.org/abs-labs-llabs-functions-cc/">GeeksforGeeks</link> oldalon meg is találtam a választ, ami szerint C++ nyelven ennek a függvénynek a visszatérési típusa ugyan az, mint a bemeneti típus. Éppen ezért nyugodtan számolhattuk vele a double típusú távolságot. Ezzel szemben C nyelven a visszatérési típus minden esetben int lesz. Éppen ezért lett a végeredmény mind a négy lap esetén 0.25
+        </para>
+	<para>
+	Ezt a proglémát én egy egyszerű if-else szerkezettel oldottam meg.
+	Az eredeti c++ verzióban kiszámolta a függvény a távolságot, és annak az abszolút értékét adta vissza.
+	</para>
+	<para>
+	Ezzel szemben az én megoldásom megvizsgálja, hogy a távolság negatív-e. Ha nem, akkor szimplán visszaadja az értéket, ha viszont negatív, akkor az eredményt megszorozza -1 el ezáltal pozitív eredményt kapva. És ezt a prozitív értéket adja vissza a függvény.
+	</para>
+    </section>
+
+    <section xml:id="Brun">
+        <title>100 éves a Brun tétel</title>
+        <para>
+            Írj R szimulációt a Brun tétel demonstrálására!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/xbYhp9G6VqQ">https://youtu.be/xbYhp9G6VqQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/Primek_R">https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/Primek_R</link>
+        </para>
+	<para>
+	A megoldás forrása Bátfai Norbert tulajdona.
+	</para>
+	<para>
+		Mint tudjuk, léteznek a prímszámok. Ezek olyan számok, amik csak 1-el és önmagukkal oszthatóak. Valamint léteznek az ikerprímek. Ezek pedig olyan prímszámpárok, amiknek a különbsége pontosan 2. Ha minden ikerprím reciprokának az összegének vesszük a sorozatát, akkor ez a sorozat egy számhoz konvergál. Ez a szám a Brun-konstans. Nem tudjuk azt, hogy az ikerprímek száma véges vagy végtelen e, de ez nem okoz gondot, hiszen elvileg ha végtelen se lépi túl az összegük a Brun-konstanst. Na most be kell vallanom, hogy számtalan olyan ember létezik a földön, aki nálam jobban ért a matematikához. Viszont nekem erről egy elég érdekes dolog jutott eszembe, ami nem más, mint Zeno paradoxona. E szerint x útat teszünk meg, hogy elérjük a célunkat. Ezek alapján megteszünk 1/2x utat + 1/4x utat + 1/8x utat + 1/16x utat... Ha ezekből képzünk egy sorozatot, az a sorozat 1-hez fog konvergálni, Éppen ezért soha nem érünk el oda, ahova megyünk. Maga a tétel matematikailag helyes, azonban a való életben tudjuk, hogy ez nem így működik.
+	</para>
+    </section>
+    
+    <section xml:id="bhax-textbook-feladatok-turing.MontyHall">
+        <title>A Monty Hall probléma</title>
+        <para>
+            Írj R szimulációt a Monty Hall problémára!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan">https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/MontyHall_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/MontyHall_R</link>
+        </para>
+	<para>
+	A megoldás forrása Bátfai Norbert tulajdona.
+	</para>
+        <para>
+            A Monty Hall problémát még középiskolában ismertem meg, sok különböző változata van. Az általam ismert történetben Monty Hall egy műsorvezető volt, akinél a nyertes játékosok választhattak három darab ajtó közül. A háromból két ajtó mögött 1-1 darab kecske, míg a harmadik ajtó mögött egy sportautó volt. A játékos választott egy ajtót, majd Monty Hall, aki tudta, hogy melyik ajtó mögött van az autó, kinyitott egy másik ajtót, ami mögött egy kecske lapult. Ezek után a játékosnak lehetősége volt változtatni a döntésén, vagy maradhatott az eredetileg kiválasztott ajtónál. A kérdés az, hogy mely esetben van több esélye megnyerni az autót? A legtöbb ember azt mondaná, hogy 50-50% esélye van megnyerni az autót, hiszen vagy az egyik ajtó mögött van az autó, vagy a másik mögött. Ekkor persze hiába magyarázzuk, hogy 1/3 esélye van megnyerni az autót, ha nem vált, és 2/3 ha vált, a legtöbb embert elég nehéz meggyőzni erről. Ekkor kell kicsit átalakitani a kérdést. Ha van 1 millió ajtó, ebből kiválaszt a játékos 1-et, majd kinyitnak 999,998 ajtót, amik mögött kecske van, akkor melyik esetben van több esélye a játékosnak megnyerni az autót? ilyenkor már a legtöbb ember eggyértelműnek tartja, hogy vált, de van olyan ismerősöm, aki még ekkor is azt mondta, hogy 50-50% esélye van megnyerni az autót, ha vált ha nem. Ez a program ennek a játéknak a nyerési eseteit szimulálja. Tízmillió esetből hányszor nyer az, aki mindig vált, és az aki egyáltalán nem vált.
+        </para>
+    </section>
+
+</chapter>                
