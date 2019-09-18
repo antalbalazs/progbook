@@ -12,9 +12,19 @@
             1. hét: Az objektumok és osztályok C++ implementációja
 	</para>
 	<para>
-	Az osztályok példányokat tárolnak, például különböző bankszámlák. Ezen kívűl megtalálhatóak a példányok tulajdonságai is, mintpéldául a számlán lévő egyenleg, illetve a számlán végzett műveletek (pénz betétele, felvétele). Az ilyen egyedeket nevezzük objektumoknak. Fontos, hogy egy objektum tulajdonságaihoz csak a műveletein keresztül lehessen hozzáférni. Ha például egy bankszámla egyenlegét csak úgy át lehetne írni, az nem lenne jó hatással a társadalomra. Éppen ezért az objektumok tulajdonságait és műveleteit egységbe kell zárni, illetve biztosítani kell, hogy az objektum tulajdonságaihoz a program többi része ne tudjon hozzáférni. Ezt hívjuk adatrejtésnek. 
-Ha van egy madár, illetve egy papagáj osztályunk, akkor a két osztály között egyfajta kapcsolat van, mivel a papagáj maga is egy madár. Ezt nevezzük specializációnak. A madár általánosabb fogalom mint a papagáj. Éppen ezért a speciálisabb osztály rendelkezik az általánosabb osztály tulajdonságaival és műveleteivel, másszóval örökli őket. Szóval egy papagájt bármikor kezelhetünk madárként.
-Ez a három fogalom (adatrejtés, specializáció, öröklődés) alkotja az objektumorientált programozás alapelveit. Azonban a C++-ban (sok OOP, köztük a JAVA nyelvvel ellentétben) megtalálható a típustámogatás is. Ez azt jelenti, hogy az osztályok ugyan úgy működhetnek, mint a beépített típusok.
+	Az osztályok példányokat tárolnak, például különböző bankszámlák. Ezen kívűl megtalálhatóak a példányok tulajdonságai is, 
+	mintpéldául a számlán lévő egyenleg, illetve a számlán végzett műveletek (pénz betétele, felvétele). Az ilyen egyedeket 
+	nevezzük objektumoknak. Fontos, hogy egy objektum tulajdonságaihoz csak a műveletein keresztül lehessen hozzáférni. 
+	Ha például egy bankszámla egyenlegét csak úgy át lehetne írni, az nem lenne jó hatással a társadalomra. 
+	Éppen ezért az objektumok tulajdonságait és műveleteit egységbe kell zárni, illetve biztosítani kell, 
+	hogy az objektum tulajdonságaihoz a program többi része ne tudjon hozzáférni. Ezt hívjuk adatrejtésnek. 
+	Ha van egy madár, illetve egy papagáj osztályunk, akkor a két osztály között egyfajta kapcsolat van, mivel a papagáj maga
+	is egy madár. Ezt nevezzük specializációnak. A madár általánosabb fogalom mint a papagáj. 
+	Éppen ezért a speciálisabb osztály rendelkezik az általánosabb osztály tulajdonságaival és műveleteivel, másszóval örökli 
+	őket. Szóval egy papagájt bármikor kezelhetünk madárként.
+	Ez a három fogalom (adatrejtés, specializáció, öröklődés) alkotja az objektumorientált programozás alapelveit. 
+	Azonban a C++-ban (sok OOP, köztük a JAVA nyelvvel ellentétben) megtalálható a típustámogatás is. Ez azt jelenti,
+	hogy az osztályok ugyan úgy működhetnek, mint a beépített típusok.
         </para>
     </section>        
 
