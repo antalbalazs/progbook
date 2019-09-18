@@ -9,21 +9,35 @@
     <section>
         <title>Benedek Zoltán, Levendovszky Tihamér Szoftverfejlesztés C++ nyelven</title>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            1. hét: Az objektumok és osztályok C++ implementációja
+	</para>
+	<para>
+	Az osztályok példányokat tárolnak, például különböző bankszámlák. Ezen kívűl megtalálhatóak a példányok tulajdonságai is, mintpéldául a számlán lévő egyenleg, illetve a számlán végzett műveletek (pénz betétele, felvétele). Az ilyen egyedeket nevezzük objektumoknak. Fontos, hogy egy objektum tulajdonságaihoz csak a műveletein keresztül lehessen hozzáférni. Ha például egy bankszámla egyenlegét csak úgy át lehetne írni, az nem lenne jó hatással a társadalomra. Éppen ezért az objektumok tulajdonságait és műveleteit egységbe kell zárni, illetve biztosítani kell, hogy az objektum tulajdonságaihoz a program többi része ne tudjon hozzáférni. Ezt hívjuk adatrejtésnek. 
+Ha van egy madár, illetve egy papagáj osztályunk, akkor a két osztály között egyfajta kapcsolat van, mivel a papagáj maga is egy madár. Ezt nevezzük specializációnak. A madár általánosabb fogalom mint a papagáj. Éppen ezért a speciálisabb osztály rendelkezik az általánosabb osztály tulajdonságaival és műveleteivel, másszóval örökli őket. Szóval egy papagájt bármikor kezelhetünk madárként.
+Ez a három fogalom (adatrejtés, specializáció, öröklődés) alkotja az objektumorientált programozás alapelveit. Azonban a C++-ban (sok OOP, köztük a JAVA nyelvvel ellentétben) megtalálható a típustámogatás is. Ez azt jelenti, hogy az osztályok ugyan úgy működhetnek, mint a beépített típusok.
         </para>
     </section>        
 
     <section>
         <title>Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I-II</title>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            1. hét: Az objektumorientált paradigma alapfoglamai. Osztály, objektum, példányosítás
         </para>
+	<para>
+	Először értsük meg, hogy mi is az objektum, és hogy keletkezik, és mi játszik fontos szerepet a működésében. Az objektum a java programozási nyelv alapvető eleme, éppen ezért a Java egy objektum orientált programozási nyelv. Az objektum a valódi világ egy elemének a rá jellemző tulajdonságai és viselkedései által modellezett eleme. Az objektumokkal általában valamilyen feladatot szeretnénk megoldani. Egy objektum tulajdonságokból(változók), és viselkedésekből(metódusok) áll. A változókkal írhatjuk le az adott objektum állapotát, minden egyednek saját készlete van a változókból, éppen ezért ezeket példányváltozóknak nevezzük. A metódus nagyrészt hasonlít egy függvényre. Azaz utasításokat hajt végre, kaphat paramétereket, és egy értékkel tér vissza.
+	Az osztályok pedig az azonos típusú objektumok modelljét írják le. A program a működése során példányosítja az osztályokat, azaz konkrét objektumokat hoz létre, vagyis amikor egy objektumot létrehozunk, azt valójában egy osztályból hozzuk létre. Amikor egy új egyedet szeretnénk létrehozni, akkor azt a konstruktor fogja felépíteni.
+	Az előzőekben említettem, hogy a változókat a metódusok kezelik. Azonban alaphelyzetben ez nem igaz. Ha csak úgy megírunk egy osztályt, akkor annak a változóihoz kívülről is hozzá lehet férni, a metódosuk figyelembe vétele nélkül. Ez pedig nem jó dolog. Ahhoz, hogy egy objektum biztonságos legyen, priváttá kell tennünk a változóit, ezáltal scak az adott objektum férhet hozzá a saját változóihoz közvetlenül. Minden más csak a metódusain keresztül férhet hozzájuk.
+	Az, hogy a változók és metódusok egy helyen vannak tárolva az osztályokban (egységbe zárás), valamint az, hogy egy objektum változóihoz csak ellenőrzött körülmények között lehet hozzáférni (egységbe zárás) eggyüttesen az adatabsztrakciót, azaz az objektumorientált paradigma egyik alapját alkotják.
+	</para>
     </section>   
 
     <section>
         <title>Forstner Bertalan, Ekler Péter, Kelényi Imre: Bevezetés a mobilprogramozásba</title>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+	1. hét: Python alapok
+	</para>
+	<para>
+            A Python programozási nyelvet Guido van Rossum alkotta meg 1990-ben. Maga a python egy magas szintű, dinamikus, objektumorientált, és platformfüggetlen programozási nyelv. Leginkább egyszerű alkalmazások készítésére használatos. Viszonylag könnyen meg lehet tanulni a használatát, ezért hamar el lehet vele érni látványos eredményeket. Különlegessége más nyelvekkel szemben (pl. C, C++, Java), hogy nincs szükség a programkód fordítására. Elegendő egy forrás fájlt megírni, és az automatikuson fut is. A python programok általában sokkal rövidebbek, mint ugyanazon programok C++ vagy Java nyelven. Ennek több oka is van. Egyrészt az adattípusai lehetővé teszik, hogy összetett kifejezéseket írjunk le rövid állításokban. Másrészt nincs szükség a változók definiálására. És végül, a (szarkazmus) legkedveltebb ok, hogy a python nyelv nem használ se zárójeleket, se pontosvesszőket. Ezek helyett a kód csoportosítása új sorral és tabulátorral történik. Pythonban egy programblokk végét egy kissebb behúzású sor jelzi, az utasítások pedig a sorok végéig tartanak. Éppen ezért nincs szükség pontosvesszőre. Ha viszont egy utasítás nem fér el egy sorban, akkor az adott sor végére egy \ jelet kell tenni. 
         </para>
     </section>     
         

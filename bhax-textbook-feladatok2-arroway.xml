@@ -12,18 +12,71 @@
 	A módosított polártranszformációs normális generátor beprogramozása Java nyelven. Mutassunk rá, hogy a mi természetes saját megoldásunk (az algoritmus egyszerre két normálist állít elő, kell egy
 példánytag, amely a nem visszaadottat tárolja és egy logikai tag, hogy van-e tárolt vagy futtatni kell
 az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
-https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf (16-22 fólia)
+<link xlink:href="https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf">https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf</link> (16-22 fólia)
 Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polargen)
         </para>
         <para>
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Pol%C3%A1rGener%C3%A1tor.java">Java</link> 
+	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/polargen.cpp">C++</link>       
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a prog1-en már tárgyalt Polárgenerátor megírása volt a feladat. A lényege ennek a programnak az, hogy legelőször generál két értéket. Az egyik értéket eltárolja, a másikat pedig visszaadja. Majd amikor következőnek megint generálna, akkor először megnézi, hogy van e már tárolt érték. Ha van akkor azt a tárolt értéket adja vissza, ha viszont nincs, akkor generál két értéket, amiből az egyiket eltárolja, a másikat pedig visszaadja. Azt, hogy van e tárolt érték, egy boolean változóban tartja nyílván.
         </para>
+	<para>
+	A program a PolárGenerátor osztállyal kezdődik:
+	<programlisting>
+	<![CDATA[public class PolárGenerátor {
+    boolean nincsTárolt = true;
+    double tárolt;
+    
+    public PolárGenerátor() {
+        nincsTárolt = true;
+    }]]>
+	</programlisting>
+	Itt kezdőértéknek meg van adva, hogy nincs tárolt érték, valamint egy double változó a majdani tárolt értéknek.
+	</para>
+	<para>
+	Ezek után következik a következő függvény ami az érdemi munkát végzi.
+	Ha épp nincs tárolt érték, akkor a függvény legenerálja azt, és vissza is adja:
+	<programlisting>
+	<![CDATA[if(nincsTárolt) {
+            double u1, u2, v1, v2, w;
+            do{
+                u1 = Math.random();
+                u2 = Math.random();
+                v1 = 2* u1 -1;
+                v2 = 2* u2 -1;
+                w = v1 * v1 + v2 * v2;
+            } while ( w > 1);
+            double r = Math.sqrt((-2 * Math.log(w)) / w);
+            tárolt = r * v2;
+            nincsTárolt = !nincsTárolt;
+            return r * v1;]]>
+	</programlisting>
+	</para>
+	<para>
+	Egyébként pedig visszaadja a tárolt számot, és jelzi, hogy mostmár nincs tárolt szám:
+	<programlisting>
+	<![CDATA[else {
+            nincsTárolt = !nincsTárolt;
+            return tárolt;
+        }]]>
+	</programlisting>
+	</para>
+
+	<para>
+	Végül pedig a main, ami létrehoz egy PolárGenerátor egyedet, és egy for ciklussal 10 alkalommal futtatja a függvényt.
+	<programlisting>
+	<![CDATA[public static void main(String args[]){
+       PolárGenerátor g = new PolárGenerátor();
+       for ( int i = 0; i< 10; i++) {
+           System.out.println(g.következő() );
+       }]]>
+	</programlisting>
+	</para>
     </section>        
 
     <section>
@@ -66,23 +119,38 @@ Miután már áttettük Java nyelvre, tegyük be egy Java Servletbe és a böng�
         <title>Yoda</title>
         <para>
             Írjunk olyan Java programot, ami java.lang.NullPointerEx-el leáll, ha nem követjük a Yoda
-conditions-t! https://en.wikipedia.org/wiki/Yoda_conditions
+conditions-t! <link xlink:href="https://en.wikipedia.org/wiki/Yoda_conditions">https://en.wikipedia.org/wiki/Yoda_conditions</link>
         </para>
         <para>
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/yoda.java">Forrás</link>                 
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            A sokak által, köztük általam is tanult összehasonlítási módszer szerint az egyenlőségjel bal oldalára kell kerülnie a változónak minden esetben. Azonban ezzel van egy probléma. Ha annak a bizonyos változónak null az értéke, akkor a programunk le fog állni egy java.lang.NullPointerException-nel. Erre ad megoldást a Yoda conditions, aminek az a lényege, hogy az összehasonlítás bal oldalára írjuk a szöveget, a jobb oldalára pedig a változót.
+	<programlisting>
+	<![CDATA[if( legyen.equalsIgnoreCase("I") ){
+                if( hason.equals("abrakadabra") ){
+                   break;
+                }
+            }
+            
+            else if( legyen.equalsIgnoreCase("N")){
+                if(!"abrakadabra".equals(hason) ){
+                    System.out.println("Nem Kaptunk.");
+                    break;
+                }
+            }]]>
+	</programlisting>
+	Ebben a példában a hason egy String aminek null az értéke. A felső elágazás során a program le fog állni a fent említett NullPointerException hibával, mivel a stringet egy null pointerhez hasonlítanánk, ami nem lehetséges. Ezzel szemben az alsó esetben szimplán csak egy hamis értéket fogunk kapni eredményként.
         </para>
 	</section>
 
 	<section>
         <title>Kódolás from scratch</title>
         <para>
-            Induljunk ki ebből a tudományos közleményből: http://crd-legacy.lbl.gov/~dhbailey/dhbpapers/bbp-alg.pdf és csak ezt tanulmányozva írjuk meg Java nyelven a BBP algoritmus megvalósítását!Ha megakadsz, de csak végső esetben: https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#pi_jegyei (mert ha csak lemásolod, akkor pont az a fejlesztői élmény marad ki, melyet szeretném, ha átélnél).
+            Induljunk ki ebből a tudományos közleményből: http://crd-legacy.lbl.gov/~dhbailey/dhbpapers/bbp-alg.pdf és csak ezt tanulmányozva írjuk meg Java nyelven a BBP algoritmus megvalósítását!Ha megakadsz, de csak végső esetben: <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#pi_jegyei">https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#pi_jegyei</link>   (mert ha csak lemásolod, akkor pont az a fejlesztői élmény marad ki, melyet szeretném, ha átélnél).
         </para>
         <para>
             Megoldás videó:
