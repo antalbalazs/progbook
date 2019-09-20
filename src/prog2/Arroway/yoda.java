@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
-    
+public class Main {   
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
         String hason = null;
@@ -22,15 +21,10 @@ public class Main {
                     System.out.println("Nem Kaptunk.");
                     break;
                 }
-            }
-            
+            }           
             else{
                 System.out.println("Nem Tudom értelmezni amit írtál. próbáld újra.");
-            }
-            
-        }
-        
-    }
-    
+            }           
+        }        
+    }    
 }
-
