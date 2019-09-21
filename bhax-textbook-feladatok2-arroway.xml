@@ -11,7 +11,7 @@
         <para>
 	A módosított polártranszformációs normális generátor beprogramozása Java nyelven. Mutassunk rá, hogy a mi természetes saját megoldásunk (az algoritmus egyszerre két normálist állít elő, kell egy
 példánytag, amely a nem visszaadottat tárolja és egy logikai tag, hogy van-e tárolt vagy futtatni kell
-az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.! C++ ban is.
+az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.! C++ ban
         </para>
         <para>
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Pol%C3%A1rGener%C3%A1tor.java">Java</link> 
@@ -195,12 +195,118 @@ public class Main {
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/BBP.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/BBP.java</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a BBP algoritmust kellett megírni. Maga a program a main-el kezdődik:
         </para>
+	<programlisting>
+	<![CDATA[ public static void main(String[] args) {
+	int k = 6; 
+	System.out.println(magic(k));
+   }]]>
+	</programlisting>
+	<para>
+	Amiben a k változó értéke azt mondja meg, hogy pi-nek 10 a hanyadikon számjegyétől kezdve írjuk ki a következő pár számjegyed hexadecimális alakban. Jelen esetben k értéke 6, ami az jelenti, hogy pi-nek az első 10<superscript>6</superscript> számjegye utáni pár számjegyét fogjuk megkapni. Majd kiíratjuk a <function>magic(k)</function> nevű függvény eredményét.
+	</para>
+	<para>
+	Ezután következik a magic függvény, ami egy értékadással kezdődik:
+	</para>
+	<programlisting>
+	<![CDATA[double s1 = solve(Math.pow(10,k), 1);
+	double s4 = solve(Math.pow(10,k), 4);
+	double s5 = solve(Math.pow(10,k), 5);
+	double s6 = solve(Math.pow(10,k), 6);]]>
+	</programlisting>
+	<para>
+	Az s1, s4, s5, és s6 változóknak úgy adunk értéket, hogy meghívjuk a <function>solve()</function> függvényt, ami pedig majd a <function>mod()</function> függvényt fogja használni. A <function>solve()</function> függvény egyik paramétere az 10<superscript>k</superscript> lesz, a másik pedig egy szám. Ha megvan az értékadás, akkor ugyan ezeket a változókat ráeresztjük a <function>cut()</function> függvényre:
+	</para>
+	<programlisting>
+	<![CDATA[s1 = cut(s1);
+	s4 = cut(s4);
+	s5 = cut(s5);
+	s6 = cut(s6);]]>
+	</programlisting>
+	<para>
+	A <function>cut()</function> függvénynek annyi a feladata, hogy visszaadja a paraméterként kapott double változó nem egész részét. Ezt úgy csinálja, hogy ha az értéke negatív, akkor hozzáadja saját magához saját maga egész részét, ha viszont pozitív, akkor pedig kivonja.
+	</para>
+	<programlisting>
+	<![CDATA[public static double cut(double db) {
+	if(db < 0) {
+	   return db - (int)db+1;
+	}
+	else {
+	   return db - (int)db;
+	}
+}]]>
+	</programlisting>
+	<para>
+	Ezek után létrehozzuk, és értéket adunk pi-nek, majd ennek az értéknek kiszámoljuk a nem egész részét, illetve létrehozzuk a hexadecimális jeleket, és a végeredményt is. Egy while ciklusban addig számoljuk pi értékét, amíg a nem egész részének az értéke nem egyenlő nullával. Ha nem egyenlő akkor pi értékét megszorozzuk 16-tal. Majd, ha az egész része pi-nek nagyobb vagy egyenlő mint 10, akkor a végeredményt konkatenáljuk az értéknek megfelelő Hexadecimális jellel. Egyébként pedig Szimplán csak a Stringgé alakított számjegyeket konkatenáljuk a végeredménnyel, majd pedig elvesszük pi-ből az egész részét, és kezdődik előről a ciklus. Legvégül pedig visszaadjuk a végeredményt.
+	</para>
+	<programlisting>
+	<![CDATA[double pi = 4*s1 -2*s4 - s5 -s6;
+	pi = cut(pi);
+	String[] hexa = {"A", "B", "C", "D", "E", "F"};
+	String result = "";
+	while(cut(pi) != 0) {
+	   pi = pi*16;
+	   if((int)pi >= 10) {
+		result = result.concat(hexa[(int)pi - 10]);
+	   }
+	   else {
+		result = result.concat(Integer.toString((int)pi));
+	   }
+	   pi = cut(pi);
+	}
+	return result;]]>
+	</programlisting>
+	<para>
+	A <function>solve()</function> függvény egy összeget számol. Egy for ciklus addig megy, amíg az első kapott paraméter, azaz d értéke nagyobb, vagy egyenlő i-vel. A cikluson belül pedig minden egyes lépésnél hozzáadja az összeg értékéhez a <function>mod()</function> függvény által kiszámolt értéket.
+	</para>
+	<programlisting>
+	<![CDATA[ public static double solve(double d, double num) {
+	double sum = 0.0;
+	for(int i = 0; i <= d; i++) {
+	   sum += mod(16, (d-i), 8*i+num) / (8*i + num);
+	}
+	return sum ;
+   }]]>
+	</programlisting>
+	<para>
+	Végül pedig a <function>mod()</function> függvény. Létrehoz két double változót t és r néven, és mind a kettőnek az 1 kezdőértéket adja. Majd egy while ciklus addig megy amig t kissebb vagy egyenlő mint n. N az a második paramétere a függvénynek. A cikluson belül pedig minden egyes iterációban t értékét megszorozza kettővel. Ezek után jön mégegy while ciklus, ami break utasítással fog leállni. Végül pedig a függvény visszaadja r értékét.
+	</para>
+	<programlisting>
+	<![CDATA[ public static double mod(double b, double n, double k) {
+	double t = 1;
+	double r = 1;
+	while(t <= n) {
+	   t = t * 2;
+	}
 
+	while(true) {
+	   if(n >= t) {
+		r = (b * r) % k;
+		n= n - t;
+	   }
+	   t = t / 2;
+	   if(t >= 1) {
+		r = (r*r) % k;
+	   }
+	   else {
+		break;
+	   }
+	}
+	return r;
+   }]]>
+	</programlisting>
+	<para>
+	Az eredmény pedig:
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/BBP.png"/>
+            </imageobject>
+        </mediaobject>
 	</section>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 </chapter>                
