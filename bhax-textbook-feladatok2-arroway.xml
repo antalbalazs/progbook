@@ -11,38 +11,26 @@
         <para>
 	A módosított polártranszformációs normális generátor beprogramozása Java nyelven. Mutassunk rá, hogy a mi természetes saját megoldásunk (az algoritmus egyszerre két normálist állít elő, kell egy
 példánytag, amely a nem visszaadottat tárolja és egy logikai tag, hogy van-e tárolt vagy futtatni kell
-az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
-<link xlink:href="https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf">https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf</link> (16-22 fólia)
-Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polargen)
-        </para>
-        <para>
-            Megoldás videó:
+az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.! C++ ban is.
         </para>
         <para>
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Pol%C3%A1rGener%C3%A1tor.java">Java</link> 
 	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/polargen.cpp">C++</link>       
         </para>
-        <para>
-            Ebben a feladatban a prog1-en már tárgyalt Polárgenerátor megírása volt a feladat. A lényege ennek a programnak az, hogy legelőször generál két értéket. Az egyik értéket eltárolja, a másikat pedig visszaadja. Majd amikor következőnek megint generálna, akkor először megnézi, hogy van e már tárolt érték. Ha van akkor azt a tárolt értéket adja vissza, ha viszont nincs, akkor generál két értéket, amiből az egyiket eltárolja, a másikat pedig visszaadja. Azt, hogy van e tárolt érték, egy boolean változóban tartja nyílván.
+        <para>Ebben a feladatban a prog1-en már tárgyalt Polárgenerátor megírása volt a feladat. A lényege ennek a programnak az, hogy legelőször generál két értéket. Az egyik értéket eltárolja, a másikat pedig visszaadja. Majd amikor következőnek megint generálna, akkor először megnézi, hogy van e már tárolt érték. Ha van akkor azt a tárolt értéket adja vissza, ha viszont nincs, akkor generál két értéket, amiből az egyiket eltárolja, a másikat pedig visszaadja. Azt, hogy van e tárolt érték, egy boolean változóban tartja nyílván.
         </para>
 	<para>
 	A program a PolárGenerátor osztállyal kezdődik:
 	<programlisting>
 	<![CDATA[public class PolárGenerátor {
     boolean nincsTárolt = true;
-    double tárolt;
-    
+    double tárolt;   
     public PolárGenerátor() {
         nincsTárolt = true;
     }]]>
 	</programlisting>
-	Itt kezdőértéknek meg van adva, hogy nincs tárolt érték, valamint egy double változó a majdani tárolt értéknek.
-	</para>
-	<para>
-	Ezek után következik a <function>következő</function> nevű függvény, ami az érdemi munkát végzi.
-	Ha már van tárolt értékünk, akkor a nincsTárolt változó értékét az ellenkezőjére változtatja, és visszaadja a tárolt értéket. Ha viszont nincs, akkor egy do while ciklusban először is az u1 és u2 változókhoz két véletlenszerű értéket rendel, majd pedig a Vx változók értékét úgy határozza meg, hogy Ux-et megszorozza kettővel, és a kapott eredményből kivon 1-et. Ezek után a w változónak az értéke v1 négyzetének, és v2 négyzetének az összege. Ez a ciklus addig fog futni, amíg w értéke nagyobb mint 1. Ha véget ért a ciklus akkor az újonnan deklarált r változó kezdőértékét úgy határozza meg, hogy -2-vel megszorozza w logaritmusát, majd azt elosztja w-vel, és a kapott értéknek a négyzetgyöke lesz az eredmény. Ezek után a nincsTárolt változó értékét az ellenkezőjére állítja. Az eltárolt érték a r és v2 szorzata lesz, a visszaadott érték pedig r és v1 szorzata.
-	<programlisting>
-	<![CDATA[public double következő() {
+	Itt kezdőértéknek meg van adva, hogy nincs tárolt érték, valamint egy double változó a majdani tárolt értéknek. Ezek után következik a <function>következő</function> nevű függvény, ami az érdemi munkát végzi. Ha már van tárolt értékünk, akkor a nincsTárolt változó értékét az ellenkezőjére változtatja, és visszaadja a tárolt értéket. Ha viszont nincs, akkor egy do while ciklusban először is az u1 és u2 változókhoz két véletlenszerű értéket rendel, majd pedig a Vx változók értékét úgy határozza meg, hogy Ux-et megszorozza kettővel, és a kapott eredményből kivon 1-et. Ezek után a w változónak az értéke v1 négyzetének, és v2 négyzetének az összege. Ez a ciklus addig fog futni, amíg w értéke nagyobb mint 1. Ha véget ért a ciklus akkor az újonnan deklarált r változó kezdőértékét úgy határozza meg, hogy -2-vel megszorozza w logaritmusát, majd azt elosztja w-vel, és a kapott értéknek a négyzetgyöke lesz az eredmény. Ezek után a nincsTárolt változó értékét az ellenkezőjére állítja. Az eltárolt érték a r és v2 szorzata lesz, a visszaadott érték pedig r és v1 szorzata.
+	<programlisting><![CDATA[public double következő() {
         if(nincsTárolt) {
             double u1, u2, v1, v2, w;
             do{
@@ -59,23 +47,15 @@ Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polar
         } else {
             nincsTárolt = !nincsTárolt;
             return tárolt;
-        }
-    }]]>
-	</programlisting>
+        }}]]></programlisting>
 	</para>
 
-	<para>
-	Végül pedig a main, ami létrehoz egy PolárGenerátor objektumok, és egy for ciklussal 10 alkalommal futtatja a függvényt.
-	<programlisting>
-	<![CDATA[public static void main(String args[]){
+	<para>Végül pedig a main, ami létrehoz egy PolárGenerátor objektumok, és egy for ciklussal 10 alkalommal futtatja a függvényt, és az eredmény.
+	<programlisting><![CDATA[public static void main(String args[]){
        PolárGenerátor g = new PolárGenerátor();
        for ( int i = 0; i< 10; i++) {
            System.out.println(g.következő() );
-       }]]>
-	</programlisting>
-	</para>
-	<para>
-	Az eredmény pedig:
+       }}]]></programlisting>
 	</para>
 	<mediaobject>
             <imageobject>
@@ -112,14 +92,49 @@ Miután már áttettük Java nyelvre, tegyük be egy Java Servletbe és a böng�
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Gagyi.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Gagyi.java</link>            
         </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
+        <para>Ebben a Feladatban létrehoztunk két Integer objektumok x és t néven. Az egyik alkalommal mindkét Integer értékét 127-re, a másik alkalommal pedig 128-ra állítjuk. Majd következik egy while ciklus ami addig fut, amíg x kissebb vagy egyenlő t-vel és x nagyobb vagy egyenlő t-vel és t nem egyenlő x-el.
+	</para>
+	<programlisting>
+	<![CDATA[import java.util.Scanner;
+public class Gagyi{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Álljon e le a program? igen ha igen, bármi más ha nem");
+		Integer t;
+		Integer x;		
+		if(sc.nextLine().equals("igen")){
+			x = 127;
+			t = 127;
+		}
+		else{
+			t = 128;
+			x = 128;
+		}
+		while (x <= t && x >= t && t != x);
+	}
+}]]>
+	</programlisting>
+	<para>Ebben az az érdekes, hogy amikor x és t értéke 127, akkor leáll a ciklus, míg amikor 128, akkor pedig egy végtelen ciklust kapunk:
         </para>
-
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/gagyi.png"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	A kérdés pedig az, hogy ez miért történik? Erre a választ a JDK Integer.java forrásában kaphatunk.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/int.png"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Vagyis a -128 és az alapértelmezetten 127 (de ez konfigurálható) közötti értékekre egy már létező pool-ból fogjuk megkapni a nekünk kellő objektumot. Ami azt jelenti, hogy az x és a t ugyan azt az objektumot fogja viszakapni, vagyis ugyan arra a memóriacímre fognak mutatni. Éppen ezért le fog állni a while ciklus az x!=t feltétel miatt. Ezzel szemben, ha az érték 128, akkor nem az előre elkészített poolból fogják megkapni az értéküknek megfelelő objektumot, hanem a <emphasis>return new Integer(i);</emphasis>-vel fognak értéket kapni. Ez azt jelenti, hogy x-nek és t-nek két különböző című objektuma lesz. Ebben az esetben pedig már az x!=t feltétel is igaz lesz, aminek az eredménye pedig egy végtelen ciklus.
+	</para>
 	</section>
-
 	<section>
         <title>Yoda</title>
         <para>
@@ -140,8 +155,7 @@ public class Main {
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
         String hason = null;
-        String legyen;
-        
+        String legyen; 
         System.out.println("Kapjunk-e NullPointerException-t? I/N");
         for(;;){
             legyen = sc.nextLine();
@@ -150,8 +164,7 @@ public class Main {
                 if( hason.equals("abrakadabra") ){
                    break;
                 }
-            }
-            
+            }           
             else if( legyen.equalsIgnoreCase("N")){
                 if(!"abrakadabra".equals(hason) ){
                     System.out.println("Nem Kaptunk.");
@@ -162,8 +175,7 @@ public class Main {
                 System.out.println("Nem Tudom értelmezni amit írtál. próbáld újra.");
             }           
         }        
-    }    
-}]]>
+    }}]]>
 	</programlisting>
 	Ebben a példában a hason egy String aminek null az értéke. A felső elágazás során a program le fog állni a fent említett NullPointerException hibával, mivel a stringet egy null pointerhez hasonlítanánk, ami nem lehetséges. Ezzel szemben az alsó esetben szimplán csak egy hamis értéket fogunk kapni eredményként. És a végeredmény:
         </para>
