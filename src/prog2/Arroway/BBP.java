@@ -9,14 +9,19 @@ public class BBP {
 	double s4 = solve(Math.pow(10,k), 4);
 	double s5 = solve(Math.pow(10,k), 5);
 	double s6 = solve(Math.pow(10,k), 6);
+
 	s1 = cut(s1);
 	s4 = cut(s4);
 	s5 = cut(s5);
 	s6 = cut(s6);
+
 	double pi = 4*s1 -2*s4 - s5 -s6;
+
 	pi = cut(pi);
+
 	String[] hexa = {"A", "B", "C", "D", "E", "F"};
 	String result = "";
+
 	while(cut(pi) != 0) {
 	   pi = pi*16;
 	   if((int)pi >= 10) {
@@ -41,6 +46,7 @@ public class BBP {
 
    public static double solve(double d, double num) {
 	double sum = 0.0;
+
 	for(int i = 0; i <= d; i++) {
 	   sum += mod(16, (d-i), 8*i+num) / (8*i + num);
 	}
@@ -50,6 +56,7 @@ public class BBP {
    public static double mod(double b, double n, double k) {
 	double t = 1;
 	double r = 1;
+
 	while(t <= n) {
 	   t = t * 2;
 	}
