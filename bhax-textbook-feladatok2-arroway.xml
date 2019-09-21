@@ -39,10 +39,11 @@ Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polar
 	Itt kezdőértéknek meg van adva, hogy nincs tárolt érték, valamint egy double változó a majdani tárolt értéknek.
 	</para>
 	<para>
-	Ezek után következik a következő függvény ami az érdemi munkát végzi.
-	Ha épp nincs tárolt érték, akkor a függvény legenerálja azt, és vissza is adja:
+	Ezek után következik a <function>következő</function> nevű függvény, ami az érdemi munkát végzi.
+	Ha már van tárolt értékünk, akkor a nincsTárolt változó értékét az ellenkezőjére változtatja, és visszaadja a tárolt értéket. Ha viszont nincs, akkor egy do while ciklusban először is az u1 és u2 változókhoz két véletlenszerű értéket rendel, majd pedig a Vx változók értékét úgy határozza meg, hogy Ux-et megszorozza kettővel, és a kapott eredményből kivon 1-et. Ezek után a w változónak az értéke v1 négyzetének, és v2 négyzetének az összege. Ez a ciklus addig fog futni, amíg w értéke nagyobb mint 1. Ha véget ért a ciklus akkor az újonnan deklarált r változó kezdőértékét úgy határozza meg, hogy -2-vel megszorozza w logaritmusát, majd azt elosztja w-vel, és a kapott értéknek a négyzetgyöke lesz az eredmény. Ezek után a nincsTárolt változó értékét az ellenkezőjére állítja. Az eltárolt érték a r és v2 szorzata lesz, a visszaadott érték pedig r és v1 szorzata.
 	<programlisting>
-	<![CDATA[if(nincsTárolt) {
+	<![CDATA[public double következő() {
+        if(nincsTárolt) {
             double u1, u2, v1, v2, w;
             do{
                 u1 = Math.random();
@@ -54,21 +55,17 @@ Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polar
             double r = Math.sqrt((-2 * Math.log(w)) / w);
             tárolt = r * v2;
             nincsTárolt = !nincsTárolt;
-            return r * v1;]]>
-	</programlisting>
-	</para>
-	<para>
-	Egyébként pedig visszaadja a tárolt számot, és jelzi, hogy mostmár nincs tárolt szám:
-	<programlisting>
-	<![CDATA[else {
+            return r * v1;
+        } else {
             nincsTárolt = !nincsTárolt;
             return tárolt;
-        }]]>
+        }
+    }]]>
 	</programlisting>
 	</para>
 
 	<para>
-	Végül pedig a main, ami létrehoz egy PolárGenerátor egyedet, és egy for ciklussal 10 alkalommal futtatja a függvényt.
+	Végül pedig a main, ami létrehoz egy PolárGenerátor objektumok, és egy for ciklussal 10 alkalommal futtatja a függvényt.
 	<programlisting>
 	<![CDATA[public static void main(String args[]){
        PolárGenerátor g = new PolárGenerátor();
@@ -77,6 +74,14 @@ Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polar
        }]]>
 	</programlisting>
 	</para>
+	<para>
+	Az eredmény pedig:
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/polar.png"/>
+            </imageobject>
+        </mediaobject>
     </section>        
 
     <section>
@@ -128,9 +133,20 @@ conditions-t! <link xlink:href="https://en.wikipedia.org/wiki/Yoda_conditions">h
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/yoda.java">Forrás</link>                 
         </para>
         <para>
-            A sokak által, köztük általam is tanult összehasonlítási módszer szerint az egyenlőségjel bal oldalára kell kerülnie a változónak minden esetben. Azonban ezzel van egy probléma. Ha annak a bizonyos változónak null az értéke, akkor a programunk le fog állni egy java.lang.NullPointerException-nel. Erre ad megoldást a Yoda conditions, aminek az a lényege, hogy az összehasonlítás bal oldalára írjuk a szöveget, a jobb oldalára pedig a változót.
+            A sokak által, köztük általam is tanult összehasonlítási módszer szerint az egyenlőségjel bal oldalára kell kerülnie a változónak minden esetben. Azonban ezzel van egy probléma. Ha annak a bizonyos változónak null az értéke, akkor a programunk le fog állni egy java.lang.NullPointerException-nel. Erre ad megoldást a Yoda conditions, aminek az a lényege, hogy az összehasonlítás bal oldalára írjuk az értéket, a jobb oldalára pedig a változót.
 	<programlisting>
-	<![CDATA[if( legyen.equalsIgnoreCase("I") ){
+	<![CDATA[import java.util.Scanner;
+public class Main {   
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        String hason = null;
+        String legyen;
+        
+        System.out.println("Kapjunk-e NullPointerException-t? I/N");
+        for(;;){
+            legyen = sc.nextLine();
+            
+            if( legyen.equalsIgnoreCase("I") ){
                 if( hason.equals("abrakadabra") ){
                    break;
                 }
@@ -141,10 +157,21 @@ conditions-t! <link xlink:href="https://en.wikipedia.org/wiki/Yoda_conditions">h
                     System.out.println("Nem Kaptunk.");
                     break;
                 }
-            }]]>
+            }           
+            else{
+                System.out.println("Nem Tudom értelmezni amit írtál. próbáld újra.");
+            }           
+        }        
+    }    
+}]]>
 	</programlisting>
-	Ebben a példában a hason egy String aminek null az értéke. A felső elágazás során a program le fog állni a fent említett NullPointerException hibával, mivel a stringet egy null pointerhez hasonlítanánk, ami nem lehetséges. Ezzel szemben az alsó esetben szimplán csak egy hamis értéket fogunk kapni eredményként.
+	Ebben a példában a hason egy String aminek null az értéke. A felső elágazás során a program le fog állni a fent említett NullPointerException hibával, mivel a stringet egy null pointerhez hasonlítanánk, ami nem lehetséges. Ezzel szemben az alsó esetben szimplán csak egy hamis értéket fogunk kapni eredményként. És a végeredmény:
         </para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/yoda.png"/>
+            </imageobject>
+        </mediaobject>
 	</section>
 
 	<section>
