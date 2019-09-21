@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class BBP {
    public static void main(String[] args) {
 	int k = 6; 
