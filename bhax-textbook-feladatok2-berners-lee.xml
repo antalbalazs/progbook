@@ -35,6 +35,20 @@
 	<para>
 	Lehetőség van Absztrakt osztályokat is létrehozni az <emphasis>abstract</emphasis> módosítóval. Az ilyen osztályok tartalmazhatnak absztrakt, azaz törzs nélküli metódusokat, amiket szintén az <emphasis>abstract</emphasis> módosítóval kell jelölni. Az ilyen osztályok nem példányosíthatóak, mivel a példányokra nem lenne értelmezve minden metódus. Ennek ellenére van értelme absztrakt típusú változókat és paramétereket deklarálni, mivel az ilyen változók az adott absztrakt osztály bármely leszármazottjának példányára hivatkozhatnak.
 	</para>
+	<para>
+	3. hét: Modellező eszközök és nyelvek. AZ UML és az UML osztálydiagramja.
+	</para>
+	<para>
+	Az UML, azaz Unified Modeling Language, vagy magyarul egységesített modellezőnyelv segítségével fejlesztési modelleket lehet szemléltetni. Egy integrált diagramkészletből áll, amelyet a szoftverfejlesztők számára fejlesztettek ki a programok megjelenítésére, felépítésére és dokumentálására. Az objektumorientált szoftverfejlesztési folyamat nagyon fontos részre. Többnyire grafikus jelöléseket használ a projektek tervezésére. Rengeteg diagram, azaz modell van hozzá.
+Az UML használható bármelyik ma ismert programozási nyelvvel, mivel azoktól független absztrakciós szinten fogalmazza meg a rendszer modelljét. Maga az UML egy grafikus modellező nyelv, azaz a diagramok téglalapokból, vonalakból, ikonokból, és szövegből állnak.
+	</para>
+	<para>
+	A szerkezeti diagramok a rendszer és annak részeinek statikus felépítését mutatják a különféle absztrakciós és megvalósítási szinteken, és hogyan kapcsolódnak egymáshoz. A szerkezetdiagram elemei egy rendszer értelmes fogalmait képviselik, és tartalmazhatnak absztrakt, valós és megvalósítási koncepciókat, hétféle szerkezeti diagram létezik az alábbiak szerint: Class Diagram, Component Diagram, Deployment Diagram, Object Diagram, Composite Structure Diagram, és Profile Diagram.
+	</para>
+	<para>
+	A Class diagram egy központi modellezési technika, amely szinte minden objektum-orientált módszert átfut. A rendszerben található osztályokat, interfészeket, egyéb tipusokat, és a közöttük lévő kapcsolatot irja le. A Component Diagram a szoftverkomponensek architektúráját és az ezek közötti összefüggéseket mutatja meg. A Deployment Diagram egy objektum orientált program fizikai aspektusát mutatja meg, és modellezi a futási idejét. Az objektumdiagram a példányokat modellezi.
+
+	</para>
     </section> 
 
 <section>
