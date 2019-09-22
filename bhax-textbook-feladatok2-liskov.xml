@@ -128,11 +128,91 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (98. f�
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:  <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/SzuloGyerek.java">Java</link> 
+	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/SzuloGy.cpp">C++</link>              
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban be kellett bizonyítani, hogy ha a gyerekosztályban létrehozunk egy metódust, akkor ha a gyerekosztályt szülőosztályként szeretnénk használni, akkor a gyerekosztály saját metódusait nem fogjuk tudni használni. Én az előző feladathoz hasonlóan maradtam a Madár-Sas példánál. A Madár a szülő, a Sas a gyerekosztály.
         </para>
+	<para>
+	C++ kód:
+	</para>
+	<programlisting>
+	<![CDATA[class Madar{
+public: 
+	
+};
+
+class Sas : public Madar{
+public:
+	void repul() {
+		std::cout << "Repül";
+	}
+
+};]]>
+	</programlisting>
+	<para>
+	És java:
+	</para>
+	<programlisting>
+	<![CDATA[static class Madar{
+	protected int szarnyhossz;
+	public void setSzarnyhossz(int szarnyhossz) {
+	this.szarnyhossz = szarnyhossz;
+	}
+
+}
+
+static class Sas extends Madar{
+	public int getSzarnyhossz(){
+		return szarnyhossz;
+	}
+}]]>
+	</programlisting>
+
+	<para>
+	A C++ kód esetében a gyerekosztálynak van egy <function>repul()</function> metódusa, ami szimplán csak kiirja a konzolra, hogy "Repül". Ezzel szemben a java példa egy kicsit bonyolultabb, mivel itt a szülő osztálynak, azaz a madárnak van egy szárnyhossz tulajdonsága, illetve egy <function>setSzarnyhossz()</function> metódusa, amivel a szárnyhossz tulajdonságot lehet beállítani. A gyermek osztály természetesen megörökli ezt a tulajdonságot, illetve metódust, szóval neki is szabadon belehet állítani a szárnyhossz tulajdonságát. De ezek mellett van egy <function>getSzarnyhossz()</function> metódusa is, ami visszaadja a sas objektum szárnyhosszát. Ez eddig teljesen normális, az érdekesség akkor kezdődik, amikor a main-be érünk.
+	</para>
+	<para>
+	C++:
+	</para>
+	<programlisting>
+	<![CDATA[int main(){
+
+	Madar* sas = new Sas();
+	Sas* sas2 = new Sas();
+
+	sas->repul();
+	sas2->repul();
+}]]>
+	</programlisting>
+
+	<para>
+	És java:
+	</para>
+	<programlisting>
+	<![CDATA[public static void main(String args[]){
+		Madar sas = new Sas();
+		sas.setSzarnyhossz(80);
+
+		Sas sas2 = new Sas();
+		sas2.setSzarnyhossz(50);
+		
+		System.out.println(sas2.getSzarnyhossz() + " " + sas.getSzarnyhossz() );
+	}]]>
+	</programlisting>
+	<para>
+	Mind a két esetben létrehozunk egy Sas típust Sas típusként, amivel nincs is gond, de létrehozunk egy Madár típust is Sas típusként. Ezek után a C++ kódban mind a két objektumok megpróbáljuk repteteni a <function>repul()</function> metódust használva. A Sas típusnak ezzel nem is lenne gondja, azonban a Madárnak igen.
+	</para>
+	<para>
+	A java kód itt is egy kicsit másképp működik. Itt a két típus létrehozása után mind a kettőnek beállítjuk a szárnyhosszát a <function>setSzarnyhossz()</function> segítségével, amivel nincs is gond, mivel ez eredetileg a Madár osztály metódusa, amit a Sas megörökölt. Azonban ezek után a <function>getSzarnyhossz()</function> metódus segítségével megpróbáljuk kiiratni mind a két objektum szárnyhosszát, ami csak az egyik esetben sikerülne. A végeredmény pedig:
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/szgy.png"/>
+            </imageobject>
+        </mediaobject>
+	
     </section>
 
    <section>
