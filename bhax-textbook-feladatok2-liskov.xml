@@ -224,11 +224,98 @@ static class Sas extends Madar{
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/AntiJava.java">Java</link> 
+	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/AntiCpp.cpp">C++</link>
+<link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/AntiCs.cs">C#</link> 
+	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/AntiC.c">C</link>            
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ehhez a feladathoz a Bárfai Norbert által <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apas03.html#id561066">biztosított</link> forráskódokat használtam. A programokat egy 4.5 Ghz-re overclockolt AMD-FX8350 és 8GB ramot tartalmazó gépen futtattam. Lássuk is az eredményeket:
         </para>
+	<para>
+	A java program 10<superscript>6</superscript> számjegyet 0.906 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.132 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 135.7 másodperc alatt számolta ki.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/antijava.png"/>
+            </imageobject>
+        </mediaobject>
+
+	<para>
+	A C++ program 10<superscript>6</superscript> számjegyet 2.37792 másodperc alatt, 10<superscript>7</superscript> számjegyet 26.5749 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 296.292 másodperc alatt számolta ki.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/anticpp.png"/>
+            </imageobject>
+        </mediaobject>
+
+	<para>
+	A C program 10<superscript>6</superscript> számjegyet 1.243691 másodperc alatt, 10<superscript>7</superscript> számjegyet 15.384056 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 186.029669 másodperc alatt számolta ki.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/antic.png"/>
+            </imageobject>
+        </mediaobject>
+
+	<para>
+	És végül a C# program 10<superscript>6</superscript> számjegyet 0.950131 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.643125 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 140.350363 másodperc alatt számolta ki.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/antic.png"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Az egész összesítve egy táblázatba:
+	</para>
+	<table frame='all'><title>Összehasonlítás</title>
+<tgroup cols='5' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<colspec colnum='5' colname='c5'/>
+<thead>
+<row>
+  <entry></entry>
+  <entry>Java</entry>
+  <entry>C++</entry>
+  <entry>C#</entry>
+  <entry>C</entry>
+</row>
+</thead>
+<tfoot>
+<row>
+  <entry>10<superscript>8</superscript></entry>
+  <entry>135.7</entry>
+  <entry>296.292</entry>
+  <entry>140.350363</entry>
+  <entry>186.029669</entry>
+</row>
+</tfoot>
+<tbody>
+<row>
+  <entry>10<superscript>6</superscript></entry>
+  <entry>0.906</entry>
+  <entry>2.37792</entry>
+  <entry>0.950131</entry>
+  <entry>1.243691</entry>
+</row>
+<row>
+  <entry>10<superscript>7</superscript></entry>
+  <entry>11.132</entry>
+  <entry>26.5749</entry>
+  <entry>11.643125</entry>
+  <entry>15.384056</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<para>
+Ebből az látszik, hogy a sort a Java és a C# fej fej mellett haladva vezeti, 10<superscript>6</superscript> számjegynél a C# nyer, ám a másik két esetben pedig a Java. A dobogó harmadik helyét a C nyelv foglalja el, leghátul pedig a C++ kullog.
+</para>
+	
     </section>
 
    <section>
