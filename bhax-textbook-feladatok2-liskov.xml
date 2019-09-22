@@ -21,6 +21,100 @@
         <para>
             A liskov elv azt jelenti, hogy ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is minden gond nélkül behelyettesíthetjük anélkül, hogy a programrész tulajdonságai megváltoznának. Vagyis ha S osztály T osztály leszármazottja, akkor S szabadon behelyettesíthető minden olyan helyre (paraméter, változó, stb…), ahol T típust várunk. Ezt kellett megsérteni c++ ban és java-ban is. Ehhez én egy madár-pingvin szülőosztály-gyerekosztály kombinációt használtam.
         </para>
+	
+	<para>
+	C++:
+	</para>
+	<programlisting language="C++">
+	<![CDATA[#include <iostream>
+using namespace std;
+
+class Madar {
+public:
+     void repul() {
+	cout << "Repül";}
+};
+
+class Sas : public Madar
+{};
+
+class Pingvin : public Madar 
+{};]]>
+	</programlisting>
+<para>
+És java:
+</para>
+	<programlisting language="Java">
+	<![CDATA[static class Madar{
+	public void repul(){
+	System.out.println("Repülök");
+	}
+}
+
+static class Sas extends Madar{
+	
+}
+
+static class Pingvin extends Madar{
+
+}]]>
+	</programlisting>
+	<para>
+	A programok mindkét esetben úgy kezdődnek, hogy létrehozzuk a szülőosztályt, ami a madár. Ennek az osztálynak van egy olyan metódusa, hogy <function>repul()</function> ami jelen esetben csak annyit csinál, hogy kiirja a konzolra azt, hogy Repül vagy Repülök. Majd jön két újabb osztály, amiket a Madárból származtatunk, vagyis ők is meg fogják kapni a <function>repul()</function> metódust. Az egyik osztály a sas, ami tud repülni és még madár is, szóval itt nincs probléma. Azonban a másik osztály a Pingvin, ami igaz, hogy madár, de repülni nem tud.
+	</para>
+	
+	<para>
+	C++:
+	</para>
+	<programlisting language="C++">
+	<![CDATA[int main ( int argc, char **argv )
+{
+     Madar madar;
+     madar.repul();
+     cout << " a madár\n";
+
+     Sas sas;
+     sas.repul();
+     cout << " a sas\n";
+
+     Pingvin pingvin;
+     pingvin.repul();
+     cout << " a pingvin. De a pingvin nem tud repülni, ezért sérült a Liskov elv.\n";
+
+}]]>
+	</programlisting>
+	<para>
+	és Java:
+	</para>
+	<programlisting language="Java">
+	<![CDATA[public static void main(String args[]){
+	Madar madár = new Madar();
+	Sas sas = new Sas();
+	Pingvin pingvin = new Pingvin();
+	
+	System.out.print("Mit csinál a madár?:");
+	madár.repul();
+	
+	System.out.print("\nMit csinál a sas?:");
+	sas.repul();
+
+	System.out.print("\nMit csinál a pingvin?:");
+	pingvin.repul();
+	System.out.println("\nDe a pingvin nem tud repülni, szóval sérül a liskov elv.");
+
+}]]>
+	</programlisting>
+	<para>
+	Ezek után a main-ben mind a két esetben példányosítunk, azaz létrehozunk egy madarat, egy sast és egy pingvint is. Majd mind a három objektummal meghívjuk a repül függvényt. Az első kettővel nincs, és nem is lenne gond, mivel alapvetően tudnak repülni, viszont a pingvin, mint tudjuk nem tud repülni. Azonban ez a pingvin ahelyett, hogy hibát dobna a program, boldogan repked a virtuális térben, ami nekünk nem jó.
+	</para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="pic/liskov.png"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Erre egy megoldás a jobb OO tervezés. Vagyis ha például ha a Madár osztályunk megmadarna, de lenne két származtatott osztálya. Az egyik osztályba kerülnének a repülni tudó madarak, a másikba pedig azok a madarak, amik nem tudnak repülni. És ezekből az osztályokból származtathatnánk tovább a sast, ami egy repülni tudó madár, illetve a pingvint is, ami pedig nem tud repülni.
+	</para>
     </section>
 
    <section>
