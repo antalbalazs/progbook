@@ -15,10 +15,11 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/liskovj.java">Java</link> 
+	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Liskov/liskov.cpp">C++</link>               
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            A liskov elv azt jelenti, hogy ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is minden gond nélkül behelyettesíthetjük anélkül, hogy a programrész tulajdonságai megváltoznának. Vagyis ha S osztály T osztály leszármazottja, akkor S szabadon behelyettesíthető minden olyan helyre (paraméter, változó, stb…), ahol T típust várunk. Ezt kellett megsérteni c++ ban és java-ban is. Ehhez én egy madár-pingvin szülőosztály-gyerekosztály kombinációt használtam.
         </para>
     </section>
 

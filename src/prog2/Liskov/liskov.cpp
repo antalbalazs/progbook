@@ -3,14 +3,8 @@ using namespace std;
 
 class Madar {
 public:
-     virtual void repul() {};
-};
-
-class Program {
-public:
-     void fgv ( Madar &madar ) {
-          madar.repul();
-     }
+     void repul() {
+	cout << "Repül";}
 };
 
 class Sas : public Madar
@@ -21,18 +15,17 @@ class Pingvin : public Madar
 
 int main ( int argc, char **argv )
 {
-     Program program;
      Madar madar;
-     program.fgv ( madar );
-     cout << "Repül a madár\n";
+     madar.repul();
+     cout << " a madár\n";
 
      Sas sas;
-     program.fgv ( sas );
-     cout << "Repül a sas\n";
+     sas.repul();
+     cout << " a sas\n";
 
      Pingvin pingvin;
-     program.fgv ( pingvin );
-     cout << "Repül a pingvin. De a pingvin nem tud repülni, ezért sérült a Liskov elv.\n";
+     pingvin.repul();
+     cout << " a pingvin. De a pingvin nem tud repülni, ezért sérült a Liskov elv.\n";
 
 }
 
