@@ -109,7 +109,7 @@ static class Pingvin extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/liskov.png"/>
+		<imagedata fileref="pic/liskov.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 	<para>
@@ -209,7 +209,7 @@ static class Sas extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/szgy.png"/>
+		<imagedata fileref="pic/szgy.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 	
@@ -237,7 +237,7 @@ static class Sas extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/antijava.png"/>
+		<imagedata fileref="pic/antijava.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 
@@ -246,7 +246,7 @@ static class Sas extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/anticpp.png"/>
+		<imagedata fileref="pic/anticpp.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 
@@ -255,7 +255,7 @@ static class Sas extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/antic.png"/>
+		<imagedata fileref="pic/antic.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 
@@ -264,7 +264,7 @@ static class Sas extends Madar{
 	</para>
 	<mediaobject>
             <imageobject>
-                <imagedata fileref="pic/antic.png"/>
+		<imagedata fileref="pic/antics.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
 	<para>
@@ -382,8 +382,24 @@ fóliát)!
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            A ciklomatikus komplexitás egy forráskód összetettségét jelenti, amit gráfelmélettel kell kiszámolni. A képlet hozzá M=E-N+2P ahol E a gráf elemeinek a száma, N a gráfban lévő csúcsok száma, és P pedig az összefüggő komponensek száma. Én ezt a feladatot a <link xlink:href="http://www.lizard.ws/">http://www.lizard.ws/</link> oldal segítségével oldottam meg. Szimplán csak be kell illeszteni a forráskódot, ki kell választani, hogy milyen nyelven van írva a program, és ki is számolja nekünk. Én az első csokorban átnézett BBP és LZWBinFa programok java változatait számoltattam ki. Az eredmények:
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/CkLZW.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Itt viszont csak a különböző programrészek komplexitását kapjuk meg, nem pedig az egész programét. Ha összeadjuk a programrészek komplexitását akkor megkapjuk hogy a teljes program ciklomatikus komplexitása 45. De most nézzük a BBP algoritmust, az kicsit egyszerűbb:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/CkBBP.png" contentwidth="8in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Itt is ugyan az érvényes, mint az előző programnál. Azaz a teljes program ciklomatikus komplexitásának a meghatározásához össze kell adnunk az egyes programrészek ciklomatikus komplexitását. Ez által azt kapjuk, hogy a BBP algoritmus java változatának ciklomatikus komplexitása 13.
+	</para>
     </section>
 
 </chapter>
