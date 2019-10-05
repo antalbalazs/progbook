@@ -18,11 +18,38 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:           
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/uml.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a BevProgon és Prog1-en már tárgyalt <link xlink:href="https://sourceforge.net/p/udprog/code/ci/master/tree/source/vedes/elso/z3a7.cpp">z3a7.cpp</link> program forrásából kellett UML diagramot létrehozni. Én ehhez a <link xlink:href="https://www.visual-paradigm.com/">Visual Paradigm</link> 30 napos ingyenes próbaverzióját használtam. A diagramot roppant egyszerű legenerálni. A visual paradigm feltelepítése és elindítása után oda kell navigálnunk, hogy Tools > Code > Instant Reverse..., majd pedig ki kell választani, hogy milyen nyelvű forrásból szeretnénk diagramot generálni, és meg kell adni a fájl helyét. Ezek után már csak ki kell választani azokat az osztályokat, amelyeket meg szeretnénk mutatni a diagrammon, és kész is. Az általam generált diagramot a fentebb található képen lehetett látni.
         </para>
+	<para>
+	Ezen kívűl rá kell mutatni az aggregáció és kompozíció kapcsolatára. Azonban, mielőtt ezt megtehetnénk, először az asszociáció fogalmát kell tisztázni.
+	</para>
+	<para>
+	Ha egy modellben két osztálynak kommunikálnia kell egymással, akkor szükségünk van egy kapcsolatra a két osztály között. Ezt a kapcsolatot reprezentálja az asszociáció. Az asszociációt egy a két osztály között lévő vonal, valamit az azon lévő irányt mutató nyil(ak) jelöli(k). Ha a vonal mindkét oldalán van nyíl, akkor az asszociáció kétirányú.
+	</para>
+	<para>
+	Az aggregáció és kompozíció az asszociáció részhalmazai, vagyis az asszociáció különleges esetei. Mind a két esetben egy osztály objektuma "birtokol" egy másik osztály másik objektumát, de van a kettő között egy kis különbség.
+	</para>
+	<para>
+	Az aggregáció egy olyan kapcsolatot jelent, amiben a gyerek a szülőtől függetlenül létezhet. Például ha van tanóra, ami a szülőosztály, és tanuló, ami a gyerekosztály. Ha töröljük a tanórát, attól a tanulók még léteznek.
+	</para>
+	<para>
+	Ezzel szemben a kompozíció esetében egy olyan kapcsolatról van szó, amiben a gyerek nem létezhet a szülő nélkül. Például ha van egy ház szülőosztályunk, és egy szoba gyerekosztályunk. A szoba nem létezhet a ház nélkül.
+	</para>
+	<para>
+	Az aggregációt és a kompozíciót is vonal+rombusz kombinációval lehet jelölni, azonban az aggregációnál a rombusz üres, a kompozíciónál pedig nem.
+	</para>
+	<para>
+	Ezek alapján meg tudjuk mondani, hogy a fentebb látható ábrán a <programlisting><![CDATA[Csomopont gyoker;]]></programlisting> elem a kompozíció.
+	</para>
+	
     </section>
 
    <section>
