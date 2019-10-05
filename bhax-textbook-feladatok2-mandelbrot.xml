@@ -61,12 +61,63 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot">https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban UML-ben kellett osztályokat megtervezni, majd pedig a diagramból forrást generálni. Én ehhez a feladathoz, ha már Mandelbrot a csokor neve, a MandelbrotHalmazt próbáltam meg lemodellezni a visual paradigm nevű szoftver segítségével. Ehhez a következő diagrammot sikerült összeállítani:
         </para>
-    </section>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/genuml.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
+  	<para>
+	Ahogy láthatjuk a MandelbrotIterációk forrásfájl nagyító objektuma asszociációban áll a MandelbrotHalmazNagyító osztállyal, ami pedig kompozícióban áll a MandelbrotHalmaz osztállyal. Ezek után a kód generálása már gyerekjáték. Annyit kell tenni, hogy rákattintunk a Tools > generate java code... opcióra, majd pedig a kapott menüben megadjuk azt, hogy hova szeretnénk generálni a forrást, és a visual paradigm automatikusan legenerálja nekünk. Ha a fent megjelölt forrást összehasonlítjuk az eredetivel, akkor elmondhatjuk, hogy a generált forrás nagyon hasonlít az eredetire, hiszen a források szerkezete megyegyezik.
+	</para>
+	<programlisting>
+	<![CDATA[public void update(java.awt.Graphics g) {
+		// TODO - implement MandelbrotHalmaz.update
+		throw new UnsupportedOperationException();
+	}
+
+	public void pillanatfelvétel() {
+		// TODO - implement MandelbrotHalmaz.pillanatfelvétel
+		throw new UnsupportedOperationException();
+	}
+
+	public void run() {
+		// TODO - implement MandelbrotHalmaz.run
+		throw new UnsupportedOperationException();
+	}
+
+	public int getSz() {
+		// TODO - implement MandelbrotHalmaz.getSz
+		throw new UnsupportedOperationException();
+	}
+
+	public int getM() {
+		// TODO - implement MandelbrotHalmaz.getM
+		throw new UnsupportedOperationException();
+	}
+
+	public java.awt.image.BufferedImage kép() {
+		// TODO - implement MandelbrotHalmaz.kép
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO - implement MandelbrotHalmaz.main
+		throw new UnsupportedOperationException();
+	}]]>
+	</programlisting>
+	<para>
+	Ez a generált forrásnak egy része. És ha ezt összehasonlítjuk az eredeti forrássnak ugyan ezen részével, akkor észrevehetjük, hogy a két forrás szerkezete megegyezik, viszont nyílvánvalóan, ha kódot generálunk, akkor csak a függvények létrehozása történik meg, a törzsük viszont üres marad. Azonban, ha már valakinek összeállt a fejében egy ötlet arról, hogy hogyan fog kinézni a forrásának a felépítése, akkor annak az embernek nagyon jól tud jönni, ha azt a vázat létre tudja hozni egy UML diagramban, és abból generálni tud forrást.
+	</para>
+   </section>
 
    <section>
         <title>Egy esettan</title>
