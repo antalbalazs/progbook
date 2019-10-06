@@ -68,7 +68,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
         </para>
 	<mediaobject>
             <imageobject>
-		<imagedata fileref="pic/genuml.png" contentwidth="6in"/>
+		<imagedata fileref="pic/genuml.png" contentwidth="7in"/>
             </imageobject>
         </mediaobject>
   	<para>
@@ -148,10 +148,17 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban BPMN-ben, azaz Business Process Model and Notation használatával kellett modellezni valamit. Maga a BPMN egy folyamatábra, egy grafikai reprezentációja az üzleti folyamatoknak. Az UML-hez hasonlóan szintén egy modellező eszköz. Az én példám egy mindennapi esetet ír le, egy csomag megrendelését egy webáruházból, vagyis, hogy mi történik a között, hogy a vásárló megrendeli, és megkapja a csomagot. Ennek a feladatnak a megoldásához a visual paradigm nevű szoftvert választottam. A folyamatábra a következőképpen néz ki:
         </para>
-    </section>
-
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/bpmn.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Látható a folyamatábrán, hogy három különböző entitás dolgozik a csomagért. Az egyik a vásárló, aki a csomagot rendeli, a második a webáruház, ami a csomagot eladja, és a harmadik pedig egy futárszolgálat, ami pedig házhoz viszi a csomagot. Maga a folyamat rendkívűl egyszerű. Először is a vásárló meglátogatja a webáruházat, itt kezdődik a folyamatábra. Majd megkeresi a csomagot, amit rendelni szeretne. Ezek után jön egy elágazás, mégpedig hogy van e a keresett termék raktáron. Amennyiben nincs, úgy itt véget is ér a folyamat. Azonban ha van, akkor megrendeli. Itt történik egy interakció a vásárló és a webáruház között. A webáruház megkapja a rendelést, azt feldolgozza és előkészíti a szállításra. Ezek után két interakció is történik. Egyrészt a webáruház átadja a futárszolgálatnak a csomagot, másrészt pedig szól a vásárlónak, hogy át lett adva a csomagja a futárnak. Majd a futárszolgálat kiszállítja a csomagot a vevőnek, amit az átvesz és kifizet. Ezek után a vevő már csak használja a terméket, ezzel az ő folyamata véget ér. A futár pedig a kapott pénzt átadja a webáruháznak, és ezzel mindkettőjük folyamata véget ér. Ez nyílván egy nagyon egyszerű példa, amit lehetett volna sokkal bonyolultabb is, de a BPMN működésének a bemutatására tökéletes.
+	</para>
+	</section>
    <section>
         <title>BPEL Helló, Világ! - egy visszhang folyamat</title>
         <para>
