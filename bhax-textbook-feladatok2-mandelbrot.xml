@@ -128,11 +128,22 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot/esettan">https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot/esettan</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a Szoftverfejlesztés C++ nyelven című könyvben szereplő részletet kellett feldolgozni. Az elméleti része főképp az UML nyelvet mutatja be. Szó esik az osztálydiagrammokról, azon belül az osztály nevéről, az osztály attrubútumairól. illetve az osztály műveleteiről is. Majd pedig a láthatóságról. Ezeken kívűl megmagyarázza a különböző kapcsolatokat az objektumok között, azaz szó esik az asszociációkról, a kompozíciókról, illetve az aggregációkról, valamint ezek szerepéről és működésükről is. Végül pedig a sablonokról, illetve a kódgenerálásról és a kód visszafejtésről. Ezen belül arról, hogy pontosan mik ezek, ugye forward és reverse engineering, amikről az első két feladat szólt. Éppen ezért lehet hogy nem utolsóként kellett volna megcsinálni ezt a feladatot, hanem elsőként. Mivel nagy segítség lehetett volna a többi feladat megoldásánál, ha már ismerem ezeket a dolgokat.
         </para>
+	<para>
+	Ezek után következett maga az esettanulmány, ami egy program elkészítéséből állt. Maga a feladat egy számítógép kereskedéssel volt kapcsolatos. Eléggé összetett programról van szó, ami támogatja a termékek állományból való betöltését, képernyőre történő listázását, állományba való kiírását, és az árképzés rugalmas alakítását. És ha ez még nem lenne elég, még a lehetséges jövőbeli befektetésekre is gondolni kell, azaz a teljesen új termékcsaládok értékesítésének bevezetésére is lehetőséget kell biztosítani. Magához a feladathoz nagyon sok forrás meg volt adva, azonban így is meg kellett írni pár dolgot saját magunktól.
+	</para>
+	<para>
+	Mivel a függvények, és az osztályok pontos működése teljes mértékben le van írva a könyvön belül, ezért én arról csak nagyon röviden és tömören szeretnék írni. A product a fő szülőosztálya az egésznek. Ez egybefoglal minden létező terméket, amit a bolt kínál. Ebből van származtatva a Display, a HardDisk, illetve a CompositeProduct osztályok, A CompositeProduct esetében összetett termékekről beszélünk, aminek például egy esete a belőle származtatott ComputerConfiguration osztály. Ezek mellé jönnek a ProductFactory, és a ComputerProductFactory osztályok, amelyek az egyes termékeket hozzák létre. Ha leteszteljük az elkészült alkalmazást akkor a következő eredményt kapjuk:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/esettan.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
