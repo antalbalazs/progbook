@@ -92,5 +92,3 @@ std::ostream& operator<<(ostream& os, Product& product) {
     product.writeParamsToStream(os);
     return os;
 }
-
-
