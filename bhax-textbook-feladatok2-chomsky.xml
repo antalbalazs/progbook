@@ -238,6 +238,11 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/cube.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
