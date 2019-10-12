@@ -71,12 +71,68 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         </para>
 
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Leet.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Leet.java</link>                
         </para>
 
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a magasszintű programozási nyelvek 1 tárgyon már tárgyalt leet ciphert kellett megírni. A különbség csak annyi, hogy míg legutóbb ezt lexer segítségével kellett megcsinálni, addig most már az egészet saját magunktól kell megírni. Az én megoldásom a Leet osztállyal kezdődik:
         </para>
+	<programlisting>
+	<![CDATA[public class Leet {
+
+	public static void main(String[] args) throws Exception{
+		if(args.length != 2){
+			System.out.println("usage: inputfile outputfile");
+			System.exit(-1);
+		}
+
+		java.io.FileReader file = new java.io.FileReader(args[0]);
+		java.io.FileWriter fw = new java.io.FileWriter(args[1]);
+
+		LeetCipher lc = new LeetCipher();
+		int k = 0;
+
+		while ((k=file.read()) != -1) {
+			fw.write(lc.chiper((int)Character.toUpperCase((char)k)));
+		}
+
+		file.close();
+		fw.close();
+	}
+}]]>	</programlisting>
+
+	<para>
+	Az egész program úgy kezdődik, hogy megvizsgáljuk az argumentumok számát. Amennyiben az argumentumok száma nem kettő, úgy felvilágosítjuk a felhasználót arról, hogy hogyan kell használni a programot. Azonban ha az argumentumok száma kettő, akkor létrehozunk egy FileReadert és egy FileWritert amik a fájlok beolvasását és kiírását fogják elvégezni. Majd pedig egy while ciklusban addig olvassuk a fájlt, amíg az véget nem ér, és ki is írjuk minden egyes karakternek a leet formáját. Ezek után már csak bezárjuk a fájl beolvasót és kiírót. Ezek után következik a LeetCipher osztály:
+	</para>
+	<programlisting>
+	<![CDATA[class LeetCipher {
+	private String[] leetchars = new String[]{
+	"4","8","<","[)","3","|=","6","|-|","1","_|","|<","|","|V|","|\\|","O",
+	"|>","0.","|2","5","7","|_|","\\/","\\X/","}{","`/","2"
+	};
+
+	private String[] leetnums = new String[]{
+	"O","I","Z","E","A","S","G","T","B","g"
+	};
+
+	public String chiper(int ch) {
+		if (ch >= 65 && ch <= 90){
+			return leetchars[ch - 65];
+		}
+
+		else if (ch >= 48 && ch <= 57){
+			return leetnums[ch - 48];
+		}
+		else {
+			return String.valueOf((char)ch);
+		}
+	}
+}]]>
+	</programlisting>
+	<para>
+	Ebben az osztályban először egy String tömböt találunk, ami a karakterek leet alakjait tárolja, majd pedig egy másik String tömb, ami pedig a számoknak megfelelő leet jeleket tárolja.
+Ezek után a <function>cipher()</function> metódus, ami az átalakítást végzi. A metódus eldönti, hogy a soron következő karakter szám vagy betű e, és az annak megfelelő leet jelet adja vissza. A program működés közben pedig így néz ki:
+	</para>
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/leet.png" contentwidth="7in"/>
@@ -96,12 +152,73 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         </para>
 
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Client.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Client.java</link>               
         </para>
 
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy teljes képernyős java programot kellett írni, amihez én egy korábbi projektemet használtam fel. Mivel maga a program elég hosszú, ezért csak azokra a részekre koncentrálnék, ami a teljes képernyő kialakulásában szerepet játszik. Ez azt jelenti, hogy az <function>egyjatekos()</function> függvényre fogok koncentrálni, mivel a program többjátékos része nem használ grafikus felületet. De az egyjátékos részben már rögtön az első sor is fontos, hiszen létrehozunk egy GraphicsDrive-ot, ami segíteni fog a teljes képernyőre váltásban. Ezek után pedig létrehozunk egy KeyListener-t, ami az ESC gomb lenyomására fog fülelni, hiszen amennyiben a felhasználó lenyomja azt a billentyűt, akkor a program kilép.
         </para>
+	<programlisting>
+	<![CDATA[GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+	KeyListener listener = new KeyListener() {
+		
+		@Override
+		public void keyPressed(KeyEvent event){
+
+			if(event.getKeyCode() == KeyEvent.VK_ESCAPE)		
+				System.exit(0);
+		}
+
+		@Override
+		public void keyReleased(KeyEvent event){}
+
+		@Override
+		public void keyTyped(KeyEvent event){}
+	};]]>
+	</programlisting>
+
+	<para>
+	Ezek után létrehozunk egy JFrame-t, ami tulajdonképpen az alkalmazás ablaka, és hozzá is adjuk a frame-hez a KeyListenert, majd pedig létrehozunk pár gombot, illetve szövegmezőt is, és azokhoz is hozzárendeljük a KeyListenert. Erre azért van szükség, mivel csak akkor fog működni a KeyListener-ünk, ha hozzá van rendelve ahhoz az elemhez, ami éppen fókuszban van, és nem elég csak a Frame-hez hozzárendelni. Vagyis ha a program épp egy gombra kattintásra vár, de ahhoz a gombhoz nincs hozzárendelve a KeyListener, akkor nem fog bezárulni az alkalmazás, hiába nyomogatjuk az ESC gombot (igen ezt tapasztalatból mondom sajnos).
+	</para>
+	<programlisting>
+	<![CDATA[JFrame options = new JFrame("");
+        options.setTitle("Egyjátékos mód");
+	    options.addKeyListener(listener);
+        options.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        JTextField maxszam = new JTextField("Adja meg, hogy maximum mekkora számra lehet gondolni");
+        JTextField gondolt = new JTextField("Adja meg azt a számot amire gondolt");
+        JButton start = new JButton("Start");
+        JButton ujra = new JButton("Újra");
+        options.getContentPane().add(BorderLayout.NORTH,maxszam);
+        options.getContentPane().add(BorderLayout.CENTER,gondolt);
+        options.getContentPane().add(BorderLayout.SOUTH,start);
+        maxszam.addKeyListener(listener);
+        gondolt.addKeyListener(listener);]]>
+	</programlisting>
+	<para>
+	Majd pedig a teljes képernyőre váltás, ami úgy történik, hogy megnézzük, hogy támogatja e a számítógépünk a teljes képernyőt a <function>gd.isFullScreenSupported()</function> függvénnyel. Ha igen, akkor undercorated-re állítjuk a frame-t, ami szükséges az igazi teljes képernyőhöz, majd pedig a <function>setFullScreenWindow()</function> függvénnyel teljes képernyőre állítjuk a frame-t.
+	</para>
+	<programlisting>
+	<![CDATA[if (gd.isFullScreenSupported()) {
+		options.setUndecorated(true);
+		gd.setFullScreenWindow(options);
+	}
+	else{
+		System.err.println("Nem jó");
+		options.setSize(600, 200);
+		options.setVisible(true);
+	}]]>
+	</programlisting>
+	<para>
+	Az eredmény pedig egy teljes képernyős alkalmazás:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/fullscreen.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
