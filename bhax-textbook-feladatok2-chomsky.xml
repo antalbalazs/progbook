@@ -22,8 +22,23 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         </para>
 
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
+            Ebben a feladatban a Bátfai Norbert által megadott <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch04.html">MandelbrothalmazNagyító.java</link>
+	    forrást kellett futtatni. Ezzel csupán annyi a gond, hogy a forrás tele van ékezetes betűkkel. Éppen ezért, amikor megpróbáljuk lefordítani, akkor a képen látható hibákat kapjuk:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/mandelerror.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Mint nagyon sokszor, a fordító most is a barátunk: "Unmappable character for encoding UTF-8". Vagyis a forrás kódolásával van a gond. Vagyis ezek a karakterek nem találhatóak meg az UTF-8 kódolásban. Ez azt jelenti, hogy egy másik kódolásra kell átállítani a forrást, amit a -encoding kapcsolóvan lehet bállítani. Mostmár csak arra kellett rájönni, hogy mire kellene átállítani a kódolást. Ehhez megkerestem a <link xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html">Java által támogatott karakterkódolásokat.</link> Itt amire felkaptam a fejem, az a windows-1250 kódolás, aminek a leírása az, hogy a Windows Kelet Európai karakterkódolása, és arra gondolva, hogy vagy jó vagy nem, kipróbáltam hogy működik-e, és működött. Az eredmény pedig:
+	</para>
+
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/mandelfut.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
     <section>
@@ -62,6 +77,11 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/leet.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
