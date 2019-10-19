@@ -4,22 +4,11 @@
 #include <iomanip>
 #include <vector>
 #include <boost/filesystem.hpp>
-<<<<<<< HEAD
 using namespace std;
 
 int db=0;
 
 void read_file (boost::filesystem::path path, vector<string> folders)
-=======
- 
-using namespace boost::system;
-namespace filesys = boost::filesystem;
-#ifndef USING_BOOST
-#define USING_BOOST
-#endif
-
-std::vector<std::string> getAllFilesInDir(const std::string &dirPath, 	const std::vector<std::string> dirSkipList = { })
->>>>>>> 59d9f7d3a4b888825b5258625c84b02caf9653d7
 {
 	if(is_regular_file(path)){
 		string ext(".java");
