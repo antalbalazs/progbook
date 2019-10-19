@@ -18,11 +18,11 @@
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/boost.cpp">https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/boost.cpp</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy Boost c++ programot kellett írni, ami kilistázza a JDK osztályait.
         </para>
 	<mediaobject>
             <imageobject>
-		<imagedata fileref="pic/mandelerror.png" contentwidth="5in"/>
+		<imagedata fileref="pic/boost.png" contentwidth="7in"/>
             </imageobject>
         </mediaobject>
     </section>
@@ -45,7 +45,7 @@ szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra!
     </section>
 
    <section>
-        <title>Hibásan implementált RSA törése</title>
+        <title>Hibásan implementált RSA törése + Összefoglaló</title>
         <para>
 	Készítsünk betű gyakoriság alapú törést egy hibásan implementált RSA kódoló:
 https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_3.pdf (71-73 fólia) által
@@ -83,14 +83,9 @@ készített titkos szövegen.
         <para>
 	Az előző 4 feladat egyikéről írj egy 1 oldalas bemutató „”esszé szöveget!
         </para>
+        
         <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Hibásan implementált RSA törése
         </para>
     </section>
 
