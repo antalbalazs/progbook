@@ -62,7 +62,7 @@ void read_file (boost::filesystem::path path, vector<string> folders){
     </section>
 
    <section>
-        <title>Másoló-mozgató szemantika</title>
+        <title>Másoló-mozgató szemantika + Összefoglaló</title>
         <para>
 	Kódcsipeteken (copy és move ctor és assign) keresztül vesd össze a C++11 másoló és a mozgató
 szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra!
@@ -74,12 +74,125 @@ szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra!
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/mozgat.cpp">https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/mozgat.cpp</link>             
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban össze kellett vetni a C++11 másoló és mozgató szemantikáját. Ezt láncolt listákkal oldottam meg. Itt most a forráskódot nem a legelejétől kezdve a legvégéig haladva szeretném elemezni és bemutatni, hanem kicsit össze-vissza, de remélem érthető lesz. A legelső Láncolt Lista létrehozásánál még nem történik semmi különleges dolgot, szimplán csak alapértelmezett konstruktor (ctor) hívódik meg, ami létrehozza az üres listát. Ez úgy történik, hogy létrehozza a lista fejét egy új <emphasis>ListaElem()</emphasis>-ként, aminek jelen esetben null lesz az értéke. Mivel a Láncolt Listák úgy működnek, hogy a lista legelején a fej van, ami a lista első elemének a memóriacímét tárolja, vagyis a lista első elemére mutat. A lista minden elemére igaz, kivéve a fejet, amit az előbb megmagyaráztam, hogy két részből áll, egy érték, aminek a neve ebben az esetben adat illetve egy mutató részből, aminek pedig ebben a forráskódban kovetkezo a neve. Nyílvánvalóan az érték rész tárolja a lista aktuális elemének az értékét, a mutatórész pedig a lista következő elemének a memóriacímét (hogy mire nem jó az Adatszerkezetek és Algoritmusok óra). Valamint még a konstruktoron belül kiiratjuk a konzolra, hogy ctor, egyfajta nyomonkövetésként, és jelezve, hogy itt az alapértelmezett konstruktor működik. A forráskód során ez több helyen is előfordul.
         </para>
+	<programlisting>
+	<![CDATA[Lista(){
+   	   std::cout << "ctor" << std::endl;
+	   fej = new ListaElem();
+	}]]>
+	</programlisting>
+	<para>
+	Ennek a listának a <function>void beszur()</function> metódussal adunk értékeket. Ebben a metódusban először is a <emphasis>ListaElem* kovelem</emphasis>-nek a fejet adjuk át, mivel ennek a segítségével fogjuk meghatározni azt, hogy hova szúrjuk be az új elemet. Egy while ciklus a kovetkezo mutatókat felhasználva végig megy a listán, vagyis addig az elemig, aminek a kovetkezo mutatójának az értéke null. Aztán létrehoz egy új ListaElem-et, aminek a memóriacímét átadja a Lista jelenlegi utolsó elemének a kovetkezo mutatójának. Ezáltal a beszúrandó elem lesz a lista új utolsó eleme. Végül pedig az új elem értékének megadja a kívánt értékét, a kovetkezo mutatóját medig nullptr-re állítja.
+	</para>
+	<programlisting>
+	<![CDATA[void beszur(int ertek){
+	   ListaElem* kovElem = fej;
+	   while(kovElem->kovetkezo != NULL){
+		kovElem = kovElem->kovetkezo;
+	   }
+	   ListaElem* beszurElem = new ListaElem();
+	   kovElem->kovetkezo = beszurElem;
+	   beszurElem->adat = ertek;
+	   beszurElem->kovetkezo = nullptr;
+	}]]>
+	</programlisting>
+	<para>
+	A destruktor pedig úgy működik, hogy a lista fejéből kiindulva végig megy a listán egy while ciklussal, és a delete operátorral mindig törli az aktuális elemet. Maga delete egy olyan operátor, ami a new kifejezés által létrehozott objektumok törlésére használatos. Vagyis, a destruktorban a lista minden olyan eleme, amelyre mutat egy pointer, törlésre kerül, és felszabadul a memória. És mivel vagy a lista fejéről beszélünk, vagy pedig egy olyan elemről, amelyre egy kovetkezo pointer mutat, így a lista összes eleme törlésre kerül.
+	</para>
+	<programlisting>
+	<![CDATA[~Lista(){
+	   ListaElem* elem = fej;
+	   while(elem){
+		ListaElem* akt_elem = elem;
+		elem = elem->kovetkezo;
+		delete akt_elem;
+	   }
+	}]]>
+	</programlisting>
+	<para>
+	Van még egy, a bizonyítást, és a követhetőséget megkönnyítő függvényünk, ami a <function>kiir_memcim()</function> metódus. Ez a metódus egy while ciklust használ, ami addig megy, amíg nem találkozik egy null értékkel. Addig pedig minden egyes elemnek kiírja a memóriacímét, majd pedig átlép a lista következő elemére.
+	</para>
+	<programlisting>
+	<![CDATA[void kiir_memcim(){
+	   ListaElem* elem = fej->kovetkezo;
+	   while(elem != NULL){
+	   	std::cout << elem->adat << "\t" << elem << std::endl;
+	   	elem = elem->kovetkezo;
+	   }
+	}]]>
+	</programlisting>
+	<para>
+	A második listánk, azaz a lista2 létrehozásakor a másoló konstruktor (azaz copy ctor) hívódik meg, és a paraméterül kapott első lista értékeit mély másolással kapja meg a második lista. A másoló konstruktor egy olyan konstruktor, ami úgy hoz létre egy objektumot, hogy inicializálja egy korábban létrehozott azonos osztályú objektummal. A másoló konstruktor több dolgot is szokott csinálni. Például inicializál egy objektumot egy azonos típusú objektumból. Másolhat egy objektumot azért, hogy argumentumként továbbítsa azt egy függvénynek. És másolhat egy objektumot azért, hogy visszatérítse azt egy függvényből. Ha a másoló konstruktor nincs definiálva egy osztályban, akkor a fordító fog definiálni egyet. Ha egy osztály rendelkezik mutatókkal, és dinamikus memória-allokációkkal, akkor muszáj lennie másoló konstruktornak is. Látható, hogy ebben az esetben meghívódik a <function>masol()</function> nevű függvény, aminek a paramétere a régi lista feje lesz.
+	</para>
+	<programlisting>
+	<![CDATA[Lista(Lista& regi){
+	   std::cout << "copy ctor" << std::endl;
+	   fej = masol(regi.fej);
+	}]]>
+	</programlisting>
+	<para>
+	A <function>masol()</function> metódus létrehoz egy új üres listaelemet ujElem néven, majd pedig, ha a paraméterként kapott ListaElem mutató értéke nem null, akkor az új elemnek lefoglaljuk a memóriát, és az adatértékének pedig megadjuk a paraméterként kapott elem adatértékét. Aztán ha a paraméterként kapott elemnek van rákövetkezője, akkor meghívjuk rekurzívan a <function>masol()</function> függvényt, aminek ezúttal az eredetileg paraméterként kapott elem rákövetkezője lesz a paramétere. Ha pedig a paraméterként kapott elemnek nincs rákövetkezője, akkor az új elem kovetkezo mutatóját nullpt-re állítjuk. Végül pedig visszaadja a metódus az új elemet.
+	</para>
+	<programlisting>
+	<![CDATA[ListaElem* masol(ListaElem* elem){
+	   ListaElem* ujElem;
+	   if(elem != NULL){
+		ujElem = new ListaElem();
+		ujElem->adat = elem->adat;
+		if(elem->kovetkezo != NULL){
+		   ujElem->kovetkezo=masol(elem->kovetkezo);
+		}
+		else{
+		   ujElem->kovetkezo = nullptr;
+		}		
+	   }
+		return ujElem;	
+	}]]>
+	</programlisting>
+	<para>
+	A lista3 létrehozásánál ismét az alapértelmezett konstruktor, azaz ctor kerül meghívásra, vagyis létrejön egy üres listafej. Ezek után azonban itt a lista3=lista; utasítással már másoló értékadás, azaz copy assign történik. A másoló értékadásnál a cél, azaz a bal oldal, és a forrás, azaz a jobb oldal azonos osztály típusú. Itt is igaz az, hogy ha mi nem definiáltunk, akkor a fordító fog létrehozni egyet. Az alapértelmezettnél egy tagonkénti másolás történik, ahol minden tagot a saját másoló operátora másolja. Abban különbözik a másoló konstruktortól, hogy mielőtt megtörténne a másolás, az előtt törölnie kell a pointerünk által mutatott objektumot.
+	</para>
+	<programlisting>
+	<![CDATA[Lista& operator=(const Lista& regi){
+	   std::cout << "copy assign" << std::endl;
+	   fej = masol(regi.fej);
+	   return *this;
+	}]]>
+	</programlisting>
+	<para>
+	A negyedik listát (lista4) úgy hozzuk létre, hogy lista lista4 = std::move(lista3);. Ebben az esetben a mozgató konstruktor, azaz move ctor hívódik meg, mivel az std::move() jobbértékké alakítja a lista3-at. Maga a mozgató konstruktor a C++11-től létezik, és a másoló konstruktorral ellentétben nem az a dolga, hogy hogy egy objektum tartalmát átmásolja egy másikba. Akkor használunk mozgató konstruktort, amikor azt akarjuk, hogy az új objektum tulajdonképpen annyi erőforrást "lopjon" el az eredeti objektumtól, amennyit csak tud, minél gyorsabban, mivel az eredetinek már nincs jelentősége, mert úgy is törlésre kerül. A mi esetünkben az új lista fejének a <function>std::move()</function> függvénnyel átadjuk a régi lista fejét, majd pedig a régi lista fejét nullptr-re állítjuk.
+	</para>
+	<programlisting>
+	<![CDATA[Lista(Lista&& regi){
+	   std::cout << "move ctor" << std::endl;
+	   fej = std::move(regi.fej);
+	   regi.fej = nullptr;
+	}]]>
+	</programlisting>
+	<para>
+	Az ötödik, és egyben utolsó listánknál, azaz lista5-nél pedig először szintén az alapértelmezett konstruktor hívódik meg, majd pedig az <function>std::move()</function> függvény jobbértékűvé alakítja lista4-et, és az értékeit pedig mozgató értékadással kapja meg lista5
+	</para>
+	<programlisting>
+	<![CDATA[Lista& operator=(Lista&& regi){
+	   std::cout << "move assign" << std::endl;
+	   fej = regi.fej;
+	   regi.fej = nullptr;
+	   return *this;
+	}]]>
+	</programlisting>
+	<para>
+	A program futásáról készült képen pedig jól látható, hogy a mozgató konstruktorral, és mozgató értékadással létrejött listák esetén a lista új memóriablokkba került, míg a mozgató konstruktorral és mozgató értékadással létrejött listák pedig ugyan abban a memóriablokkban lettek eltárolva, mint elődjeik.
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/mozgat.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
-        <title>Hibásan implementált RSA törése + Összefoglaló</title>
+        <title>Hibásan implementált RSA törése</title>
         <para>
 	Készítsünk betű gyakoriság alapú törést egy hibásan implementált RSA kódoló:
 https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_3.pdf (71-73 fólia) által
@@ -119,8 +232,9 @@ készített titkos szövegen.
         </para>
         
         <para>
-            Hibásan implementált RSA törése
+            Másoló-mozgató szemantika
         </para>
     </section>
 
 </chapter>
+
