@@ -150,7 +150,9 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         <para>
             Megoldás videó:
         </para>
-
+	<para>
+	Tutorált: <link xlink:href="https://gitlab.com/Hurip/bhax/tree/master/thematic_tutorials/bhax_textbook">Huri Patrik</link> 
+	</para>
         <para>
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Client.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/Client.java</link>               
         </para>

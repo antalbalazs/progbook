@@ -20,6 +20,11 @@
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/mandelerror.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
