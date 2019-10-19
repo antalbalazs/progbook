@@ -18,11 +18,45 @@
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/boost.cpp">https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/boost.cpp</link>                
         </para>
         <para>
-            Ebben a feladatban egy Boost c++ programot kellett írni, ami kilistázza a JDK osztályait.
+            Ebben a feladatban egy Boost c++ programot kellett írni, ami kilistázza a JDK osztályait. Lássuk is, hogy hogyan történik ez. A program elején létrehozunk egy db (darab) nevű változót, amivel a .java végződésű fájlok mennyéségét fogjuk nyílván tartani. Ez után jön a <function>read_file()</function> nevű függvény, de én előbb a main-ről szeretnék beszélni:
         </para>
+	<programlisting>
+	<![CDATA[int main( int argc, char *argv[]){
+	string path="java";
+	vector<string> folders;
+	read_file(path, folders);
+	cout << "A JDK osztályainak a száma: " << db << "\n";
+}]]>
+	</programlisting>
+	<para>
+	A main-ben a path változó tárolja a gyökérmappa nevét, amiből kiindulva számoljuk, illetve listázzuk a nekünk kellő fájlokat. Ez után jön egy vektor, amiben a mappák neveit fogja tárolni a program. Majd meg is hívja a program a <function>read_file()</function> függvényt, aminek az egyik argumentuma a path változó, a másik pedig a folders lista lesz. Majd ha a függvény elvégezte a dolgát, akkor egy szimpla cout-tal kiíratjuk a JDK osztályainak a darabszámát. Maga a <function>read_file()</function> függvény pedig a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[int db = 0;
+void read_file (boost::filesystem::path path, vector<string> folders){
+	if(is_regular_file(path)){
+		string ext(".java");
+		if(!ext.compare(boost::filesystem::extension (path))) {
+			string file=path.string();
+			size_t end = file.find_last_of("/");
+			string folder = file.substr(0,end);
+
+ 			folders.push_back(folder);
+			cout << file << "\n";
+			db++;
+		}
+ 	}
+	else if(is_directory(path))
+ 		for( boost::filesystem::directory_entry & entry : boost::filesystem::directory_iterator (path))
+			 read_file(entry.path(), folders);
+}]]>
+	</programlisting>
+	<para>
+	Először is megvizsgálja a program, hogy az aktuális path az mappa vagy fájl e. Ha mappa, akkor egy for ciklussal a mappán belüli összes fájlra meghívja saját magát rekurzívan. Ha viszont az aktuális path egy fájlt tartalmaz, akkor megnézzük, hogy .java-ra végződik e a fájl neve. Ha nem, akkor nem csinálunk vele semmit, de ha igen, akkor a file nevű változó értékének adjuk a fájl nevét, aztán létrehozunk egy end változót, ami annak a mappának az elérési útjának a hosszát fogja tartalmazni, amiben a fájl van. Majd pedig egy folder változó értéke lesz annak a mappának az elérési útja, amit a <function>substr()</function> függvénnyel oldunk meg. Ezek után a mappa elérési útját beletesszük a folders vektorba, kiíratjuk a fájl pontos elérési útját, és megnöveljük eggyel a db számlálót. A program működés közben pedig a következőképpen néz ki:
+	</para>
 	<mediaobject>
             <imageobject>
-		<imagedata fileref="pic/boost.png" contentwidth="7in"/>
+		<imagedata fileref="pic/boost.png" contentwidth="5in"/>
             </imageobject>
         </mediaobject>
     </section>
@@ -37,7 +71,7 @@ szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra!
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/mozgat.cpp">https://github.com/raczandras/progbook/tree/master/src/prog2/Stroustrup/mozgat.cpp</link>             
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
