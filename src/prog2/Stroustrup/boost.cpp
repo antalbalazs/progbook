@@ -8,18 +8,7 @@ namespace filesys = boost::filesystem;
 #ifndef USING_BOOST
 #define USING_BOOST
 #endif
- 
-/*
- * Get the list of all files in given directory and its sub directories.
- *
- * Arguments
- * 	dirPath : Path of directory to be traversed
- * 	dirSkipList : List of folder names to be skipped
- *
- * Returns:
- * 	vector containing paths of all the files in given directory and its sub directories
- *
- */
+
 std::vector<std::string> getAllFilesInDir(const std::string &dirPath, 	const std::vector<std::string> dirSkipList = { })
 {
  
