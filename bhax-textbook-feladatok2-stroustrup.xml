@@ -207,6 +207,16 @@ készített titkos szövegen.
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/encoded.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/decoded.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
