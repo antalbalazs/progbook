@@ -32,11 +32,75 @@ CustomAlloc-os példa, lásd C forrást az UDPROG repóban!
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/G%C3%B6del/CustomAlloc.cpp">https://github.com/raczandras/progbook/blob/master/src/prog2/G%C3%B6del/CustomAlloc.cpp</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            C++ nyelvben az allokátoroknak elég sokatmondó neve van, mivel pontosan az a feladatuk, hogy memóriát allokálljanak az adatszerkezeteknek. Erre van egy beépített <emphasis>std::allocator</emphasis> allokátor, de írhatunk sajátot is. Ez a program pont egy saját allokátor működését mutatja be, de lássuk is, hogy hogyan. Kezdjük a CustomAlloc osztállyal, ami az allokálást végzi, illetve minden alkalommal amikor memóriát foglal, valamint tájékoztatja a felhasználót arról, hogy hány darab objektumnak, milyen méretű memóriát allokál, valamint arról is tájékoztat, hogy milyen típusú változónak allokálja az adott memóriát. Azt, hogy az allokátor több különböző fajta típussal is tud dolgozni, a <programlisting><![CDATA[template<typename T>]]></programlisting>-nek köszönhetjük.
         </para>
+	<programlisting>
+	<![CDATA[#include <iostream>
+#include <cxxabi.h>
+#include <vector>
+
+template<typename T>
+struct CustomAlloc
+{
+    using size_type         = size_t;
+    using value_type        = T;
+    using pointer           = T*;
+    using const_pointer     = const T*;
+    using reference         = T&;
+    using const_reference   = const T&;
+    using difference_type   = ptrdiff_t;
+
+    CustomAlloc() {}
+    CustomAlloc ( const CustomAlloc &) {}
+    ~CustomAlloc() {}
+
+    pointer allocate(size_type n) {
+        int s;
+        char *p = abi::__cxa_demangle(typeid(T).name(), 0, 0, &s);
+        std::cout << "Allocating "
+                  << n << " object(s) of "
+                  << n * sizeof(T)
+                  << " bytes. "
+                  << typeid(T).name() << "=" << p
+                  << std::endl;
+        free(p);
+        return reinterpret_cast<T*> (new char[n*sizeof(T)]);
+    }
+
+    void deallocate(pointer p, size_type n) {
+        delete[] reinterpret_cast<char *> (p);
+    }
+
+};]]>
+	</programlisting>
+	<para>
+	Ezek után jön a main, amiben a CustomAllokátorunk segítségével helyet foglalunk először is egy intnek, aminek a 3 értéket adjuk, majd pedig egy long-ot, aminek a 3213125211 értéket adjuk, és végül pedig egy Stringet, aminek pedig az "a" értéket adjuk. Ez az alábbi futás közbeni képen is jól látszik. Köszönhetően a nyomonkövetkésnek a program a tudtunkra adja, hogy először is allokált egy 4 bájt méretű int típusú objektumnak helyet, majd pedig egy 8 bájt méretű long objektumnak, végül pedig egy 32 bájt méretű String objektumnak is.
+	</para>
+	<programlisting>
+	<![CDATA[int main(int argc, char *argv[])
+{
+    std::vector<int, CustomAlloc<int>> ints;
+    ints.push_back(3);
+
+    std::vector<long, CustomAlloc<long>> longs;
+    longs.push_back(3213125211);
+
+    std::vector<std::string, CustomAlloc<std::string>> strings;
+    strings.push_back("a");
+    return 0;
+}]]>
+	</programlisting>
+	<para>
+	A kép amiről fentebb beszéltem:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/custom.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
   <section>
