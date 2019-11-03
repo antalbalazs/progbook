@@ -246,6 +246,16 @@ Interface Comparable<programlisting><![CDATA[<T>]]></programlisting> szerepét!
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/wiki.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/csapat.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
