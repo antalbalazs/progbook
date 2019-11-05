@@ -36,6 +36,7 @@ struct CustomAlloc
     }
 
     void deallocate(pointer p, size_type n) {
+		std::cout << "Deallocate " << n*sizeof(T)<< " bytes." << std::endl;
         delete[] reinterpret_cast<char *> (p);
     }
 

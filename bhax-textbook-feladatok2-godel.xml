@@ -35,7 +35,7 @@ CustomAlloc-os példa, lásd C forrást az UDPROG repóban!
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/G%C3%B6del/CustomAlloc.cpp">https://github.com/raczandras/progbook/blob/master/src/prog2/G%C3%B6del/CustomAlloc.cpp</link>                
         </para>
         <para>
-            C++ nyelvben az allokátoroknak elég sokatmondó neve van, mivel pontosan az a feladatuk, hogy memóriát allokálljanak az adatszerkezeteknek. Erre van egy beépített <emphasis>std::allocator</emphasis> allokátor, de írhatunk sajátot is. Ez a program pont egy saját allokátor működését mutatja be, de lássuk is, hogy hogyan. Kezdjük a CustomAlloc osztállyal, ami az allokálást végzi, illetve minden alkalommal amikor memóriát foglal, valamint tájékoztatja a felhasználót arról, hogy hány darab objektumnak, milyen méretű memóriát allokál, valamint arról is tájékoztat, hogy milyen típusú változónak allokálja az adott memóriát. Azt, hogy az allokátor több különböző fajta típussal is tud dolgozni, a <programlisting><![CDATA[template<typename T>]]></programlisting>-nek köszönhetjük.
+            C++ nyelvben az allokátoroknak elég sokatmondó neve van, mivel pontosan az a feladatuk, hogy memóriát allokálljanak az adatszerkezeteknek. Erre van egy beépített <emphasis>std::allocator</emphasis> allokátor, de írhatunk sajátot is. Ez a program pont egy saját allokátor működését mutatja be, de lássuk is, hogy hogyan. Kezdjük a CustomAlloc osztállyal, ami az allokálást végzi, illetve minden alkalommal amikor memóriát foglal, valamint tájékoztatja a felhasználót arról, hogy hány darab objektumnak, milyen méretű memóriát allokál, valamint arról is tájékoztat, hogy milyen típusú változónak allokálja az adott memóriát. Azt, hogy az allokátor több különböző fajta típussal is tud dolgozni, a <programlisting><![CDATA[template<typename T>]]></programlisting>-nek köszönhetjük. A deallocate metódus pedig felszabadítja a lefoglalt helyet.
         </para>
 	<programlisting>
 	<![CDATA[#include <iostream>
@@ -71,13 +71,14 @@ struct CustomAlloc
     }
 
     void deallocate(pointer p, size_type n) {
+	std::cout << "Deallocate " << n*sizeof(T)<< " bytes." << std::endl;
         delete[] reinterpret_cast<char *> (p);
     }
 
 };]]>
 	</programlisting>
 	<para>
-	Ezek után jön a main, amiben a CustomAllokátorunk segítségével helyet foglalunk először is egy intnek, aminek a 3 értéket adjuk, majd pedig egy long-ot, aminek a 3213125211 értéket adjuk, és végül pedig egy Stringet, aminek pedig az "a" értéket adjuk. Ez az alábbi futás közbeni képen is jól látszik. Köszönhetően a nyomonkövetkésnek a program a tudtunkra adja, hogy először is allokált egy 4 bájt méretű int típusú objektumnak helyet, majd pedig egy 8 bájt méretű long objektumnak, végül pedig egy 32 bájt méretű String objektumnak is.
+	Ezek után jön a main, amiben a CustomAllokátorunk segítségével helyet foglalunk először is egy intnek, aminek a 3 értéket adjuk, majd pedig egy long-ot, aminek a 3213125211 értéket adjuk, és végül pedig egy Stringet, aminek pedig az "a" értéket adjuk. Ez az alábbi futás közbeni képen is jól látszik. Köszönhetően a nyomonkövetkésnek a program a tudtunkra adja, hogy először is allokált egy 4 bájt méretű int típusú objektumnak helyet, majd pedig egy 8 bájt méretű long objektumnak, végül pedig egy 32 bájt méretű String objektumnak is. Majd pedig a deallokált először 32, majd 8, végül pedig 4 bájtot.
 	</para>
 	<programlisting>
 	<![CDATA[int main(int argc, char *argv[])
