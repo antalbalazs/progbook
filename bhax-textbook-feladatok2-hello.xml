@@ -98,6 +98,63 @@ Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
 		<imagedata fileref="pic/uj4.png" contentwidth="7in"/>
             </imageobject>
         </mediaobject>
+	<para>
+	Egy másik hiba az az, hogy ha létrehozunk egy új altevékenységet, akkor amíg át nem nevezzük azt, addig nem tudunk
+		létrehozni mégegyet, mivel az új altevékenység név már létezik. Erről a program csak annyi tájékoztatást ad a felhasználónak,
+		hogy nem sikerült létrehozni a tevékenységet, ahogy az a képen is látható:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/create1.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+		Ezt is viszonylag könnyű javítani. A <emphasis>TextFieldTreeCell</emphasis> osztályon belül létre kellett hozni egy
+		számlálót, aminek jelen esetben az i nevet adtam, majd pedig amikor meghatározza a program a fájl nevét, akkor a végére még
+		hozzáfűzzük i-t. Ezek után egy while cikluson belül ellenőrizzük, hogy sikerült e létrehozni az altevékenységet, azaz a mappát.
+		Ha sikerült akkor megszakítjuk a ciklust és haladunk tovább, ha viszon nem, akkor növeljük i értéket 1-el és újrapróbáljuk.
+		Maga a kódcsipet a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[public TextFieldTreeCell(javafx.scene.control.TextArea propsEdit) {
+            this.propsEdit = propsEdit;
+            javafx.scene.control.MenuItem subaMenuItem = new javafx.scene.control.MenuItem("Új altevékenység");//"New subactivity");
+            addMenu.getItems().add(subaMenuItem);
+            subaMenuItem.setOnAction((javafx.event.ActionEvent evt) -> {
+                java.io.File file = getTreeItem().getValue();
+
+                boolean sikerulte = false;
+                java.io.File f;
+
+                int i = 1;
+                while(true){
+                f = new java.io.File(file.getPath() + System.getProperty("file.separator") + "Új altevékenység"+ i);
+
+                if (f.mkdir()) {
+                    javafx.scene.control.TreeItem<java.io.File> newAct
+ //                           = new javafx.scene.control.TreeItem<java.io.File>(f, new javafx.scene.image.ImageView(actIcon));
+                           = new FileTreeItem(f, new javafx.scene.image.ImageView(actIcon));                            
+                    getTreeItem().getChildren().add(newAct);
+                    sikerulte = true;
+                    break;
+                } else {
+                    i++;
+                }
+            }
+
+            if(!sikerulte){
+                System.err.println("Cannot create " + f.getPath());
+            }
+            });]]>	
+	</programlisting>
+	    <para>
+		Valamint kép a működésről:
+	    </para>
+	    <mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/create2.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
