@@ -20,8 +20,84 @@ Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy meglévő programban kellett hibát keresni, és azt kijavítani. Először is elmondanám azt, hogy ha egy
+		tevékenységre jobb egérgombbal rákattintunk, akkor létre tudunk hozni egy új altevékenységet. Ha pedig erre a tevékenységre 
+		kétszer rákattintunk, akkor át tudjuk nevezni az adott tevékenységet. Én egy olyan hibát találtam, hogy 
+		ha létrehozunk egy Új altevékenységet, azzal még nincs semmi gond, mivel minden probléma nélkül létrehozza a program. 
+		Azonban ha azt a tevékenységet átnevezzük, akkor a program nem átnevezi a tevékenységet, hanem létrehoz egy másik
+		altevékenységet ugyan azzal a névvel. Ezt láthatjuk az első két fényképen:
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/uj1.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	    
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/uj2.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Érzékelhető, hogy ha kellően sok új altevékenységet hoznánk létre és neveznénk át,
+		akkor a végeredmény egy átláthatatlan mappahalom lenne, aminek senki se örül. A hiba javítása elég egyszerű volt.
+		Először is ki kell keresni, hogy hol történik a forráskódban maga az átnevezés. Ez a TextFieldTreeCell osztályon belül
+		az <function>editCell()</function> metóduson belül történik, ami a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[private void editCell() {
+
+            if (getItem() == null) {
+                return;
+            }
+
+            String oldText = getItem().toString();
+            textField.setText(oldText);
+            
+            textField.setOnKeyReleased((javafx.scene.input.KeyEvent t) -> {
+                if (t.getCode() == javafx.scene.input.KeyCode.ENTER) {
+
+                    String newText = textField.getText();
+
+                    java.io.File newf = new java.io.File(newText);
+                    java.io.File oldf = new java.io.File(oldText);
+                    try {
+                        if (oldf.isDirectory()) {
+                            //newf.mkdir();
+                            oldf.renameTo(newf);
+                        } else {
+                            newf.createNewFile();
+                        }
+                    } catch (java.io.IOException e) {
+
+                        System.err.println(e.getMessage());
+
+                    }
+
+                    commitEdit(newf);
+                } 
+                
+            });
+
+        }]]>	    
+	</programlisting>
+	<para>
+		Itt a <emphasis>newf.mkdir();</emphasis> parancsot kellett átírni arra hogy <emphasis>oldf.renameTo(newf)</emphasis>
+		Ez ténylegesen annyit jelent, hogy egy új mappa létrehozása helyett a régi mappát nevezze át az újra. Ezek után már 
+		normálisan működik az átnevezés, ami a képeken is látható:
+	</para>
+	    
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/uj3.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	    
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/uj4.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
