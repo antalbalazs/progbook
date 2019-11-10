@@ -360,12 +360,103 @@ void SamuCam::openVideoStream()
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/hello/BrainB">https://github.com/raczandras/progbook/tree/master/src/prog2/hello/BrainB</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a Qt slot-signal mechanizmust kellett bemutatni a megadott forráskódban. Ahhoz, hogy ezt be tudjuk mutatni, először azt kellene megtudni, hogy mi is az. Erre a Qt dokumentációja nagyon jó választ ad, mi szerint a slot-signal mechanizmus az objektumok közötti kommunikációra szolgálnak. Ez a Qt egyik központi jellemzője. Egy adott esemény bekövetkezésekor egy jel (signal) bocsájtódik ki. A slot pedig egy funkció, amely egy jelre adott válaszként hívódik meg. Egy jelhez több slot is tartozhat, és egy slot több jelre is lehet válasz. Ezt a <function>connect()</function> függvénnyel lehet létrehozni aminek a szintaktikája a következőképpen néz ki: <function>connect(obj1, signal, obj2, slot)</function>. Ezek alapján már tudjuk, hogy ilyen <function>connect()</function> függvényeket kell keresnünk a forrásokban. Valamennyi keresés után a BrainBWin.cpp fájlban, azon belül pedig a konstruktorban fogunk találni két ilyet, amelyek a következőképpen néznek ki:
         </para>
+	<programlisting>
+	<![CDATA[connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+                  this, SLOT ( updateHeroes ( QImage, int, int ) ) );
+
+        connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
+                  this, SLOT ( endAndStats ( int ) ) );]]>
+	</programlisting>
+	<para>
+	Ahhoz, hogy ezeket megmagyarázzam, néhány szó a játékról. Az a lényege, hogy négyzetek vannak egy képernyőn, bennük pedig körök. A játék lényege pedig, hogy a bal egérgombot nyomva tartva a Samu Entropy-n tartsuk az egerünket. Minél jobbak vagyunk, annál több entropy, azaz hős lesz a képernyőn. Egy kép a játékról:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/brainb.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	És akkor így már elmondható, hogy mi történik a két előfordulásnál. Az elsőnél, minden esetben, amikor a hősök, azaz Entropy-k helyzete, pozíciója megváltozik, azaz lefut a <function>heroesChanged()</function> metódus, akkor a BrainBThread fog kibocsájtani egy jelet, amit a BrainBWin fog megkapni, és ő pedig frissíteni fogja a hősök helyzetét, azaz le fog futni nála az <function>updateHeroes()</function> metódus. A második előfordulásnál pedig, amikor véger ér a játék valami oknál fogva, azaz lefut az <function>endAndStats()</function> metódus, akkor a brainBThread kibocsájt egy jelet, amit a BrainBWin fog észlelni, és nála is le fog futni a saját <function>endAndStats</function> metódusa. Még érdekes lehet a signal elküldése, amiket a következő függvényekben találhatunk meg:
+	</para>
+	<programlisting>
+	<![CDATA[void draw () {
+
+        cv::Mat src ( h+3*heroRectSize, w+3*heroRectSize, CV_8UC3, cBg );
+
+        for ( Hero & hero : heroes ) {
+
+            cv::Point x ( hero.x-heroRectSize+dispShift, hero.y-heroRectSize+dispShift );
+            cv::Point y ( hero.x+heroRectSize+dispShift, hero.y+heroRectSize+dispShift );
+
+            cv::rectangle ( src, x, y, cBorderAndText );
+
+            cv::putText ( src, hero.name, x, cv::FONT_HERSHEY_SIMPLEX, .35, cBorderAndText, 1 );
+
+            cv::Point xc ( hero.x+dispShift , hero.y+dispShift );
+
+            cv::circle ( src, xc, 11, cCenter, CV_FILLED, 8, 0 );
+
+            cv::Mat box = src ( cv::Rect ( x, y ) );
+
+            cv::Mat cbox ( 2*heroRectSize, 2*heroRectSize, CV_8UC3, cBoxes );
+            box = cbox*.3 + box*.7;
+        }
+
+        cv::Mat comp;
+
+        cv::Point focusx ( heroes[0].x- ( 3*heroRectSize ) /2+dispShift, heroes[0].y- ( 3*heroRectSize ) /2+dispShift );
+        cv::Point focusy ( heroes[0].x+ ( 3*heroRectSize ) /2+dispShift, heroes[0].y+ ( 3*heroRectSize ) /2+dispShift );
+        cv::Mat focus = src ( cv::Rect ( focusx, focusy ) );
+
+        cv::compare ( prev, focus, comp, cv::CMP_NE );
+
+        cv::Mat aRgb;
+        cv::extractChannel ( comp, aRgb, 0 );
+
+        bps = cv::countNonZero ( aRgb ) * 10;
+
+        //qDebug()  << bps << " bits/sec";
+
+        prev = focus;
+
+        QImage dest ( src.data, src.cols, src.rows, src.step, QImage::Format_RGB888 );
+        dest=dest.rgbSwapped();
+        dest.bits();
+
+        emit heroesChanged ( dest, heroes[0].x, heroes[0].y );
+    }]]>
+	</programlisting>
+	<para>
+	Valamint:
+	</para>
+	<programlisting>
+	<![CDATA[void BrainBThread::run()
+{
+        while ( time < endTime ) {
+
+                QThread::msleep ( delay );
+
+                if ( !paused ) {
+
+                        ++time;
+
+                        devel();
+                }
+                draw();
+        }
+       emit endAndStats ( endTime );
+}]]>
+	</programlisting>
+	<para>
+	Mind a két esetben az emit utasítás fog lefutni, ami kibocsájtja a jelet, amit a BrainBWin fog megkapni.
+	</para>
     </section>
+	
 
    <section>
         <title>OSM térképre rajzolása</title>
