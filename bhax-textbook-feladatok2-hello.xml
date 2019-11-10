@@ -243,9 +243,107 @@ https://github.com/nbatfai/SamuCam
   SamuLife samulife ( videoStream, 176, 144 );]]>
 	</programlisting>
 	<para>
-	Itt az történik, hogy a felhasználó által megadott ip címet felhasználja ahhoz, hogy elkezdődhessen a videózás.
+	Itt az történik, hogy a felhasználó által megadott ip címet felhasználja ahhoz, hogy elkezdődhessen a videózás. Ezek után nézzük a SamuCam.cpp-t, az első részlete a példányosítás, ami a következőképpen néz ki:
 	</para>
+	<programlisting>
+	<![CDATA[SamuCam::SamuCam ( std::string videoStream, int width = 176, int height = 144 )
+  : videoStream ( videoStream ), width ( width ), height ( height )
+{
+  openVideoStream();
+}
+
+SamuCam::~SamuCam ()
+{
+}
+
+void SamuCam::openVideoStream()
+{
+  videoCapture.open ( videoStream );
+
+  videoCapture.set ( CV_CAP_PROP_FRAME_WIDTH, width );
+  videoCapture.set ( CV_CAP_PROP_FRAME_HEIGHT, height );
+  videoCapture.set ( CV_CAP_PROP_FPS, 10 );
+}]]>
+	</programlisting>
+	<para>
+	A <function>videocapture.open(VideoStream)</function> utasítás megnyitja a VideoStream által eltárolt ip-n keresztül folyó streamet, majd pedig az azt követő három utasítás beállítja a stream szélességét, illetve magasságát, amiknek az értékeit korábban állítottuk be 176-ra illetve 144-re, valamint beállítja a stream fps-ét is 10-re. Ezek után jön a <function>void SamuCam::run()</function> metódus, ami steam működését irányítja, és a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[void SamuCam::run()
+{
+  cv::CascadeClassifier faceClassifier;
+
+  std::string faceXML = "lbpcascade_frontalface.xml"; // https://github.com/Itseez/opencv/tree/master/data/lbpcascades
+
+  if ( !faceClassifier.load ( faceXML ) )
+    {
+      qDebug() << "error: cannot found" << faceXML.c_str();
+      return;
+    }
+
+  cv::Mat frame;
+
+  while ( videoCapture.isOpened() )
+    {
+
+      QThread::msleep ( 50 );
+      while ( videoCapture.read ( frame ) )
+        {
+
+          if ( !frame.empty() )
+            {
+
+              cv::resize ( frame, frame, cv::Size ( 176, 144 ), 0, 0, cv::INTER_CUBIC );
+
+              std::vector<cv::Rect> faces;
+              cv::Mat grayFrame;
+
+              cv::cvtColor ( frame, grayFrame, cv::COLOR_BGR2GRAY );
+              cv::equalizeHist ( grayFrame, grayFrame );
+
+              faceClassifier.detectMultiScale ( grayFrame, faces, 1.1, 3, 0, cv::Size ( 60, 60 ) );
+
+              if ( faces.size() > 0 )
+                {
+                  cv::Mat onlyFace = frame ( faces[0] ).clone();
+
+                  QImage* face = new QImage ( onlyFace.data,
+                                              onlyFace.cols,
+                                              onlyFace.rows,
+                                              onlyFace.step,
+                                              QImage::Format_RGB888 );
+
+                  cv::Point x ( faces[0].x-1, faces[0].y-1 );
+                  cv::Point y ( faces[0].x + faces[0].width+2, faces[0].y + faces[0].height+2 );
+                  cv::rectangle ( frame, x, y, cv::Scalar ( 240, 230, 200 ) );
+
+                  emit  faceChanged ( face );
+                }
+
+              QImage*  webcam = new QImage ( frame.data,
+                                             frame.cols,
+                                             frame.rows,
+                                             frame.step,
+                                             QImage::Format_RGB888 );
+
+              emit  webcamChanged ( webcam );
+            }
+
+          QThread::msleep ( 80 );
+
+        }
+      if ( ! videoCapture.isOpened() )
+        {
+          openVideoStream();
+        }
+    }
+}]]>
+	</programlisting>
 	
+	<para>
+	Itt először is betölt a program egy CascadeCassifier-t, amely az arcról készült képeket fogja elemezni. Majd pedig jön két while ciklus, ami a frameket fogja olvasni. A külső while ciklus addig fog menni, amíg megy a stream, a belső pedig addig, amíg jönnek a framek. Ezek után ha az adott fram nem üres, akkor az adott képkockát átméretezzük 176x144-es méretre. Minden egyes képet eltárol a program a Mat tömbbe, valamint szürkés árnyalatúra állítja az összes eltárolt képkockát. Ezek után a <function>detectMultiScale()</function> fogja megkeresni az arcokat a képkockákon. Minden egyes megtalált arc egy téglalapként kerül eltárolásra egy listában. Majd pedig végül az arcokból egy QImage fog készülni. Maga a program pedig működés közben a következőképpen néz ki:
+	</para>
+
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/samu.png" contentwidth="7in"/>
