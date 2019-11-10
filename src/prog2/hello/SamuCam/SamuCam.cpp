@@ -63,8 +63,8 @@ SamuCam::~SamuCam ()
 
 void SamuCam::openVideoStream()
 {
-  //videoCapture.open ( videoStream );
-  videoCapture.open ( 0 );
+  videoCapture.open ( videoStream );
+  //videoCapture.open ( 0 );
 
   videoCapture.set ( CV_CAP_PROP_FRAME_WIDTH, width );
   videoCapture.set ( CV_CAP_PROP_FRAME_HEIGHT, height );
