@@ -167,13 +167,62 @@ emulator/blob/master/justine/rcemu/src/carlexer.ll
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll">https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a megadott forrásban meg kell magyarázni azt, hogy mi a szerepe az <function>sscanf()</function>-nek. Ebben a forráskóban összesen 10-szer fordul elő az <function>sscanf()</function>. Ebből most megmutatnék egy párat:
         </para>
-    </section>
+	<programlisting>
+	<![CDATA[{POS}{WS}{INT}{WS}{INT}{WS}{INT}	{
+					  std::sscanf(yytext, "<pos %d %u %u", &m_id, &from, &to);
+					  m_cmd = 10001;
+					}
+{CAR}{WS}{INT}				{
+					  std::sscanf(yytext, "<car %d", &m_id);
+					  m_cmd = 1001;
+					}
+{STAT}{WS}{INT}				{
+					  std::sscanf(yytext, "<stat %d", &m_id);
+					  m_cmd = 1003;
+					}
+{GANGSTERS}{WS}{INT}			{
+					  std::sscanf(yytext, "<gangsters %d", &m_id);
+					  m_cmd = 1002;
+					}]]>
+	</programlisting>
+	<para>
+	Ezekről lenne tehát szó. Ahhoz viszont, hogy megértsük, hogy itt mi a feladatuk, először is azt kéne tudnunk, hogy mit is csinál a <function>sscanf()</function>. Az <function>sscanf()</function> egy fájlkezelő függvény, amelyet arra szoktak használni, hogy  a standard input, vagy billentyűzet helyett formázott inputot olvassanak egy Stringből, vagy bufferből. A deklarálása a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[int sscanf( const char* buffer, const char* format, ... );]]>
+	</programlisting>
 
+	<para>
+	Ahol a buffer tartalmazza az olvasandó adatot, a format pedig a beolvasandó adat formája.
+	A formák jelölései mellesleg a következőek lehetnek: %c - karakter | %s - String | %d - decimális szám | %i - integer | %u - unsigned decimális szám | %o - oktális integer | %x - hexadecimális integer | %a %e %f %g - lebegőpontos szám | %n - az eddig olvasott karakterek számát adja vissza.
+	</para>
+
+	<para>
+Ezek alapján nézzük meg a forráskódban található legelső <function>sscanf()</function>-et, ami a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[std::sscanf(yytext, "<pos %d %u %u", &m_id, &from, &to);]]>
+	</programlisting>
+	<para>
+	Akkor az előbbiek alapján ez a függvény a <emphasis>yytext</emphasis> bufferből kellene hogy beolvassa az adatokat, amiknek a formája úgy néz ki, hogy először egy <![CDATA["<pos"]]> szöveg van benne, majd egy %d ami egy decimális számot jelöl, valamit két darab %u, amik egy-egy unsigned int-et jelölnek. A decimális szám értékét az m_id változónak, az első unsigned int értékét a from változónak, a második unsigned int értékét pedig a to változónak adja át a függvény. De nézzünk meg egy másikat is, ami pedig a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[std::sscanf(yytext, "<init guided %s %d %c>", name, &num, &role);]]>
+	</programlisting>
+
+	<para>
+	Itt szintén a yytext-ből olvassuk az adatokat, amiknek úgy kell kinéznie, hogy először egy <![CDATA["<init guided]]> szövegnek kell jönnie, aztán pedig egy %s-nek, ami egy Stringet jelöl, majd pedig egy decimális szám, amit ugye a %d jelöl, és végül pedig egy karaktert kell olvasnia, amit a %c jelöl. A String értékét a name változónak, a decimális szám értékét a num változónak, a karakter értékét pedig a role változónak adja át a függvény.
+	</para>
+	
+	<para>
+	Ezzel pedig már az összes <function>sscanf()</function> feladatát meg tudjuk határozni a fentiek alapján.
+	</para>
+    </section>
    <section>
         <title>SamuCam</title>
         <para>
