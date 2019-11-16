@@ -16,11 +16,50 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id52728
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Lauda/KapuSzkenner.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Lauda/KapuSzkenner.java</link>              
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a kivételkezelésre kellett rámutatni a megadott forrásban. Nézzük is meg magát a forráskódot, illetve azt, hogy milyen eredményt ad a program futtatás közben:
         </para>
+	<programlisting>
+	<![CDATA[public class KapuSzkenner {    
+    public static void main(String[] args) {
+        
+        for(int i=0; i<1026; ++i)
+            
+            try {                
+                java.net.Socket socket = new java.net.Socket(args[0], i);
+                
+                System.out.println(i + " figyeli");
+                
+                socket.close();
+                
+            } catch (Exception e) {
+                
+                System.out.println(i + " nem figyeli");               
+            }
+    }   
+}]]>
+	</programlisting>
+	<para>
+	És a kép a futtatásról:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/port.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Ebből annyit tudunk meg, hogy van egy for ciklus, ami 0-tól 1025-ig fut. Azon belül van egy try-catch szerkezet. A try-ban létrehozunk egy socket objektumot aminek ip címnek a legelső argumentum értékét, portnak pedig i aktuális értékét adjuk. Ilyenkor a program megpróbál a program egy TCP kapcsolatot létrehozni. Ha ez az utasítás nem dob exception-t, akkor kiiratjuk, hogy egy szerver folyamat figyeli a portot, vagy röviden: figyeli, és bezárja a program a socketet. Azonban, ha itt exception-t dob a program, akkor kiirja, hogy nem figyeli. Ezután egy kicsit módosítottam a programot annak érdekében, hogy megtudjam azt, hogy milyen exceptiont dob pontosan a try. A következő eredményt kaptam:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/port2.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Mint azt láthatjuk, ha nem sikerül kialakítani a kapcsolatot, akkor egy ConnectException-t kapunk. Az oracle <link xlink:href="https://docs.oracle.com/javase/7/docs/api/java/net/ConnectException.html">dokumentációja</link> tisztán és érthetően megmagyarázza, hogy a ConnectException jelzi azt, hogy hiba történt egy socket egy távoli címhez és porthoz történő csatlakoztatásakor. Általában a kapcsolatot távolról tagadják meg, pl: egy folyamat sem figyeli a cím adott portját. Vagyis, ha sikerül kapcsolatot létrehoznia a programnak, akkor tudja, hogy azt a portot figyelik, ha pedig nem, akkor pedig tudja azt, hogy nem figyelik.
+	</para>
     </section>
 
    <section>
