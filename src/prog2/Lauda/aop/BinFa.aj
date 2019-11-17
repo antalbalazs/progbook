@@ -4,12 +4,6 @@ import java.io.PrintWriter;
 public aspect BinFa{
 	int melyseg = 0;
 
-	public pointcut callkiir(LzwBinFa fa, LzwBinFa.Csomopont n, PrintWriter os):call(void LzwBinFa.kiir(LzwBinFa.Csomopont, PrintWriter)) && args(n,os) && target(fa) && within(LzwBinFa);
-
-	after(LzwBinFa fa, LzwBinFa.Csomopont n, PrintWriter os):callkiir(fa,n,os){
-
-
-	}
 
 	public pointcut hivas(LzwBinFa.Csomopont n, PrintWriter os): call(void LzwBinFa.kiir(LzwBinFa.Csomopont, PrintWriter)) && args(n,os);
 

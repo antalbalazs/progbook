@@ -72,11 +72,51 @@ feladat volt korábban.)
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Lauda/aop">https://github.com/raczandras/progbook/tree/master/src/prog2/Lauda/aop</link>              
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy átszövő vonatkozást kellett írni az LZWBinFa java átiratába. Mivel az eredeti forráshoz semmit nem kellett hozzáírni, ezért arról nem is beszélnék, hanem térjünk is át rögtön az átszövő vonatkozásra. Ezt a feladatot Aspectj-vel kellett megvalósítani, ami lehetőséget ad arra, hogy anélkül módosítsuk egy program forráskódját, hogy ténylegesen módosítanánk azt a forráskódot. Itt is pontosan ugyan ez történt. Meg kellett adni kódcsipeteket egy külön fájlban, amiknek megmondhattuk, hogy egy adott metódus előtt vagy után fussanak le. Az Aspectj telepítését linuxon a következő parancs kiadásával lehet megtenni: <command>apt install aspectj</command>. Ha ez sikerült, akkor fordítani pedig nem a <command>javac</command>, hanem az <command>ajc</command> parancs kiadásával kell. Ha jól emlékszem BevProg védési feladat volt, hogy in és post order módon is irassuk ki a fát. Itt most ugyan ezt valósítottam meg aspectj segítségével. Nézzük is a kód első részletét:
         </para>
+	<programlisting>
+	<![CDATA[import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+public aspect BinFa{
+	int melyseg = 0;
+
+	public pointcut callkiir(LzwBinFa fa, LzwBinFa.Csomopont n, PrintWriter os):call(void LzwBinFa.kiir(LzwBinFa.Csomopont, PrintWriter)) && args(n,os) && target(fa) && within(LzwBinFa);
+
+	after(LzwBinFa fa, LzwBinFa.Csomopont n, PrintWriter os):callkiir(fa,n,os){
+
+
+	}
+
+	public pointcut hivas(LzwBinFa.Csomopont n, PrintWriter os): call(void LzwBinFa.kiir(LzwBinFa.Csomopont, PrintWriter)) && args(n,os);
+
+	after(LzwBinFa.Csomopont n, PrintWriter os) : hivas(n, os){
+
+		try{
+			kiirIn(n, new PrintWriter("inorder.txt"));
+		}
+		catch(FileNotFoundException e) {
+			System.out.println(e);
+		}
+
+		melyseg = 0;
+
+		try{
+			kiirPost(n,new PrintWriter("postorder.txt"));
+		}
+		catch(FileNotFoundException e){
+			System.out.println(e);
+		}
+	}]]>
+	</programlisting>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/aop.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
