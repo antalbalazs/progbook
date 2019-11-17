@@ -88,11 +88,149 @@ feladat volt korábban.)
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Projekt forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Lauda/KoPapirOllo">https://github.com/raczandras/progbook/tree/master/src/prog2/Lauda/KoPapirOllo</link>             
         </para>
+	<para>
+	    Main forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Lauda/KoPapirOllo/app/src/main/java/com/example/kopapirollo/MainActivity.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Lauda/KoPapirOllo/app/src/main/java/com/example/kopapirollo/MainActivity.java</link>
+	</para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy egyszerű android játékot kellett készíteni. Én egy kő papír olló játékot készítettem számítógép ellen az Android Studio segítségével.
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/kopapir.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Először is kerestem három szabadon felhasználható képet, amiket fel tudnék használni a játékhoz. Ezeket belehelyeztem a drawable mappába. A GUI létrehozása egyszerű, mivel szimplán csak be kell húzgálni a kívánt elemeket, illetve nevet és értéket adni azoknak. A fentebbi képen jól látható, hogy két képet helyeztem fel. Az egyik a számítógép legutóbbi választását mutatja, a másik pedig a játékosét. Találunk még három szövegablakot is. A legfelső megmagyarázza, hogy az első kép a játékos választását, a második szövegablak pedig azt, hogy a második kép pedig a számítógép választását mutatja. Ez a két szöveg nem fog változni a játék alatt. A harmadik szövegrész pedig a játék jelenlegi állását mutatja. Végül pedig található három gomb, amikkel a játékos a választását tudja jelezni a programnak. Most pedig nézzük a forrást.
+	</para>
+	<programlisting>
+	<![CDATA[public class MainActivity extends AppCompatActivity {
+    Button b_rock, b_scissors, b_paper;
+    TextView tv_score;
+    ImageView iv_ComputerChoice, iv_HomanChoice;
+
+    int HumanScore, ComputerScore = 0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        b_paper = (Button) findViewById(R.id.b_paper);
+        b_scissors = (Button) findViewById(R.id.b_scissors);
+        b_rock = (Button) findViewById(R.id.b_rock);
+
+        iv_ComputerChoice = (ImageView) findViewById(R.id.iv_ComputerChoice);
+        iv_HomanChoice = (ImageView) findViewById(R.id.iv_HumanChoice);
+
+        tv_score = (TextView) findViewById(R.id.tv_score);]]>
+	</programlisting>
+	<para>
+	Először is létrehozzuk a gombokat, a képeket, illetve egy szövegrészt is, valamint összekapcsoljuk őket a GUI-n lévő elemekkel. Megfigyelhető, hogy a két nem változó szövegrészhet nem csatolunk semmit. Ez pontosan azért van, mert semmit nem szeretnénk csinálni velük, éppen ezért nincs is rájuk szükség. Ezen kívűl még létrejön két változó, amik a játékos és a gép eredményeit fogják számontartani. Ezek után jönnek a gombokra kattintást figyelő listenerek:
+	</para>
+	<programlisting>
+	<![CDATA[ @Override
+            public void onClick(View view) {
+                iv_HomanChoice.setImageResource(R.drawable.papir);
+                String message = play_turn("paper");
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                tv_score.setText("Score: Human: "+ Integer.toString(HumanScore) + "  Computer: "+ Integer.toString(ComputerScore));
+            }
+        });
+
+        b_rock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iv_HomanChoice.setImageResource(R.drawable.ko);
+                String message = play_turn("rock");
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                tv_score.setText("Score: Human: "+ Integer.toString(HumanScore) + "  Computer: "+ Integer.toString(ComputerScore));
+            }
+        });
+
+        b_scissors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iv_HomanChoice.setImageResource(R.drawable.ollo);
+                String message = play_turn("scissors");
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                tv_score.setText("Score: Human: "+ Integer.toString(HumanScore) + "  Computer: "+ Integer.toString(ComputerScore));
+            }
+        });]]>
+	</programlisting>
+	<para>
+	Mind a három esetben a játékos választását jelző képet átállítjuk a megfelelő képre, majd pedig létrehozunk egy stringet, aminek az értéke a <function>play_turn()</function> függvény által kapott eredmény lesz. Ennek a függvénynek az attribútuma a játékos választása. Majd pedig megjelenítünk egy kis üzenetet, ami a legalsó képen látható, illetve beállítjuk az eredményt mutató szövegrész értékét a megfelelő értékre. Végül pedig nézzük a <function>play_turn()</function> függvényt:
+	</para>
+	<programlisting>
+	<![CDATA[public String play_turn( String player_choice) {
+        String computer_choice = "";
+        Random r = new Random();
+
+        int computer_choice_number = r.nextInt(3)+1;
+
+        if(computer_choice_number == 1){
+            computer_choice = "rock";
+            iv_ComputerChoice.setImageResource(R.drawable.ko);
+        }
+
+        if(computer_choice_number == 2){
+            computer_choice = "scissors";
+            iv_ComputerChoice.setImageResource(R.drawable.ollo);
+        }
+
+        if(computer_choice_number == 3){
+            computer_choice = "paper";
+            iv_ComputerChoice.setImageResource(R.drawable.papir);
+        }
+
+        if(computer_choice.equals(player_choice)) {
+            return "Draw. Nobody won.";
+        }
+
+        else if(computer_choice.equals("rock") && player_choice.equals("scissors") ) {
+            ComputerScore++;
+            return "Rock crushes scissors. Computer wins";
+        }
+        else if(computer_choice.equals("rock") && player_choice.equals("paper") ) {
+            HumanScore++;
+            return "Paper covers rock. You win";
+        }
+        else if(computer_choice.equals("scissors") && player_choice.equals("rock") ) {
+            HumanScore++;
+            return "Rock crushes scissors. You win!";
+        }
+        else if(computer_choice.equals("scissors") && player_choice.equals("paper") ) {
+            ComputerScore++;
+            return "Scissors cuts paper. Computer wins!";
+        }
+        else if(computer_choice.equals("paper") && player_choice.equals("scissors") ) {
+            HumanScore++;
+            return "Scissors cuts paper. You win!";
+        }
+        else if(computer_choice.equals("paper") && player_choice.equals("rock") ) {
+            ComputerScore++;
+            return "Paper Covers rock. Computer wins!";
+        }
+        else return "Not Sure";
+    }]]>
+	</programlisting>
+	<para>
+	Itt először is generálunk egy random számot 1 és 3 között, amivel meghatározzuk a gép választását. Majd pedig a sok if-else-if szerkezettel eldönti a program, hogy ki nyert. Ha a gép és a játékos is ugyan azt választotta, akkor döntetlen. Amennyiben a gép nyer, úgy megnöveljük a ComputerScore értékét, és azt adja vissza a függvény, hogy a gép nyert. Míg ha a játékos nyer, akkor a HumanScore változó értéke lesz 1-el megnövelve, és azzal tér vissza a függvény, hogy a játékos nyert. És kezdődik az egész előről. Néhány kép a játék működéséről:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/kopapir1.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/kopapir2.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
