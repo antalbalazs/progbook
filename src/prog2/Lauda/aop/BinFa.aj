@@ -10,7 +10,7 @@ public aspect BinFa{
 	after(LzwBinFa.Csomopont n, PrintWriter os) : hivas(n, os){
 
 		try{
-			kiirIn(n, new PrintWriter("inorder.txt"));
+			kiirPre(n, new PrintWriter("preorder.txt"));
 		}
 		catch(FileNotFoundException e) {
 			System.out.println(e);
@@ -49,7 +49,7 @@ public aspect BinFa{
 	 }
 	}
 
-	public void kiirIn(LzwBinFa.Csomopont elem, java.io.PrintWriter os) {
+	public void kiirPre(LzwBinFa.Csomopont elem, java.io.PrintWriter os) {
 
 	 if(elem != null) {
 		++melyseg;
@@ -62,8 +62,8 @@ public aspect BinFa{
 		os.print(melyseg -1);
 		os.println(")");
 
-		kiirIn(elem.nullasGyermek(), os);
-		kiirIn(elem.egyesGyermek(),os);		
+		kiirPre(elem.nullasGyermek(), os);
+		kiirPre(elem.egyesGyermek(),os);		
 		--melyseg;
 	 }
 	}

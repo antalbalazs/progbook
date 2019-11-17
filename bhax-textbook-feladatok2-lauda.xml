@@ -96,7 +96,7 @@ public aspect BinFa{
 	after(LzwBinFa.Csomopont n, PrintWriter os) : hivas(n, os){
 
 		try{
-			kiirIn(n, new PrintWriter("inorder.txt"));
+			kiirPre(n, new PrintWriter("preorder.txt"));
 		}
 		catch(FileNotFoundException e) {
 			System.out.println(e);
@@ -112,9 +112,58 @@ public aspect BinFa{
 		}
 	}]]>
 	</programlisting>
+	<para>
+	Először is importáljuk a PrintWritert és a FileNotFoundException-t, hiszen ezeket használni fogjuk. Majd pedig megmondjuk a programnak, hogy az után, hogy ha meghívódik az eredeti programban az <function>LzwBinFa.kiir()</function> metódus, akkor annak a metódusnak az argumentumait elkérjük, és mután lefutott, próbálja meg lefuttatni a <function>kiirPre()</function> valamint a <function>kiirPost()</function> függvényeket. Nyílvánvalóan itt kaphatunk FileNotFound exceptiont, éppen ezért ezt try-catch blokkba írjuk, és kezeljük.
+	</para>
+
+	<programlisting>
+	<![CDATA[public void kiirPost(LzwBinFa.Csomopont elem, java.io.PrintWriter os) {
+
+	 if(elem != null) {
+		++melyseg;
+		
+		
+		kiirPost(elem.nullasGyermek(), os);
+		kiirPost(elem.egyesGyermek(),os);	
+
+		for(int i = 0; i < melyseg; i++){
+			os.print("---");
+		}
+		os.print(elem.getBetu());
+		os.print("(");
+		os.print(melyseg -1);
+		os.println(")");
+
+		
+		--melyseg;
+	 }
+	}
+
+	public void kiirPre(LzwBinFa.Csomopont elem, java.io.PrintWriter os) {
+
+	 if(elem != null) {
+		++melyseg;
+
+		for(int i = 0; i < melyseg; i++){
+			os.print("---");
+		}
+		os.print(elem.getBetu());
+		os.print("(");
+		os.print(melyseg -1);
+		os.println(")");
+
+		kiirPre(elem.nullasGyermek(), os);
+		kiirPre(elem.egyesGyermek(),os);		
+		--melyseg;
+	 }
+	}]]>
+	</programlisting>
+	<para>
+	A maradék része a kódnak pedig a két függvény. Az eredeti programban a fát in order módon járta be a program, azaz először az adott elem bal oldali gyerekét dolgozta fel, aztán az adott elemet, és végül pedig az adott elem bal oldali gyerekét. Ezzel szemben itt az első függvény a Post order bejárás, ahol jól láthatóan először az adott elem bal oldali gyerekét dolgozza fel a függvény, aztán az adott elem jobb oldali gyerekét, és végül pedig magát az elemet. A második függvény pedig a pre order bejárás, ahol először az adott elemet dolgozza fel a függvény, majd pedig az adott elem bal oldali gyerekét, és végül pedig az adott elem jobb oldali gyerekét. Ez a két függvény vég számon tartja és kiirja a fa mélységét is. Végül pedig kép az eredményről:
+	</para>
 	<mediaobject>
             <imageobject>
-		<imagedata fileref="pic/aop.png" contentwidth="7in"/>
+		<imagedata fileref="pic/aop.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
     </section>
