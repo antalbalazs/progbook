@@ -354,7 +354,51 @@ volt korábban).
             </imageobject>
         </mediaobject>
 	<para>
-	Ezt ha egy kicsit kibővítgetjük akkor a feladat megoldása linken található LZWBinFaTest.java fájlban lévő kódot kapjuk.
+	Ezt ha egy kicsit kibővítgetjük akkor a következő kódot fogjuk kapni eredményül:
+	</para>
+	<programlisting>
+	<![CDATA[package junit;
+import static org.junit.jupiter.api.Assertions.*;
+
+class LZWBinFaTest {
+
+    private LZWBinFa binfa = new LZWBinFa();
+    private static final String testStr = "01111001001001000111";
+
+    @org.junit.jupiter.api.Test
+    void getMelyseg() {
+        for (char i : testStr.toCharArray())
+            binfa.addBit(i);
+        double melyseg = binfa.getMelyseg();
+        System.out.println("getMelyseg() teszt -- expecting: 4, got: " + melyseg);
+        assertEquals(4, melyseg);
+    }
+
+    @org.junit.jupiter.api.Test
+    void getAtlag() {
+        for (char i : testStr.toCharArray())
+            binfa.addBit(i);
+        double atlag = binfa.getAtlag();
+        System.out.println("getMelyseg() teszt -- expecting: 2.75, got: " + atlag);
+        assertEquals(2.75, atlag);
+    }
+
+    @org.junit.jupiter.api.Test
+    void getSzoras() {
+        for (char i : testStr.toCharArray())
+            binfa.addBit(i);
+        double szoras = binfa.getSzoras();
+        System.out.println("getSzoras() teszt -- expecting: 0.9574, got: " + szoras);
+        assertEquals(0.9574, szoras, 0.001);
+    }
+}]]>
+	</programlisting>
+	<para>
+	Menjünk sorba. Először is létrehozunk egy LZWBinFa objektumot, illetve létrehozzuk a stringet, amivel teszteljük. Ezek után jönnek a metódusok. Először is a <function>void getMelyseg()</function> metódus, amiben egy for-each ciklussal belepakoljuk a stringünk karaktereit a binfába, majd pedig meghatározzuk a keletkezett fa mélységét, kiirjuk azt a felhasználó számára, és az <function>assertEquals()</function> függvénnyel összehasonlítjuk a kapott eredményt a várt eredménnyel. Pontosan ugyan ez történik a további két metódusban is. Belepakoljuk a string karaktereit a fába, meghatározzuk az átlagot/szórást, és összehasonlítjuk a kapott eredményt a várt eredménnyel.
+	</para>
+
+	<para>
+	Végül pedig kép az eredményről:
 	</para>
 	<mediaobject>
             <imageobject>
