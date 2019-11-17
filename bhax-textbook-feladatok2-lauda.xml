@@ -336,8 +336,31 @@ volt korábban).
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban egy a Binfához megadott bemenethez kellett Junit tesztet írni, és remélhetőleg az eredmény megegyezik a papíron kiszámolt eredménnyel. A megadott bemenet az volt hogy 01111001001001000111. Erre kézzel kiszámolva 4-es mélység, 2.75-ös átlag, és 0.9574-es értékű szórás jött ki, ahogy az a feladat leírásában lévő linket megnyitva is látszik. Szóval ha minden jól megy, akkor a JUnit tesztünk is ugyan ezeket az eredményeket fogja kiszámolni. Én ennek a feladatnak a megoldásához Intellij Idea-t használtam. Mivel az eredeti LZWBinFa kódján megint nem kellett változtatni, ezért azt most sem taglalnám, hanem térjünk rá egyből a tesztre. Szerencsére Intellij-ben lehet tesztet generálni. Ezt azonban ugyan úgy kell elképzelni, mint amikor UML-ből generálunk kódot. Azaz csak egy sablont fogunk kapni. Egyszerűen csak a tesztelni kívánt osztály nevére jobb egérrel kattintunk, és aztán pedig a generate test-re:
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/junit1.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
+
+	<para>
+	Itt kijelölhetjük, hogy mely metódusokat szeretnénk tesztelni. Majd pedig ha leokézzuk, akkor az előbb említett sablont kapjuk ami a következőképpen néz ki:
+	</para>
+
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/junit2.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Ezt ha egy kicsit kibővítgetjük akkor a feladat megoldása linken található LZWBinFaTest.java fájlban lévő kódot kapjuk.
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/junit3.png" contentwidth="6in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
