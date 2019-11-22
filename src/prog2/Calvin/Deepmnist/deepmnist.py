@@ -13,7 +13,6 @@ from __future__ import print_function
 import argparse
 import sys
 import tempfile
-import random
 
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -148,13 +147,10 @@ def main(_):
     sess.run(tf.compat.v1.global_variables_initializer())
     for i in range(20000):
       batch = mnist.train.next_batch(50)
-      if i % 100 == 0 and i < 18000:
+      if i % 100 == 0:
         train_accuracy = accuracy.eval(feed_dict={
             x: batch[0], y_: batch[1], keep_prob: 1.0})
         print('step %d, training accuracy %g' % (i, train_accuracy))
-      if i % 100 == 0 and i >= 18000:
-          valami = random.uniform(0.95, 1)
-          print('step %d, training accuracy %g' % (i, valami))
       train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
     print('test accuracy %g' % accuracy.eval(feed_dict={
@@ -167,8 +163,7 @@ def main(_):
     matplotlib.pyplot.imshow(image.reshape(28, 28), cmap=matplotlib.pyplot.cm.binary)
     matplotlib.pyplot.savefig("8.png")
     matplotlib.pyplot.show()
-    classification = sess.run(tf.argmax(y_conv, 1), feed_dict={x: [image], keep_prob: 1.0})
-    print("-- Ezt a halozat ennek ismeri fel: 8")
+    print("-- Ezt a halozat ennek ismeri fel: ", classification[0])
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
