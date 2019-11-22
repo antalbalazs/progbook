@@ -151,10 +151,72 @@ https://prezi.com/0u8ncvvoabcr/no-programming-programming/
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Calvin/Deepmnist/deepmnist.py">https://github.com/raczandras/progbook/blob/master/src/prog2/Calvin/Deepmnist/deepmnist.py</link>             
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban az előző Tensorflow-os feladatot kellett ismét megoldani, azonban ezúttal már deep mnist-es változattal. Az alap forráskód megtalálható a Tensorflow github repójában, én is azt vettem alapul. Viszont pár dolgot át kellett irni, azonban mindenhol ugyan azt. A következő sorokban: 76, 101, 111, 117, 121, 124, 135, 144, 145, 147, 148, és 179. Ezekben a sorokban a tf és a függvény neve közé azt kellett irni, hogy <emphasis>.compat.v1</emphasis> és már működött is az alap program. Azonban az alap program nem tartalmazza a saját magunk által rajzolt kép beolvasását és felismerését. De szerencsénkre ezt egy az egyben kimásolhatjuk az előző forrásból:
+        </para>
+        <programlisting>
+          <![CDATA[img = readimg()
+    image = img.eval()
+    image = image.reshape(28*28)
+    matplotlib.pyplot.imshow(image.reshape(28, 28), cmap=matplotlib.pyplot.cm.binary)
+    matplotlib.pyplot.savefig("8.png")
+    matplotlib.pyplot.show()
+    print("-- Ezt a halozat ennek ismeri fel: ", classification[0])]]>
+        </programlisting>
+        <para>
+          Erről már tudjuk, hogy azt jelenti, hogy beolvassuk a saját képünket, átalakítjuk, és elmentjük 8.png néven. Ezek után pedig megjelenítjük az elmentett képet, és kiíratjuk azt, hogy mit gondol a képről a program. Most pedig nézzük a forráskód többi részét.
+        </para>
+        <programlisting>
+          <![CDATA[ with tf.name_scope('reshape'):
+          tf.compat.v1.disable_eager_execution()
+  mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
+
+  x = tf.compat.v1.placeholder(tf.float32, [None, 784])
+
+  y_ = tf.compat.v1.placeholder(tf.float32, [None, 10])
+
+  y_conv, keep_prob = deepnn(x)
+
+  with tf.name_scope('loss'):
+    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_,
+                                                            logits=y_conv)
+  cross_entropy = tf.reduce_mean(cross_entropy)
+
+  with tf.name_scope('adam_optimizer'):
+    train_step = tf.compat.v1.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+
+  with tf.name_scope('accuracy'):
+    correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
+    correct_prediction = tf.cast(correct_prediction, tf.float32)
+  accuracy = tf.reduce_mean(correct_prediction)
+
+  graph_location = tempfile.mkdtemp()
+  print('Saving graph to: %s' % graph_location)
+  train_writer = tf.compat.v1.summary.FileWriter(graph_location)
+  train_writer.add_graph(tf.compat.v1.get_default_graph())
+    ]]>
+        </programlisting>
+        <para>
+          Először is létrehozza modellt a program, és mivel csak a grayscale-es képekre vagyunk kíváncsiak, éppen ezért átalakítjuk őket úgy hogy számunkra megfeleljenek.
+        </para>
+        <programlisting>
+          <![CDATA[with tf.compat.v1.Session() as sess:
+    sess.run(tf.compat.v1.global_variables_initializer())
+    for i in range(20000):
+      batch = mnist.train.next_batch(50)
+      if i % 100 == 0:
+        train_accuracy = accuracy.eval(feed_dict={
+            x: batch[0], y_: batch[1], keep_prob: 1.0})
+        print('step %d, training accuracy %g' % (i, train_accuracy))
+      train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+
+    print('test accuracy %g' % accuracy.eval(feed_dict={
+        x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))]]>
+        </programlisting>
+        <para>
+          Ezek után jön a tanítás része a dolognak. Húszezer képpel tanítjuk a programot, és 100 képenként kiíratjuk azt, hogy éppen hol járunk, illetve azt is, hogy mekkora pontosságal ismeri fel a képeket. Itt egy elég kis számmal fog kezdődni, de ahogy egyre több képet dolgoz fel, úgy fogja egyre jobban felismerni a képeket. Amint kész a tanítás, megmutatjuk neki a saját képünket, és reménykedünk abban, hogy felismeri. Szerencsére az én esetemben igen lett a válasz. Azt még érdemes hozzátenni, hogy a tanítás sokkal több időt vesz igénybe, mint az előző feladatnál. Nekem körülbelül egy órába telt a folyamat. És végül pedig egy kép az eredményről:
         </para>
 		<mediaobject>
             <imageobject>
