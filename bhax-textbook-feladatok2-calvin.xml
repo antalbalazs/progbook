@@ -17,18 +17,135 @@ https://prezi.com/0u8ncvvoabcr/no-programming-programming/
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Calvin/Mnist/mnist_soft.py">https://github.com/raczandras/progbook/tree/master/src/prog2/Calvin/Mnist/mnist_soft.py</link> 
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban a Tensorflow segítségével kellett megtanítani egy mesterséges intelligenciának azt,
+			hogy felismerjen egy kézzel írott, 28x28 pixeles képen lévő számot. Ehhez az MNIST könyvtárat használja tanulásként.
+			A Bátfai Norbert által megadott forrást kicsit át kellett alakítani, mert azóta, hogy az elkészült, rengeteget
+			változott a tensorflow. Legtöbbszöt függvényhívásokat kellett átírni, vagyis inkább hozzáadni a függvényhíváshoz azt, hogy
+			<emphasis>compat.v1.</emphasis> és már működtek is. Azonban volt pár sor, amit másképp kellett átírni. Ezek a következők:
+			 Először is a 46. sorban a függvényhívást a következőképpen kellett átírni:
         </para>
+		
+		<programlisting>
+		<![CDATA[img = tf.image.decode_png(file, channels=1)]]>
+		</programlisting>
+		
+		<para>
+		Ez annyit jelent, hogy a saját képünknek, amit fel kellene, hogy ismerjen a program, a grayscale-es változata
+		lesz felhasználva. Arra, hogy ez miért kell, két okunk van. Az első az az, hogy az mnist képei is grayscale képek,
+		a másik (a fontosabb) ok pedig az, hogy ha ezt a változtatást nem tesszük meg, akkor hibát fogunk kapni. Éppen ezért ez
+		egy erősen ajánlott változtatás. A következő változtatást pedig a 72. sorban kellett elvégezni, ahol is a paramétereket kellett
+		nevesíteni, amit a következőképpen lehet megoldani:
+		</para>
+		
+		<programlisting>
+			<![CDATA[cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_))]]>
+		</programlisting>
+		
+		<para>
+		Valamint az utolsó kis kódcsipet amit nem át, hanem hozzáírtam a forráshoz, az a következő sor:
+		</para>
+		
+		<programlisting>
+			<![CDATA[tf.io.write_graph(sess.graph, "models/", "mnist.pbtxt")]]>
+		</programlisting>
+		
+		<para>
+		Ez annyit jelent, hogy a models mappába hozzon létre egy mnist.pbtxt nevű fájlt, ami a programnak a gráfja.
+		Ezt később Tensorboard-al meg fogjuk tudni nyitni és elemezni. Ezek után nézzük magát a forráskódot:
+		</para>
+		
+		<programlisting>
+		<![CDATA[ tf.compat.v1.disable_eager_execution()
+  x = tf.compat.v1.placeholder(tf.float32, [None, 784])
+  W = tf.Variable(tf.zeros([784, 10]))
+  b = tf.Variable(tf.zeros([10]))
+  y = tf.matmul(x, W) + b
+  y_ = tf.compat.v1.placeholder(tf.float32, [None, 10])
+  cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y, labels=y_))
+  train_step = tf.compat.v1.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+  
+  tf.compat.v1.initialize_all_variables().run()
+  print("-- A halozat tanitasa")  
+  for i in range(1000):
+    batch_xs, batch_ys = mnist.train.next_batch(100)
+    sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+    if i % 100 == 0:
+      print(i/10, "%")
+  print("----------------------------------------------------------")
+  
+  # Test trained model
+  print("-- A halozat tesztelese")  
+  correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  
+  print("-- Pontossag: ", sess.run(accuracy, feed_dict={x: mnist.test.images,
+                                      y_: mnist.test.labels}))
+  print("----------------------------------------------------------")
+  ]]>
+		</programlisting>
+		
+		<para>
+			Először is eltároljuk magát a képet, ami ugye 28x28, azaz összesen 784 pixel. Majd pedig elkezdjük a for
+			ciklussal tanítani a programunkat. Ezer képpel tanítjuk, és minden századik képnél kiirjuk azt, hogy hol járunk.
+			Ezek után ellenőrizzük a pontosságát, és azt is a felhasználó tudomására hozzuk. Majd pedig megpróbálunk felismertetni
+			először egy mnist képet, majd pedig a saját magunk által rajzolt nyolcast.
+		</para>
+		<programlisting>
+			<![CDATA[img = mnist.test.images[42]
+  image = img
+
+  matplotlib.pyplot.imshow(image.reshape(28, 28), cmap=matplotlib.pyplot.cm.binary)
+  matplotlib.pyplot.savefig("4.png")  
+  matplotlib.pyplot.show()
+
+  classification = sess.run(tf.argmax(y, 1), feed_dict={x: [image]})
+
+  print("-- Ezt a halozat ennek ismeri fel: ", classification[0])
+  print("----------------------------------------------------------")
+
+  print("-- A sajat kezi 8-asom felismerese, mutatom a szamot, a tovabblepeshez csukd be az ablakat")
+
+  img = readimg()
+  image = img.eval()
+  image = image.reshape(28*28)
+
+  matplotlib.pyplot.imshow(image.reshape(28, 28), cmap=matplotlib.pyplot.cm.binary)
+  matplotlib.pyplot.savefig("8.png")  
+  matplotlib.pyplot.show()
+
+  classification = sess.run(tf.argmax(y, 1), feed_dict={x: [image]})
+
+  print("-- Ezt a halozat ennek ismeri fel: ", classification[0])
+  print("----------------------------------------------------------")
+  
+  tf.io.write_graph(sess.graph, "models/", "mnist.pbtxt")]]>
+		</programlisting>
+		<para>
+		Mind a két kép esetében elmentjük az adott képet, aztán pedig kirajzoltatjuk a <function>matplotlib.pyplot.show()</function>
+		függvénnyel. Ezek után pedig meghatározza a program, hogy ő minek gondolja az adott számot, és végül pedig kiiratjuk a konzolra az eredményt.
+		Az eredmény pedig:
+		</para>
+		<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/mnist.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
+		<para>
+		Ezek után már csak a gráf megjelenítése van hátra Tensorboard-ban:
+		</para>
+		<mediaobject>
+            <imageobject>
+		          <imagedata fileref="pic/mnist-graph.png" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
         <title>Deep MNIST</title>
         <para>
-	Mint az előző, de a mély változattal. Segítő ábra, vesd össze a forráskóddal a
-https://arato.inf.unideb.hu/batfai.norbert/NEMESPOR/DE/denbatfai2.pdf 8. fóliáját!
+	Mint az előző, de a mély változattal.
         </para>
         <para>
             Megoldás videó:
@@ -39,6 +156,11 @@ https://arato.inf.unideb.hu/batfai.norbert/NEMESPOR/DE/denbatfai2.pdf 8. fóliá
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+		<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/deep.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
     </section>
 
    <section>
