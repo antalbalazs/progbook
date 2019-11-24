@@ -155,6 +155,9 @@ Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
 		<imagedata fileref="pic/create2.png" contentwidth="7in"/>
             </imageobject>
         </mediaobject>
+	<para>
+	A hibák kijavítása nagyon jó gyakorlati tudást adott az adatfolyamoz kezeléséhez, a streamekhez, és az I/O állománykezeléshez.
+	</para>
     </section>
 
    <section>
@@ -453,7 +456,25 @@ void SamuCam::openVideoStream()
 }]]>
 	</programlisting>
 	<para>
-	Mind a két esetben az emit utasítás fog lefutni, ami kibocsájtja a jelet, amit a BrainBWin fog megkapni.
+	Mind a két esetben az emit utasítás fog lefutni, ami kibocsájtja a jelet, amit a BrainBWin fog megkapni. Ez viszont a slot-signal mechanizmus régi szintaxisa, ami a következőképpen néz ki:
+	</para>
+	<programlisting>
+	<![CDATA[connect(
+    sender, SIGNAL( valueChanged( QString, QString ) ),
+    receiver, SLOT( updateValue( QString ) )
+);]]>
+	</programlisting>
+	<para>
+	Azonban ez a Qt-5 ben a következőre változott:
+	</para>
+	<programlisting>
+	<![CDATA[connect(
+    sender, &Sender::valueChanged,
+    receiver, &Receiver::updateValue
+);]]>
+	</programlisting>
+	<para>
+	Azonban a régi szintaktikát is lehet használni.
 	</para>
     </section>
 

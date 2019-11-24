@@ -17,7 +17,7 @@ az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.! 
             Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/Pol%C3%A1rGener%C3%A1tor.java">Java</link> 
 	    <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Arroway/polargen.cpp">C++</link>       
         </para>
-        <para>Ebben a feladatban a prog1-en már tárgyalt Polárgenerátor megírása volt a feladat. A lényege ennek a programnak az, hogy legelőször generál két értéket. Az egyik értéket eltárolja, a másikat pedig visszaadja. Majd amikor következőnek megint generálna, akkor először megnézi, hogy van e már tárolt érték. Ha van akkor azt a tárolt értéket adja vissza, ha viszont nincs, akkor generál két értéket, amiből az egyiket eltárolja, a másikat pedig visszaadja. Azt, hogy van e tárolt érték, egy boolean változóban tartja nyílván.
+        <para>Ebben a feladatban a prog1-en már tárgyalt Polárgenerátor megírása volt a feladat. Ez az objektumorientált paradigma alapjaihoz, az osztály, objektum, és példányosítás alapfogalmakhoz ad egy nagyon jó gyakorlati rálátást. A lényege ennek a programnak az, hogy legelőször generál két értéket. Az egyik értéket eltárolja, a másikat pedig visszaadja. Majd amikor következőnek megint generálna, akkor először megnézi, hogy van e már tárolt érték. Ha van akkor azt a tárolt értéket adja vissza, ha viszont nincs, akkor generál két értéket, amiből az egyiket eltárolja, a másikat pedig visszaadja. Azt, hogy van e tárolt érték, egy boolean változóban tartja nyílván.
         </para>
 	<para>
 	A program a PolárGenerátor osztállyal kezdődik:

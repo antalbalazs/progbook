@@ -26,7 +26,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             </imageobject>
         </mediaobject>
         <para>
-            Ebben a feladatban a BevProgon és Prog1-en már tárgyalt <link xlink:href="https://sourceforge.net/p/udprog/code/ci/master/tree/source/vedes/elso/z3a7.cpp">z3a7.cpp</link> program forrásából kellett UML diagramot létrehozni. Én ehhez a <link xlink:href="https://www.visual-paradigm.com/">Visual Paradigm</link> 30 napos ingyenes próbaverzióját használtam. A diagramot roppant egyszerű legenerálni. A visual paradigm feltelepítése és elindítása után oda kell navigálnunk, hogy Tools > Code > Instant Reverse..., majd pedig ki kell választani, hogy milyen nyelvű forrásból szeretnénk diagramot generálni, és meg kell adni a fájl helyét. Ezek után már csak ki kell választani azokat az osztályokat, amelyeket meg szeretnénk mutatni a diagrammon, és kész is. Az általam generált diagramot a fentebb található képen lehetett látni.
+            Ebben a feladatban a BevProgon és Prog1-en már tárgyalt <link xlink:href="https://sourceforge.net/p/udprog/code/ci/master/tree/source/vedes/elso/z3a7.cpp">z3a7.cpp</link> program forrásából kellett UML diagramot létrehozni. Én ehhez a <link xlink:href="https://www.visual-paradigm.com/">Visual Paradigm</link> 30 napos ingyenes próbaverzióját használtam. A diagramot roppant egyszerű legenerálni. A visual paradigm feltelepítése és elindítása után oda kell navigálnunk, hogy Tools > Code > Instant Reverse..., majd pedig ki kell választani, hogy milyen nyelvű forrásból szeretnénk diagramot generálni, és meg kell adni a fájl helyét. Ezek után már csak ki kell választani azokat az osztályokat, amelyeket meg szeretnénk mutatni a diagrammon, és kész is. Az általam generált diagramot a fentebb található képen lehetett látni. Ez a feladat nagyon jó gyakorlati tudást ad a modellező nyelvekhez, valamint az UML-hez.
         </para>
 	<para>
 	Ezen kívűl rá kell mutatni az aggregáció és kompozíció kapcsolatára. Azonban, mielőtt ezt megtehetnénk, először az asszociáció fogalmát kell tisztázni.
@@ -64,7 +64,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás forrása:<link xlink:href="https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot">https://github.com/raczandras/progbook/tree/master/src/prog2/Mandelbrot</link>                
         </para>
         <para>
-            Ebben a feladatban UML-ben kellett osztályokat megtervezni, majd pedig a diagramból forrást generálni. Én ehhez a feladathoz, ha már Mandelbrot a csokor neve, a MandelbrotHalmazt próbáltam meg lemodellezni a visual paradigm nevű szoftver segítségével. Ehhez a következő diagrammot sikerült összeállítani:
+            Ebben a feladatban UML-ben kellett osztályokat megtervezni, majd pedig a diagramból forrást generálni. Ez a feladat nagyon jó gyakorlati tudást ad a modellező nyelvekhez, valamint az UML-hez. Én ehhez a feladathoz, ha már Mandelbrot a csokor neve, a MandelbrotHalmazt próbáltam meg lemodellezni a visual paradigm nevű szoftver segítségével. Ehhez a következő diagrammot sikerült összeállítani:
         </para>
 	<mediaobject>
             <imageobject>
@@ -359,7 +359,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 
             Megoldás forrása:                
         </para>
         <para>
-            Ebben a feladatban BPMN-ben, azaz Business Process Model and Notation használatával kellett modellezni valamit. Maga a BPMN egy folyamatábra, egy grafikai reprezentációja az üzleti folyamatoknak. Az UML-hez hasonlóan szintén egy modellező eszköz. Az én példám egy mindennapi esetet ír le, egy csomag megrendelését egy webáruházból, vagyis, hogy mi történik a között, hogy a vásárló megrendeli, és megkapja a csomagot. Ennek a feladatnak a megoldásához a visual paradigm nevű szoftvert választottam. A folyamatábra a következőképpen néz ki:
+            Ebben a feladatban BPMN-ben, azaz Business Process Model and Notation használatával kellett modellezni valamit. Ez a feladat nagyon jól bemutat egy modellező nyelvet a gyakorlatban. Maga a BPMN egy folyamatábra, egy grafikai reprezentációja az üzleti folyamatoknak. Az UML-hez hasonlóan szintén egy modellező eszköz. Az én példám egy mindennapi esetet ír le, egy csomag megrendelését egy webáruházból, vagyis, hogy mi történik a között, hogy a vásárló megrendeli, és megkapja a csomagot. Ennek a feladatnak a megoldásához a visual paradigm nevű szoftvert választottam. A folyamatábra a következőképpen néz ki:
         </para>
 	<mediaobject>
             <imageobject>

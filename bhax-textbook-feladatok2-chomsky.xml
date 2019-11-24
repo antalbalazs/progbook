@@ -18,7 +18,7 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         </para>
 
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/MandelbrotHalmazNagy%C3%ADt%C3%B3.java">https://github.com/raczandras/progbook/blob/master/src/prog2/Chomsky/MandelbrotHalmazNagy%C3%ADt%C3%B3.java</link>                
         </para>
 
         <para>
@@ -31,7 +31,7 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
             </imageobject>
         </mediaobject>
 	<para>
-	Mint nagyon sokszor, a fordító most is a barátunk: "Unmappable character for encoding UTF-8". Vagyis a forrás kódolásával van a gond. Vagyis ezek a karakterek nem találhatóak meg az UTF-8 kódolásban. Ez azt jelenti, hogy egy másik kódolásra kell átállítani a forrást, amit a -encoding kapcsolóvan lehet bállítani. Mostmár csak arra kellett rájönni, hogy mire kellene átállítani a kódolást. Ehhez megkerestem a <link xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html">Java által támogatott karakterkódolásokat.</link> Itt amire felkaptam a fejem, az a windows-1250 kódolás, aminek a leírása az, hogy a Windows Kelet Európai karakterkódolása, és arra gondolva, hogy vagy jó vagy nem, kipróbáltam hogy működik-e, és működött. Az eredmény pedig:
+	Ez a feladat nagyon jó gyakorlati tudást ad a java karakterkészletekhez. Mint nagyon sokszor, a fordító most is a barátunk: "Unmappable character for encoding UTF-8". Vagyis a forrás kódolásával van a gond. Vagyis ezek a karakterek nem találhatóak meg az UTF-8 kódolásban. Ez azt jelenti, hogy egy másik kódolásra kell átállítani a forrást, amit a -encoding kapcsolóvan lehet bállítani. Mostmár csak arra kellett rájönni, hogy mire kellene átállítani a kódolást. Ehhez megkerestem a <link xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html">Java által támogatott karakterkódolásokat.</link> Itt amire felkaptam a fejem, az a windows-1250 kódolás, aminek a leírása az, hogy a Windows Kelet Európai karakterkódolása, és arra gondolva, hogy vagy jó vagy nem, kipróbáltam hogy működik-e, és működött. Az eredmény pedig:
 	</para>
 
 	<mediaobject>
