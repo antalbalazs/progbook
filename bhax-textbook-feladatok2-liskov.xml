@@ -319,56 +319,6 @@ Ebből az látszik, hogy a sort a Java és a C# fej fej mellett haladva vezeti, 
     </section>
 
    <section>
-        <title>deprecated - Hello, Android!</title>
-        <para>
-	Élesszük fel a https://github.com/nbatfai/SamuEntropy/tree/master/cs projektjeit és vessünk össze néhány egymásra következőt, hogy hogyan változtak a források!
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-   <section>
-        <title>Hello, Android!</title>
-        <para>
-	Élesszük fel az SMNIST for Humans projektet! https://gitlab.com/nbatfai/smnist/tree/master/forHumans/SMNISTforHumansExp3/app/src/main
-Apró módosításokat eszközölj benne, pl. színvilág.
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-    <section>
-        <title>Hello, SMNIST for Humans!</title>
-        <para>
-	Fejleszd tovább az SMNIST for Humans projektet SMNIST for Anyone emberre szánt appá! Lásd
-az smnist2_kutatasi_jegyzokonyv.pdf-ben a részletesebb hátteret!
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-   <section>
         <title>Ciklomatikus komplexitás</title>
         <para>
 	Számoljuk ki valamelyik programunk függvényeinek ciklomatikus komplexitását! Lásd a fogalom

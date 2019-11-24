@@ -6,21 +6,6 @@
         </keywordset>
     </info>
 	
-    <section>
-        <title>Gengszterek</title>
-        <para>
-	Gengszterek rendezése lambdával a Robotautó Világbajnokságban https://youtu.be/DL6iQwPx1Yw (8:05-től)
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
 
    <section>
         <title>C++11 Custom Allocator</title>
@@ -313,22 +298,6 @@ Interface Comparable<programlisting><![CDATA[<T>]]></programlisting> szerepét!
 		<imagedata fileref="pic/csapat.png" contentwidth="6in"/>
             </imageobject>
         </mediaobject>
-    </section>
-
-   <section>
-        <title>Prolog családfa</title>
-        <para>
-	Ágyazd be a Prolog családfa programot C++ vagy Java programba! Lásd para_prog_guide.pdf!
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
     </section>
 
    <section>

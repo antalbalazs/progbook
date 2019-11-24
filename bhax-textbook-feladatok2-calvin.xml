@@ -226,23 +226,6 @@ https://prezi.com/0u8ncvvoabcr/no-programming-programming/
     </section>
 
    <section>
-        <title>CIFAR-10</title>
-        <para>
-	Az alap feladat megoldása, +saját fotót is ismerjen fel,
-https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-   <section>
         <title>Android telefonra a TF objektum detektálója</title>
         <para>
 	Telepítsük fel, próbáljuk ki!
@@ -254,8 +237,54 @@ https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban ki kellett próbálni a tensorflow object detect, azaz objektum detektáló programját. Ennek a forrását <link xlink:href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android">ezen a linken</link> lehet elérni. Azt a repót le kell szedni, majd pedig androit studio-ban buildelni a forrást, amiből kapunk egy apk fájlt. Ezzel fel lehet telepíteni androidos okostelefonokra a programot. Azonban ha ehhez lusták vagyunk, akkor le lehet tölteni egy demo apk-t, és azt feltelepíteni. Én mind a két megoldást kipróbáltam. A különbség az az, hogy az általunk buildelt forrással mind a négy program fel lesz rakva a telefonunkra (classify, detect, stylize, speech), a demo apk viszont csak a classify-t fogja feltelepíteni nekünk. Na de nézzük az eredményeket. Én először informatikai dolgokat próbáltam felismertetni a programmal, amik változóan sikeresek lettek.
         </para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/tf_keyboard.jpg" contentwidth="2in"/>
+            </imageobject>
+	    <imageobject>
+		<imagedata fileref="pic/tf_mouse.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Láthatjuk, hogy míg egy egeret teljes mértékben felismer, és biztosan állítja róla a program hogy az egy egér, addig ha egy billentyűzetről van szó, akkor abban már csak 23 százalékban biztos. Ez a két kép a Classify programmal készült. Ha ugyan arról a billentyűzetről a detect programmal készítünk képet, akkor teljesen más eredményt kapunk.
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/tf_keyboard2.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	A detect program ugyan arra a billentyűzetre már 77 százalékos biztossággal állította azt, hogy ez egy billentyűzet. Azaz valószínűleg teljesen más módon működnek a programok, és ezt nem csak a billentyűzet esete bizonyítja. Kipróbáltam mind a két programot egy ventillátoron, és az eredmény pont fordított lett. Az első esetben...
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/tf_fan.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	...a classify program 99 százalékosan azt mondta, hogy ez egy ventillátor, ami igaz is. Azonban, amikor ugyan ezt a ventillátort megpróbáltam felismertetni a detect programmal, a következő eredményt kaptam:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/tf_fan2.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Az eredmény ebben az esetben az lett, hogy 68% esély van arra, hogy ez egy wc, ami elég távol áll a valóságtól. Ezek után megpróbáltam egy igen specifikus dolgot felismertetni mind a két programmal, elég kevés sikerrel:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/tf_toyota.jpg" contentwidth="2in"/>
+            </imageobject>
+	    <imageobject>
+		<imagedata fileref="pic/tf_toyota2.jpg" contentwidth="2in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Egy toyota logóra az egyik program azt mondta, hogy ez egy loupe, ami tulajdonképpen egy nagyító, a másik program pedig azt mondta, hogy ez egy olló. Összességében egy egy eléggé érdekes kísérlet volt, és egy belelátás abba, hogy hol jár jelenleg ez a technológia.
+	</para>
     </section>
 
    <section>
@@ -267,31 +296,109 @@ https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/raczandras/progbook/blob/master/src/prog2/Calvin/Smnist/smnist.py">https://github.com/raczandras/progbook/blob/master/src/prog2/Calvin/Smnist/smnist.py</link>                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            Ebben a feladatban az SMNIST for humans program továbbfejlesztett változatát kellett kipróbálni. Az SMNIST for humans még prog1-es téma volt, és az a lényege, hogy egy programban található egy kör, és a körben pedig 0 és 9 darab közötti véletlenszerűen változó számú pontok találhatóak. Minden egyes váltásnál fel kell ismernie a felhasználónak azt, hogy hány darab négyzet van a körben, és az ennek megfelelő számjegyre bökni. Egy kép erről a programról:
         </para>
-    </section>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/smnist.jpg" contentwidth="7in"/>
+            </imageobject>
+        </mediaobject>
+	<para>
+	Egy átlag ember körülbelül a hatodik szintig képes eljutni. Azonban egy gép valószínűleg sokkal ügyesebb egy embernél. Éppen ezért jött létre az SMNIST for Machines. Ami nagyon hasonló a for humans verzióhoz, azonban ez kifejezetten számítógépek számára jött létre. A mi feladatunk az volt, hogy próbáljunk ki egy ilyen SMNIST for Machines modellt. Én Kovács Ferencz modelljét választottam ehhez a feladathoz. A futtatáshoz szükségünk lesz a mxnet-re, amit egy egyszerű parancs kiadásával fel lehet telepíteni: <command>pip install mxnet</command>. Valamint szükségünk lesz még pár fájlra is, de ezeknek a beszerzési lehetőségét a forrás tágyalása közben fogom elmondani, amit nézzük is meg.
+	</para>
+	<programlisting>
+	<![CDATA[import numpy as np
+import gzip
+import os, sys
+import mxnet as mx
+import logging
+logging.getLogger().setLevel(logging.INFO)
+
+# Fix the seed
+mx.random.seed(43)
+
+# Set the compute context
+ctx = mx.cpu()
+
+#Load the data
+os.listdir()
+os.chdir('D:\smnist')
+
+with gzip.open('t10k-images-idx3-ubyte.gz', 'r') as f:
+            test_data = np.frombuffer(f.read(), np.uint8, offset=16)
+            
+with gzip.open('t10k-labels-idx1-ubyte.gz', 'r') as f:
+            test_labels = np.frombuffer(f.read(), np.uint8, offset = 8)
+            
+with gzip.open('train-images-idx3-ubyte.gz', 'r') as f:
+            train_data = np.frombuffer(f.read(), np.uint8, offset=16)
+            
+with gzip.open('train-labels-idx1-ubyte.gz', 'r') as f:
+            train_labels = np.frombuffer(f.read(), np.uint8, offset = 8)]]>
+	</programlisting>
+	<para>
+	Először is beimportálunk pár dolgot, amire szükség lesz. Az első a numpy, amire a tesztképek átalakításához lesz szükség, a második a gzip, amivel a fájlokat fogjuk megnyitni, a harmadik az os, amivel abba a mappába fog navigálni a program, amelybe a szükséges fájlok találhatóak. Negyedik az mxnet, aminek a tanítás lesz a fő feladata, és végül pedig a logging, amivel logolni fog a program. Majd pedig rögtön látunk egy <function>setLevel()</function> függvényt, amivel azt lehet beállítani, hogy milyen szintig ignorálja a program a logging üzeneteket. Ezek után beállítjuk, hogy a cpu fogja elvégezni a munkát, és megnyitjuk a szükséges fájlokat. Ezeket a fájlokat <link xlink:href="http://yann.lecun.com/exdb/mnist/">Erről</link> a linkről lehet beszerezni, ás ezek tartalmazzák a tanításhoz szükséges képeket.
+	</para>
+	<programlisting>
+	<![CDATA[#Reshape and prepare data         
+train_data = np.reshape(train_data, (-1,1,28,28))
+test_data = np.reshape(test_data, (-1,1,28,28))
+batch_size = 100
+train_iter = mx.io.NDArrayIter(train_data, train_labels, batch_size, shuffle=True)
+val_iter = mx.io.NDArrayIter(test_data, test_labels, batch_size)
+
+data = mx.sym.var('data')
+# first conv layer
+conv1 = mx.sym.Convolution(data=data, kernel=(5,5), num_filter=32)
+tanh1 = mx.sym.Activation(data=conv1, act_type="relu")
+pool1 = mx.sym.Pooling(data=tanh1, pool_type="max", kernel=(2,2), stride=(2,2))
+
+#second conv layer
+conv2 = mx.sym.Convolution(data=pool1, kernel=(5,5), num_filter=64)
+tanh2 = mx.sym.Activation(data=conv2, act_type="relu")
+pool2 = mx.sym.Pooling(data=tanh2, pool_type="max", kernel=(2,2), stride=(2,2))
+
+# first fullc layer
+flatten = mx.sym.flatten(data=pool2)
+fc1 = mx.symbol.FullyConnected(data=flatten, num_hidden=1024)
+tanh3 = mx.sym.Activation(data=fc1, act_type="relu")
+dropout = mx.sym.Dropout(data=tanh3, p=0.5)
+
+# second fullc
+fc2 = mx.sym.FullyConnected(data=dropout, num_hidden=10)
+
+# softmax loss
+lenet = mx.sym.SoftmaxOutput(data=fc2, name='softmax')
 
 
-   <section>
-        <title>Minecraft MALMO-s példa</title>
-        <para>
-	A https://github.com/Microsoft/malmo felhasználásával egy ágens példa, lásd pl.:
-https://youtu.be/bAPSu3Rndi8, https://bhaxor.blog.hu/2018/11/29/eddig_csaltunk_de_innentol_mi,
-https://bhaxor.blog.hu/2018/10/28/minecraft_steve_szemuvege
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
+lenet_model = mx.mod.Module(symbol=lenet, context=ctx)
+
+lenet_model.fit(train_iter,
+                optimizer='sgd',
+                optimizer_params={'learning_rate':0.001},
+                eval_metric='acc',
+                batch_end_callback = mx.callback.Speedometer(batch_size, 100),
+                num_epoch=50)
+
+test_iter = mx.io.NDArrayIter(test_data, test_labels, batch_size)
+# predict accuracy for lenet
+acc = mx.metric.Accuracy()
+lenet_model.score(test_iter, acc)
+print(acc)]]>
+	</programlisting>
+	<para>
+	Ezek után átalakítjuk a képeket 28x28-as grayscale-es képekre, és létrehozzuk a szükséges rétegeket. Majd pedig megkezdődik a gép tanítása. Minden századik kép után kiíratjuk azt, hogy hol járunk, hogy milyen gyorsan dolgozik a gép, és a gép pontosságát, illetve minden ötszázadik kép után pedig kiiratunk egy összesített pontosságot. Végül pedig egy kép a futtatásról:
+	</para>
+	<mediaobject>
+            <imageobject>
+		<imagedata fileref="pic/smnist.png" contentwidth="5in"/>
+            </imageobject>
+        </mediaobject>
     </section>
+
 
 </chapter>
 

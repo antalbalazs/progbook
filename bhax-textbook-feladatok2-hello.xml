@@ -456,24 +456,5 @@ void SamuCam::openVideoStream()
 	Mind a két esetben az emit utasítás fog lefutni, ami kibocsájtja a jelet, amit a BrainBWin fog megkapni.
 	</para>
     </section>
-	
-
-   <section>
-        <title>OSM térképre rajzolása</title>
-        <para>
-	Debrecen térképre dobjunk rá cuccokat, ennek mintájára, ahol én az országba helyeztem el a DEAC hekkereket: https://www.twitch.tv/videos/182262537 (de az OOCWC Java Swinges
-megjelenítőjéből: https://github.com/nbatfai/robocar-emulator/tree/master/justine/rcwin
-is kiindulhatsz, mondjuk az komplexebb, mert ott időfejlődés is van...)
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
 
 </chapter>

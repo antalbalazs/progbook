@@ -41,24 +41,6 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         </mediaobject>
     </section>
 
-    <section>
-        <title>OOCWC lexer</title>
-        <para>
-	Izzítsuk be az OOCWC-t és vázoljuk a https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll lexert és kapcsolását a programunk OO struktúrájába!
-        </para>
-
-        <para>
-            Megoldás videó:
-        </para>
-
-        <para>
-            Megoldás forrása:                
-        </para>
-
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
 
    <section>
         <title>l334d1c4</title>
@@ -311,43 +293,6 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         </mediaobject>
     </section>
 
-   <section>
-        <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
-        <para>
-	Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvilág, még erősebb 3D-s hatás.
-        </para>
-
-        <para>
-            Megoldás videó:
-        </para>
-
-        <para>
-            Megoldás forrása:                
-        </para>
-
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-   <section>
-        <title>Perceptron osztály</title>
-        <para>
-	Dolgozzuk be egy külön projektbe a projekt Perceptron osztályát! Lásd https://youtu.be/XpBnR31BRJY
-        </para>
-
-        <para>
-            Megoldás videó:
-        </para>
-
-        <para>
-            Megoldás forrása:                
-        </para>
-
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
 
 
 </chapter>

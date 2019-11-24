@@ -378,22 +378,6 @@ class KulcsPar {
     </section>
 
    <section>
-        <title>Változó argumentumszámú ctor</title>
-        <para>
-	Készítsünk olyan példát, amely egy képet tesz az alábbi projekt Perceptron osztályának bemenetére és a Perceptron ne egy értéket, hanem egy ugyanakkora méretű „képet” adjon vissza. (Lásd még a 4 hét/Perceptron osztály feladatot is.)
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>
-
-   <section>
         <title>Összefoglaló</title>
         <para>
 	Az előző 4 feladat egyikéről írj egy 1 oldalas bemutató „”esszé szöveget!
