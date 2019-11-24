@@ -74,4 +74,3 @@ void writeInvFileTest(ProductInventory &inv) {
     inv.writeInventory(fs);
     cout << "The content of the inventory has been written to computerproducts_out.txt" << endl;
 }
-

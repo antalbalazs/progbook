@@ -233,8 +233,11 @@ static class Sas extends Madar{
             Ehhez a feladathoz a Bárfai Norbert által <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apas03.html#id561066">biztosított</link> forráskódokat használtam. A programokat egy 4.5 Ghz-re overclockolt AMD-FX8350 és 8GB ramot tartalmazó gépen futtattam. Lássuk is az eredményeket:
         </para>
 	<para>
-	A java program 10<superscript>6</superscript> számjegyet 0.906 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.132 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 135.7 másodperc alatt számolta ki.
+	A java program 10<superscript>6</superscript> számjegyet 0.906 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.132 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 135.7 másodperc alatt számolta ki. Ahhoz, hogy hány számjegyet számoljon ki a program, a következőt kell alkalmazni. Ahhoz, hogy 6 számjegyet számoljon ki, nem kell semmit se módosítani az alap programon. Ahhoz, hogy 7 számjegyet számoljon ki, az alábbi for ciklus fejében kellett hozzáírni a d incializálásához, illetve a feltételhet egy-egy nullás számjegyet. Ahhoz pedig, hogy 8 számegyet számoljon ki, ugyan abban a for ciklusban ugyan azokra a helyekre ismét oda kell írni még egy-egy számjegyet.
 	</para>
+	<programlisting>
+	<![CDATA[for(int d=100000000; d<100000001; ++d)]]>
+	</programlisting>
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/antijava.png" contentwidth="6in"/>
@@ -242,8 +245,11 @@ static class Sas extends Madar{
         </mediaobject>
 
 	<para>
-	A C++ program 10<superscript>6</superscript> számjegyet 2.37792 másodperc alatt, 10<superscript>7</superscript> számjegyet 26.5749 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 296.292 másodperc alatt számolta ki.
+	A C++ program 10<superscript>6</superscript> számjegyet 2.37792 másodperc alatt, 10<superscript>7</superscript> számjegyet 26.5749 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 296.292 másodperc alatt számolta ki. Itt is érvényes az a tény, hogy ahhoz, hogy 6 számjegyet számoljon ki, nem kell semmit se módosítani az alap programon. Ahhoz, hogy 7 számjegyet számoljon ki, az alábbi for ciklus fejében kellett hozzáírni a d incializálásához, illetve a feltételhet egy-egy nullás számjegyet. Ahhoz pedig, hogy 8 számegyet számoljon ki, ugyan abban a for ciklusban ugyan azokra a helyekre ismét oda kell írni még egy-egy számjegyet.
 	</para>
+	<programlisting>
+	<![CDATA[for(int d=100000000; d<100000001; ++d)]]>
+	</programlisting>
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/anticpp.png" contentwidth="6in"/>
@@ -251,8 +257,11 @@ static class Sas extends Madar{
         </mediaobject>
 
 	<para>
-	A C program 10<superscript>6</superscript> számjegyet 1.243691 másodperc alatt, 10<superscript>7</superscript> számjegyet 15.384056 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 186.029669 másodperc alatt számolta ki.
+	A C program 10<superscript>6</superscript> számjegyet 1.243691 másodperc alatt, 10<superscript>7</superscript> számjegyet 15.384056 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 186.029669 másodperc alatt számolta ki. És igen. Ahhoz, hogy 6 számjegyet számoljon ki, nem kell semmit se módosítani az alap programon. Ahhoz, hogy 7 számjegyet számoljon ki, az alábbi for ciklus fejében kellett hozzáírni a d incializálásához, illetve a feltételhet egy-egy nullás számjegyet. Ahhoz pedig, hogy 8 számegyet számoljon ki, ugyan abban a for ciklusban ugyan azokra a helyekre ismét oda kell írni még egy-egy számjegyet.
 	</para>
+	<programlisting>
+	<![CDATA[for(int d=100000000; d<100000001; ++d)]]>
+	</programlisting>
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/antic.png" contentwidth="6in"/>
@@ -260,8 +269,11 @@ static class Sas extends Madar{
         </mediaobject>
 
 	<para>
-	És végül a C# program 10<superscript>6</superscript> számjegyet 0.950131 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.643125 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 140.350363 másodperc alatt számolta ki.
+	És végül a C# program 10<superscript>6</superscript> számjegyet 0.950131 másodperc alatt, 10<superscript>7</superscript> számjegyet 11.643125 másodperc alatt, 10<superscript>8</superscript> számjegyet pedig 140.350363 másodperc alatt számolta ki. Végül pedig szintén itt is ahhoz, hogy 6 számjegyet számoljon ki, nem kell semmit se módosítani az alap programon. Ahhoz, hogy 7 számjegyet számoljon ki, az alábbi for ciklus fejében kellett hozzáírni a d incializálásához, illetve a feltételhet egy-egy nullás számjegyet. Ahhoz pedig, hogy 8 számegyet számoljon ki, ugyan abban a for ciklusban ugyan azokra a helyekre ismét oda kell írni még egy-egy számjegyet.
 	</para>
+	<programlisting>
+	<![CDATA[for(int d=100000000; d<100000001; ++d)]]>
+	</programlisting>
 	<mediaobject>
             <imageobject>
 		<imagedata fileref="pic/antics.png" contentwidth="6in"/>
