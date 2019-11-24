@@ -10,7 +10,9 @@ public aspect BinFa{
 	after(LzwBinFa.Csomopont n, PrintWriter os) : hivas(n, os){
 
 		try{
-			kiirPre(n, new PrintWriter("preorder.txt"));
+			PrintWriter pre = new PrintWriter("preorder");
+			kiirPre(n, pre);
+			pre.close();
 		}
 		catch(FileNotFoundException e) {
 			System.out.println(e);
@@ -19,7 +21,9 @@ public aspect BinFa{
 		melyseg = 0;
 
 		try{
-			kiirPost(n,new PrintWriter("postorder.txt"));
+			PrintWriter post = new PrintWriter("postorder");
+			kiirPost(n, post);
+			post.close();
 		}
 		catch(FileNotFoundException e){
 			System.out.println(e);
@@ -37,6 +41,7 @@ public aspect BinFa{
 		kiirPost(elem.egyesGyermek(),os);
 
 		for(int i = 0; i < melyseg; i++){
+			
 			os.print("---");
 		}
 		os.print(elem.getBetu());
